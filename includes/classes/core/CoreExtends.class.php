@@ -24,9 +24,21 @@ class CoreExtends extends CoreObject
 
         parent::__construct();
 
+
+
         // Benutze das globale Core-Klassen-Objekt in der Klasse
         if ($flagUseGlobalCoreClassObj)
             $this->getGlobalCoreObject();
+
+
+
+        // Datenbank - Verbindung aufbauen?
+        if (!isset($this->coreGlobal['DBObject'])){
+            $this->createDBConnection();
+        }
+        else{
+            $this->getDBConnection();
+        }
 
     }   // END function __construct()
 
@@ -45,6 +57,7 @@ class CoreExtends extends CoreObject
         $this->coreGlobal = & $this->myDynObj->coreGlobal;
 
     }   // END private function getGlobalCoreObject()
+
 
 
 }   // END abstract class CoreExtends extends CoreObject

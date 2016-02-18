@@ -18,6 +18,7 @@ class CoreBase
     function __construct()
     {
 
+
     }   // END function __construct()
 
 }   // END class CoreBase

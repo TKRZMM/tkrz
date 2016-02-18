@@ -6,6 +6,10 @@
  * Time: 12:25
  */
 
+
+//TODO Wenn die gesuchte Klasse oder Datei nicht vorhanden ist... müssen wir das Script abbrechen
+
+
 // Liefert den Pfad zu einer Klasse via preg_match
 function getClassDir ($searchForClass, $matchPath)
 {
@@ -71,31 +75,5 @@ spl_autoload_register(
 
 
 // Initialisiere Base->Core - Klassen - Objekt
-$hCoreA = new CoreExtends();
-$hCoreA->coreGlobal['Vorname'] = 'Markus';
-
-
-$hCoreB = new CoreExtends();
-
-$hSub = new Test();
-
-var_dump($hCoreA); echo "<br>";
-var_dump($hCoreB); echo "<br>";
-var_dump($hSub); echo "<br>";
-echo "<hr>";
-
-echo "<pre>";
-print_r($hCoreA->coreGlobal);
-echo "</pre><br>";
-
-echo "<pre>";
-print_r($hCoreB->coreGlobal);
-echo "</pre><br>";
-
-echo "<pre>";
-print_r($hSub->coreGlobal);
-echo "</pre><br>";
-
-
-
+$hCore = new CoreExtends();
 
