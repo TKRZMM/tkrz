@@ -32,13 +32,17 @@ class CoreExtends extends CoreObject
 
 
 
+        // DefaultConfig Laden?
+        if (!isset($this->coreGlobal['Cfg']['Loaded']['Default']))
+            $this->loadDefaultConfig();
+
+
+
         // Datenbank - Verbindung aufbauen?
-        if (!isset($this->coreGlobal['DBObject'])){
+        if (!isset($this->coreGlobal['Objects']['DBConnection']))
             $this->createDBConnection();
-        }
-        else{
+        else
             $this->getDBConnection();
-        }
 
     }   // END function __construct()
 

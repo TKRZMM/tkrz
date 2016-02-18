@@ -1,0 +1,8 @@
+MySQL
+-------------------
+-> DB - Passwort für einen bestimmten User ändern
+    1) UPDATE user SET Password=PASSWORD('mein_pwd') WHERE user='root';
+    2) flush privileges;
+
+
+
