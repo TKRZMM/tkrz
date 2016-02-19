@@ -31,27 +31,36 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
     function loadDefaultConfig()
     {
 
-        echo self::FULLCONFIGFILE . "<br>";
-
         //TODO Config existiert nicht abhandeln
         if (!file_exists(self::FULLCONFIGFILE))
             return false;
+
 
         //TODO Parse Fehler in Config - Datei abhandeln
         if (!$iniArray = @parse_ini_file(self::FULLCONFIGFILE, TRUE))
             return false;
 
 
-
-        echo "<pre>";
-        print_r($iniArray);
-        echo "</pre><br>";
-
+        // Übergebe an Methode zur Session - Übergabe
+        $this->setDefaultConfig($iniArray);
 
 
         // Config als geladen setzen
         $this->coreGlobal['Cfg']['Loaded']['Default'] = 'yes';
 
     }   // END function loadConfig()
+
+
+
+
+
+    // Setzt die geladenen Config - Werte in der Session
+    private function setDefaultConfig($getConfigArray)
+    {
+        $_SESSION = $getConfigArray;
+
+    }   // END private function setDefaultConfig($getConfigArray)
+
+
 
 }   // END abstract class CoreDefaultConfig extends CoreSystemConfig

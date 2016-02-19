@@ -31,11 +31,9 @@ class CoreExtends extends CoreObject
             $this->getGlobalCoreObject();
 
 
-
         // DefaultConfig Laden?
         if (!isset($this->coreGlobal['Cfg']['Loaded']['Default']))
             $this->loadDefaultConfig();
-
 
 
         // Datenbank - Verbindung aufbauen?

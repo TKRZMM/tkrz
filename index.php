@@ -16,7 +16,6 @@ require_once 'includes/system/systemClassAutoLoad.inc.php';
 
 
 
-
 echo "<pre>";
 print_r($hCore->coreGlobal);
 echo "</pre><br>";
@@ -30,5 +29,4 @@ while ($row = $result->fetch_object()){
     echo $row->userName."<br>";
 }
 $hCore->free_result($result);
-
 
