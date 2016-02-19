@@ -9,17 +9,16 @@
 abstract class CoreMySQLi extends CoreQuery
 {
 
-    public $myValue;                // Klassen eigene Variable
-    private $lastResult	    = '';   // MySQLi Letztes Resultat
-    private $lastInsertID = 0;      // Letzte eingefügte ID in einer Tabelle
+    private $lastResult	    = '';       // MySQLi Letztes Resultat
+    private $lastInsertID   = 0;        // Letzte eingefügte ID in einer Tabelle
 
 
     // Defniere Initial - Variable!
-    // Achtung! Die tatsächlichen Werte werden in der 'includes/configs/customConfig.inc.php' gesetzt!
-    private $DBHOST			= '';	// Datenbank Host
-    private $DBNAME			= '';	// (Default) Datenbank Name
-    private $DBUSER			= '';	// Datenbank Benutzer
-    private $DBPASSWORD		= '';	// Datenbank Passwort
+    // Achtung! Die tatsächlichen Werte werden in der 'includes/config/databaseConfig.inc.php' gesetzt!
+    private $DBHOST			= '';	    // Datenbank Host
+    private $DBNAME			= '';	    // (Default) Datenbank Name
+    private $DBUSER			= '';	    // Datenbank Benutzer
+    private $DBPASSWORD		= '';	    // Datenbank Passwort
 
 
 
@@ -32,10 +31,10 @@ abstract class CoreMySQLi extends CoreQuery
         parent::__construct();
 
         // Setze Initial-Variable!
-        $this->DBHOST		= 'localhost';
-        $this->DBNAME		= 'tkrz';
-        $this->DBUSER		= 'tkrz';
-        $this->DBPASSWORD	= 'w3tt3r';
+        $this->DBHOST		= $_SESSION['Cfg']['Default']['DBSettings']['DBHOST'];
+        $this->DBNAME		= $_SESSION['Cfg']['Default']['DBSettings']['DBNAME'];
+        $this->DBUSER		= $_SESSION['Cfg']['Default']['DBSettings']['DBUSER'];
+        $this->DBPASSWORD	= $_SESSION['Cfg']['Default']['DBSettings']['DBPASSWORD'];
 
     }   // END function __construct()
 
@@ -49,7 +48,7 @@ abstract class CoreMySQLi extends CoreQuery
 
         RETURN TRUE;
 
-    }
+    }   // END function doNothing()
 
 
 
@@ -59,10 +58,12 @@ abstract class CoreMySQLi extends CoreQuery
     function createDBConnection()
     {
 
-        //TODO In Config einstellbar machen ob pconnect oder normale Verbindung genutzt werden soll
+        // Art der Verbindung entsprechend der Einstellung aus der systemConfig.inc.php setzen
+        if (strtolower($_SESSION['Cfg']['System']['DBSettings']['DBConnectionType']) == 'connect')
+            $DBObject = new mysqli($this->DBHOST, $this->DBUSER, $this->DBPASSWORD, $this->DBNAME);
+        else
+            $DBObject = new mysqli('p:'.$this->DBHOST, $this->DBUSER, $this->DBPASSWORD, $this->DBNAME);
 
-//        $DBObject = new mysqli($this->DBHOST, $this->DBUSER, $this->DBPASSWORD, $this->DBNAME);
-        $DBObject = new mysqli('p:'.$this->DBHOST, $this->DBUSER, $this->DBPASSWORD, $this->DBNAME);
 
         // DB Verbindung fehlgeschlagen?
         if ($DBObject->connect_errno) {
@@ -80,8 +81,10 @@ abstract class CoreMySQLi extends CoreQuery
 
         }
 
+
         // Speichere Verbindungs - Objekt
         $this->coreGlobal['Objects']['DBConnection'] = $DBObject;
+
 
         return $DBObject;
 

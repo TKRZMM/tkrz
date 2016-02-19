@@ -1,0 +1,22 @@
+@CHARSET "ISO-8859-1";
+
+/* Body Default - Color-Set */
+body {
+    color: #000000;
+    font-family: "Arial", sans-serif;
+    font-size: 12px;
+    background-color: #FFFFFF;
+    margin:0;
+    padding:0;
+    height:100%;
+    /*overflow:hidden;*/
+}
+
+/* Body Default - Height-Set */
+html {
+    margin:0;
+    padding:0;
+    height:100%;
+    /*overflow:hidden;*/
+}
+

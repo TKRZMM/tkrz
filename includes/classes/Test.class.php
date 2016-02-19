@@ -12,5 +12,8 @@ class Test extends CoreExtends
     function helloWorld()
     {
         echo "Hello World<br>";
+        echo "<pre>";
+        print_r($this->coreGlobal);
+        echo "</pre><br>";
     }
 }

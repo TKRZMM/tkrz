@@ -1,0 +1,61 @@
+@CHARSET "ISO-8859-1";
+
+/* Global Div - Container-Set */
+.container {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    border: 1px solid rgba(0, 0, 0, 1);
+}
+
+
+/* Individual Div - Container-Set */
+.Head {
+    z-index: 100;
+    top: 5px;
+    height: 150px;
+    background-color: #aaa767;
+}
+
+
+/* Individual Div - Container-Set */
+.Body {
+    z-index: 100;
+    overflow: auto;
+    top: 181px;
+    bottom: 26px;
+    background-color: #83a094;
+}
+
+
+/* Individual Div - Container-Set */
+.Footer {
+    z-index: 100;
+    bottom: 5px;
+    height: 16px;
+    background-color: cadetblue;
+}
+
+
+
+/* Individual Div - Container-Set */
+.Navigation {
+    z-index: 100;
+    top: 160px;
+    width: 350px;
+    height: 16px;
+    background-color: #a07076;
+}
+
+
+
+/* Individual Div - Container-Set */
+.StepInformation {
+    z-index: 100;
+    top: 160px;
+    left: 360px;
+    height: 16px;
+    background-color: #3b6da0;
+}
+
+

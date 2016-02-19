@@ -12,8 +12,6 @@ class CoreExtends extends CoreObject
     public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
     public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
 
-    public $myValue;        // Klassen eigene Variable
-
 
 
 
@@ -26,23 +24,28 @@ class CoreExtends extends CoreObject
 
 
 
-        // Benutze das globale Core-Klassen-Objekt in der Klasse
+        // Benutze das globale Core-Klassen-Objekt in der Klasse!
         if ($flagUseGlobalCoreClassObj)
             $this->getGlobalCoreObject();
 
 
-        // DefaultConfig Laden?
-        if (!isset($this->coreGlobal['Cfg']['Loaded']['Default']))
-            $this->loadDefaultConfig();
+        // DefaultConfig laden?
+        if ( (!isset($this->coreGlobal['Flag']['Cfg']['Loaded']['Default'])) || ($this->coreGlobal['Flag']['Cfg']['Loaded']['Default'] != 'yes') )
+            $this->loadDefaultConfigs();
+
+
+        // SystemConfig laden?
+        if ( (!isset($this->coreGlobal['Flag']['Cfg']['Loaded']['System'])) || ($this->coreGlobal['Flag']['Cfg']['Loaded']['System'] != 'yes') )
+            $this->loadSystemConfigs();
 
 
         // Datenbank - Verbindung aufbauen?
-        if (!isset($this->coreGlobal['Objects']['DBConnection']))
+        if ( (!isset($this->coreGlobal['Objects']['DBConnection'])) || (!is_object($this->coreGlobal['Objects']['DBConnection'])) )
             $this->createDBConnection();
         else
             $this->getDBConnection();
 
-    }   // END function __construct()
+    }   // END function __construct(...)
 
 
 

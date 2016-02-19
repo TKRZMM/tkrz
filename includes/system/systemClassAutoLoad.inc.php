@@ -7,7 +7,42 @@
  */
 
 
-//TODO Wenn die gesuchte Klasse oder Datei nicht vorhanden ist... müssen wir das Script abbrechen
+// Fehlermeldungen die nicht über die Message - Klasse abgefangen werden können
+/**
+ * @param $getCaseNum
+ * @param string $addArg
+ */
+function mySimpleout($getCaseNum, $addArg='')
+{
+
+    header('Content-Type: text/html; charset=Utf-8');
+    print ("<pre>");
+
+    switch ($getCaseNum) {
+        case 1:
+            $message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
+            $message .= "Versuch Klassen-Datei einzulesen fehlgeschlagen!<br>";
+            $message .= "Fehlermeldung: <br>";
+            $message .= "Datei für die angeforderte Klasse '".$addArg."' existiert nicht oder kann nicht gelesen werden!";
+
+            break;
+
+
+        default:
+            $message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
+            $message .= "Versuch Klassen-Datei einzulesen fehlgeschlagen!<br>";
+            $message .= "Fehlermeldung: <br>";
+            $message .= "Unbekannter Fehler bei Klasse / Klassen-Datei: " . $addArg;
+    }
+
+    print($message);
+    print ("</pre>");
+    exit;
+
+}   // END function mySimpleout(...)
+
+
+
 
 
 // Liefert den Pfad zu einer Klasse via preg_match
@@ -18,7 +53,7 @@ function getClassDir ($searchForClass, $matchPath)
     preg_match($search, $pattern, $matches);
 
     return $matches[1];
-}
+}   // END function getClassDir (...)
 
 
 
@@ -48,7 +83,11 @@ function findClassDir ($searchForClass)
             }
         }
     }
-}
+
+    // Wenn wir bis hier kommen, gibt es die Klasse / Klassen-Datei nicht!
+    mySimpleout(1,$searchForClass);
+    exit;
+}   // END function findClassDir (...)
 
 
 
@@ -56,7 +95,7 @@ function findClassDir ($searchForClass)
 
 
 
-// PHP Klassen Auto-Loader (REQUIRE PHP 5.3.0)
+// PHP Klassen Auto-Loader (REQUIRE PHP Version >= 5.3.0)
 spl_autoload_register(
 
     function ($class)
