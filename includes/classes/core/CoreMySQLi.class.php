@@ -5,6 +5,22 @@
  * User: MMelching
  * Date: 18.02.2016
  * Time: 11:52
+ *
+ * Vererbungsfolge der (Basis) - Klassen:
+ *  Abstract CoreBase                                               Adam/Eva
+ *      '-> Abstract CoreSystemConfig                               Child
+ *          '-> Abstract CoreDefaultConfig                          Child
+ *              '-> Abstract CoreMessages                           Child
+ *                  '-> Abstract CoreDebug                          Child
+ *                      '-> Abstract CoreQuery                      Child
+ * ==>                      '-> Abstract CoreMySQLi                 Child
+ *                              '-> CoreObject                      Child
+ *                                  '-> CoreExtends                 Child
+ *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
+ *                                      |-> ...                     CoreExtends - Child - AnyCreature
+ *                                      |-> ...                     CoreExtends - Child - AnyCreature
+ *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ *
  */
 abstract class CoreMySQLi extends CoreQuery
 {
@@ -30,11 +46,11 @@ abstract class CoreMySQLi extends CoreQuery
 
         parent::__construct();
 
-        // Setze Initial-Variable!
-        $this->DBHOST		= $_SESSION['Cfg']['Default']['DBSettings']['DBHOST'];
-        $this->DBNAME		= $_SESSION['Cfg']['Default']['DBSettings']['DBNAME'];
-        $this->DBUSER		= $_SESSION['Cfg']['Default']['DBSettings']['DBUSER'];
-        $this->DBPASSWORD	= $_SESSION['Cfg']['Default']['DBSettings']['DBPASSWORD'];
+        // Setze Default Initial-Variable!
+        $this->DBHOST		= 'localhost';
+        $this->DBNAME		= '';
+        $this->DBUSER		= 'root';
+        $this->DBPASSWORD	= '';
 
     }   // END function __construct()
 
@@ -57,6 +73,12 @@ abstract class CoreMySQLi extends CoreQuery
     // Erzeuge Datenbankverbindung
     function createDBConnection()
     {
+        // Setze Initial-Variable!
+        $this->DBHOST		= $_SESSION['Cfg']['Default']['DBSettings']['DBHOST'];
+        $this->DBNAME		= $_SESSION['Cfg']['Default']['DBSettings']['DBNAME'];
+        $this->DBUSER		= $_SESSION['Cfg']['Default']['DBSettings']['DBUSER'];
+        $this->DBPASSWORD	= $_SESSION['Cfg']['Default']['DBSettings']['DBPASSWORD'];
+
 
         // Art der Verbindung entsprechend der Einstellung aus der systemConfig.inc.php setzen
         if (strtolower($_SESSION['Cfg']['System']['DBSettings']['DBConnectionType']) == 'connect')

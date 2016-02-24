@@ -3,9 +3,10 @@
 /* Global Div - Container-Set */
 .container {
     position: absolute;
-    left: 5px;
-    right: 5px;
     border: 1px solid rgba(0, 0, 0, 1);
+
+    padding: 5px;
+    text-align: left;
 }
 
 
@@ -13,40 +14,35 @@
 .Head {
     z-index: 100;
     top: 5px;
-    height: 150px;
+    height: 140px;
     background-color: #aaa767;
 }
 
-
-/* Individual Div - Container-Set */
-.Body {
-    z-index: 100;
-    overflow: auto;
-    top: 181px;
-    bottom: 26px;
-    background-color: #83a094;
+.Head.Left {
+    width: 340px;
+    left: 5px;
 }
 
-
-/* Individual Div - Container-Set */
-.Footer {
-    z-index: 100;
-    bottom: 5px;
-    height: 16px;
-    background-color: cadetblue;
+.Head.Center {
+    left: 360px;
+    right: 360px;
 }
 
+.Head.Right {
+    width: 340px;
+    right: 5px;
+}
 
 
 /* Individual Div - Container-Set */
 .Navigation {
     z-index: 100;
     top: 160px;
-    width: 350px;
+    left: 5px;
+    width: 340px;
     height: 16px;
-    background-color: #a07076;
+    background-color: #2ca05e;
 }
-
 
 
 /* Individual Div - Container-Set */
@@ -54,8 +50,38 @@
     z-index: 100;
     top: 160px;
     left: 360px;
+    right: 5px;
     height: 16px;
     background-color: #3b6da0;
 }
+
+
+/* Individual Div - Container-Set */
+.Body {
+    z-index: 100;
+    overflow: auto;
+    top: 191px;
+    left: 5px;
+    right: 5px;
+    /*bottom: 36px;*/
+    background-color: #83a094;
+}
+
+
+/* Individual Div - Container-Set */
+.Footer {
+
+    z-index: 100;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    /*height: 16px;*/
+    background-color: cadetblue;
+}
+
+
+
+
+
 
 

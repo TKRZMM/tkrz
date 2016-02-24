@@ -3,8 +3,7 @@
  * Created by PhpStorm.
  * User: MMelching
  * Date: 19.02.2016
- * Time: 11:49
+ * Time: 09:14
  */
 ?>
-Hallo ich bin Text im Footer
-
+Hallo ich bin der Head Center
