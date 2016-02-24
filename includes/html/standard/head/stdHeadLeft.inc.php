@@ -6,4 +6,4 @@
  * Time: 09:14
  */
 ?>
-Hallo ich bin der Head Left
+<a href=""><IMG class="displayed" src="includes/images/logo_tkrz.png" alt="TKRZ Logo"></a>

@@ -15,22 +15,25 @@
     z-index: 100;
     top: 5px;
     height: 140px;
-    background-color: #aaa767;
+    /*background-color: #aaa767;*/
 }
 
 .Head.Left {
     width: 340px;
     left: 5px;
+    /*text-align: center;*/
 }
 
 .Head.Center {
     left: 360px;
     right: 360px;
+    background-color: #aaa767;
 }
 
 .Head.Right {
     width: 340px;
     right: 5px;
+    background-color: #aaa767;
 }
 
 
@@ -57,7 +60,53 @@
 
 
 /* Individual Div - Container-Set */
-.Body {
+.DebugOptions {
+    z-index: 110;
+    top: 160px;
+    right: 5px;
+    width: 240px;
+    height: 16px;
+    background-color: rgba(186, 187, 175, 0.71);
+}
+.DebugButtons {
+    position: absolute;
+    width: 50px;
+    text-align: center;
+    top: 2px;
+    height: 18px;
+    padding-top: 3px;
+}
+.DebugButtons:hover{
+    border: 1px solid rgba(128, 128, 128, 0.75);
+}
+.DebugUpDown {
+    left: 10px;
+}
+.DebugSettings {
+    left: 70px;
+}
+.DebugLinks {
+    left: 130px;
+}
+.DebugMove {
+    left: 190px;
+}
+.DebugUpDown:hover{
+    cursor:n-resize;
+}
+.DebugSettings:hover{
+    cursor:help;
+}
+.DebugLinks:hover{
+    cursor:row-resize;
+}
+.DebugMove:hover{
+    cursor:move;
+}
+
+
+/* Individual Div - Container-Set */
+.BodyContent {
     z-index: 100;
     overflow: auto;
     top: 191px;
@@ -70,14 +119,15 @@
 
 /* Individual Div - Container-Set */
 .Footer {
-
     z-index: 100;
+    overflow: auto;
     left: 5px;
     right: 5px;
     bottom: 5px;
     /*height: 16px;*/
     background-color: cadetblue;
 }
+
 
 
 

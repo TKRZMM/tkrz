@@ -14,6 +14,14 @@ include 'includes/html/standard/head/stdHeadSetFrame.inc.php';
 
 
 
+// TODO Dynamisches Laden der Debug-Optionen
+// Lade: DebugOptionen - Datei !Kann durch die Action - Steuerung überschrieben werden
+include 'includes/html/standard/debug/stdDebugOptionsSetFrame.inc.php';
+
+
+
+
+
 // TODO Dynamisches Laden der Navigations-Datei
 // Lade: Navigation - Datei !Kann durch die Action - Steuerung überschrieben werden
 include 'includes/html/standard/navigation/stdNavigationSetFrame.inc.php';

@@ -30,7 +30,7 @@
 //print_r($_SESSION);
 //echo "</pre><br>";
 ?>
-<x onclick="reSize('Footer');">Hallo ich bin der Body</x>
+Hallo ich bin der Body
 <br>
 
 
