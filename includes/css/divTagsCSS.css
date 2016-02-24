@@ -19,32 +19,47 @@
 }
 
 .Head.Left {
-    width: 340px;
+    width: 260px;
     left: 5px;
     /*text-align: center;*/
 }
 
 .Head.Center {
-    left: 360px;
-    right: 360px;
+    left: 280px;
+    right: 300px;
     background-color: #aaa767;
 }
 
 .Head.Right {
-    width: 340px;
+    width: 280px;
     right: 5px;
     background-color: #aaa767;
 }
 
 
 /* Individual Div - Container-Set */
-.Navigation {
-    z-index: 100;
-    top: 160px;
+.NavigationOuter {
+    overflow: hidden;
+    z-index: 110;
+    top: 156px;
     left: 5px;
-    width: 340px;
+    width: 260px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 1);
+    -webkit-transition: height 1s; /* For Safari 3.1 to 6.0 */
+    transition: height 0.5s;
+}
+.NavigationOuter:hover {
+    height: 148px;
+}
+.Navigation {
+    z-index: 110;
+    /*top: 159px;*/
+    top: 3px;
+    left: 4px;
+    width: 251px;
     height: 16px;
-    background-color: #2ca05e;
+    background-color: rgba(186, 187, 175, 0.71);
 }
 
 
@@ -52,7 +67,7 @@
 .StepInformation {
     z-index: 100;
     top: 160px;
-    left: 360px;
+    left: 280px;
     right: 5px;
     height: 16px;
     background-color: #3b6da0;
@@ -60,10 +75,18 @@
 
 
 /* Individual Div - Container-Set */
+.DebugOptionsOuter {
+    z-index: 110;
+    top: 156px;
+    right: 5px;
+    width: 250px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 1);
+}
 .DebugOptions {
     z-index: 110;
-    top: 160px;
-    right: 5px;
+    top: 3px;
+    right: 4px;
     width: 240px;
     height: 16px;
     background-color: rgba(186, 187, 175, 0.71);

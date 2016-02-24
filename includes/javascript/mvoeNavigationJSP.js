@@ -2,6 +2,18 @@
  * Created by MMelching on 19.02.2016.
  */
 
+
+
+function hello()
+{
+    alert("Hallo");
+}
+
+
+
+
+
+    /*
 // Maximale Höhe des Footer - Div - Fenster
 var maxHighFooter = '600';
 
@@ -110,3 +122,4 @@ function MoveBoddy(dir)
     }
     setBottom(obj, newBottom);
 }
+*/

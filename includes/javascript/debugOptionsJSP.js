@@ -75,8 +75,10 @@ function drag(ereignis)
 
 
 // Verschiebt das Element auf seine Start-Position
+// TODO Funktioniert nicht... der reagiert nicht auf unterschiedliche Werte
 function sendDebugHome(getElementID)
 {
     var obj = document.getElementById(getElementID);
-    obj.style.top = 160 + "px";
+    obj.style.width = 100 + "px";
+
 }

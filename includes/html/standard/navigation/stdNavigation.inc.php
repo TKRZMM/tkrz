@@ -6,4 +6,22 @@
  * Time: 11:59
  */
 ?>
-Hallo ich bin Navigation
+>>> Navigation
+<br><br>
+
+<div id="accordion" class="tmp">
+Datei Upload
+</div>
+
+
+
+<div id="accordion" class="tmp">
+    Daten Importieren
+</div>
+
+
+
+<div id="accordion" class="tmp">
+    Daten Exportieren
+</div>
+
