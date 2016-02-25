@@ -1,19 +1,88 @@
 @CHARSET "ISO-8859-1";
 
-.tmp {
+.navMenueGlobals {
     overflow: hidden;
     top: 100px;
-    width: 150px;
-    height: 20px;
+    max-height: 20px;
+
     margin-top:10px;
+    margin-left:14px;
+    margin-bottom: 14px;
+
     padding-top: 5px;
     padding-left: 4px;
-    background: #c5ff9c;
-    border: 1px solid rgba(0, 0, 0, 1);
-    -webkit-transition: width 0.5s; /* For Safari 3.1 to 6.0 */
-    transition: width 0.5s;
+
+    border: 1px solid rgb(128, 128, 128);
+
+    transition: max-height 0.5s ease-out;
+    transition-delay: 1.0s;
+
+
+    /*box-shadow: {Verschiebung von links nach rechts}px {Verschiebung von obne nach unten}px {Weichzeichner, je höher der Wert, um so weicher der Schatten}px grey;*/
 }
 
-.tmp:hover {
-    width: 250px;
+.mainMenue {
+    width: 235px;
+    /*background: #a2e4a6;*/
+    background-image: linear-gradient(to right, #a2e4a6, transparent);
+    margin-left:10px;
 }
+.mainMenue:hover {
+    max-height: 500px;
+    transition: max-height 1.0s ease-in;
+    transition-delay: 0.2s;
+    box-shadow: 4px 5px 4px grey;
+}
+
+
+.SubMenue {
+    width: 215px;
+    /*background: #b4cfeb;*/
+    background-image: linear-gradient(to right, #b4cfeb, transparent);
+}
+.SubMenue:hover {
+    max-height: 500px;
+    transition: max-height 1.0s ease-in;
+    transition-delay: 0.2s;
+    box-shadow: 4px 5px 4px grey;
+}
+
+
+.SubSubMenue {
+    width: 195px;
+    height: 20px;
+    /*background: rgb(210, 178, 246);*/
+    background-image: linear-gradient(to right, rgb(210, 178, 246), transparent);
+}
+.SubSubMenue:hover {
+    box-shadow: 4px 5px 4px grey;
+}
+
+
+
+/* Default Link - Setting*/
+.navLink:link {
+    text-decoration: none;
+    color: black;
+}
+
+.navLink:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.navLink:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.navLink:active {
+    text-decoration: none;
+    color: black;
+    background: rgb(149, 202, 246);
+}
+
+
+
+
+

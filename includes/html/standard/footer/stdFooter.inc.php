@@ -6,9 +6,9 @@
  * Time: 11:49
  */
 ?>
-Hallo ich bin Text im Footer
-<?php
-for ($i = 1; $i <100; $i++){
-    echo "$i<br>";
-}
-?>
+<div style="text-align: right; color: #6f6f6f">&copy; 2016 by TKRZ</div>
+
+
+
+
+

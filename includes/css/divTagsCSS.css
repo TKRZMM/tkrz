@@ -3,7 +3,7 @@
 /* Global Div - Container-Set */
 .container {
     position: absolute;
-    border: 1px solid rgba(0, 0, 0, 1);
+    border: 1px solid rgb(122, 167, 170);
 
     padding: 5px;
     text-align: left;
@@ -27,39 +27,40 @@
 .Head.Center {
     left: 280px;
     right: 300px;
-    background-color: #aaa767;
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .Head.Right {
     width: 280px;
     right: 5px;
-    background-color: #aaa767;
+    background-color: rgba(255, 255, 255, 1);
 }
 
 
 /* Individual Div - Container-Set */
 .NavigationOuter {
     overflow: hidden;
+    /*z-index: 110;*/
     z-index: 110;
     top: 156px;
     left: 5px;
     width: 260px;
     height: 24px;
     background-color: rgba(255, 255, 255, 1);
-    -webkit-transition: height 1s; /* For Safari 3.1 to 6.0 */
+    /*background-image: linear-gradient(to bottom, #FFFFFF, transparent);*/
     transition: height 0.5s;
 }
 .NavigationOuter:hover {
-    height: 148px;
+    height: 420px;
 }
 .Navigation {
     z-index: 110;
-    /*top: 159px;*/
     top: 3px;
     left: 4px;
     width: 251px;
     height: 16px;
-    background-color: rgba(186, 187, 175, 0.71);
+    /*background-color: rgb(168, 228, 104);*/
+    background-image: linear-gradient(to right, rgb(168, 228, 104), transparent);
 }
 
 
@@ -70,15 +71,16 @@
     left: 280px;
     right: 5px;
     height: 16px;
-    background-color: #3b6da0;
+    /*background-color: rgba(255, 255, 255, 1);*/
+    background-image: linear-gradient(90deg, rgba(186, 243, 250, 0.67), transparent);
 }
 
 
 /* Individual Div - Container-Set */
 .DebugOptionsOuter {
     z-index: 110;
-    top: 156px;
-    right: 5px;
+    top: 203px;
+    right: 15px;
     width: 250px;
     height: 24px;
     background-color: rgba(255, 255, 255, 1);
@@ -89,7 +91,7 @@
     right: 4px;
     width: 240px;
     height: 16px;
-    background-color: rgba(186, 187, 175, 0.71);
+    background-color: #c7c7c7;
 }
 .DebugButtons {
     position: absolute;
@@ -128,6 +130,27 @@
 }
 
 
+
+.DebugLinkListOuter {
+    position: relative;
+    z-index: 110;
+    top: 25px;
+    right: 130px;
+    width: 300px;
+    height:auto;
+    background-color: rgba(255, 255, 255, 1);
+}
+.DebugLinkList {
+    position: relative;
+    z-index: 110;
+    width: 289px;
+    height:auto;
+    background-color: rgb(233, 233, 233);
+}
+
+
+
+
 /* Individual Div - Container-Set */
 .BodyContent {
     z-index: 100;
@@ -136,7 +159,7 @@
     left: 5px;
     right: 5px;
     /*bottom: 36px;*/
-    background-color: #83a094;
+    background-color: rgb(233, 233, 233);
 }
 
 
@@ -148,7 +171,7 @@
     right: 5px;
     bottom: 5px;
     /*height: 16px;*/
-    background-color: cadetblue;
+    background-image: linear-gradient(90deg, rgba(204, 252, 255, 1), transparent);
 }
 
 

@@ -9,4 +9,8 @@
 
 print ('<div id="Footer" class="container Footer" ondblclick="reSize(\'Footer\');" style="height: 15px;">');
 include 'stdFooter.inc.php';
+
+print("<br><hr>");
+
+include 'includes/html/debug/DebugOutput.inc.php';
 print ('</div>');

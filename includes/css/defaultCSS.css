@@ -9,8 +9,9 @@ body {
     margin:0;
     padding:0;
     height:100%;
-    /*overflow:hidden;*/
 }
+
+
 
 
 
@@ -19,8 +20,9 @@ html {
     margin:0;
     padding:0;
     height:100%;
-    /*overflow:hidden;*/
 }
+
+
 
 
 
@@ -37,3 +39,125 @@ IMG.displayed {
 }
 
 
+
+
+
+/* Default Link - Color-Set*/
+a:link {
+    text-decoration: none;
+    color: #000000;
+}
+a:visited {
+    text-decoration: none;
+    color: #000000;
+}
+a:hover {
+    text-decoration: none;
+    color: #000000;
+    box-shadow: 4px 5px 4px grey;
+}
+a:active {
+    text-decoration: none;
+    color: #000000;
+    box-shadow: 4px 5px 4px grey;
+}
+
+
+/* Standard Link - Color-Set */
+a.std:link, a.std:visited, a.std:hover, a.std:active {
+    color: #000000;
+    text-decoration: none;
+}
+a.std:hover {
+    background-color: rgba(204, 252, 255, 1);
+    box-shadow: 4px 5px 4px grey;
+}
+a.std:active {
+    color: darkgreen;
+}
+
+
+
+
+
+/* Table */
+table.standard {
+    border-collapse: collapse;
+    font-family: "Arial", sans-serif;
+    font-size: 12px;
+    background-color: #FFFFFF;
+}
+table.logedinUser {
+    padding-top: 12px;
+}
+table.debugInformation {
+    background-color: #c7c7c7;
+    width: 100%;
+}
+table.debugLinkList {
+    background-color: rgb(233, 233, 233);
+    width: 100%;
+    padding: 10px;
+
+}
+td.debugLinkList {
+    padding: 5px;
+    text-align: left;
+}
+
+
+
+
+/* Border Steuerung für Tabellen */
+.rightLine{
+    border-right: 1px solid black;
+}
+.topLine{
+    border-top: 1px solid black;
+}
+.leftLine{
+    border-left: 1px solid black;
+}
+.bottomLine{
+    border-bottom: 1px solid black;
+}
+.bottomLineGreen{
+    border-bottom: 1px solid rgb(122, 167, 170);
+}
+
+
+
+/* AUSRICHTUNGEN */
+
+/* Text Ausrichtung */
+.textCenter{
+    text-align: center;
+}
+.textLeft{
+    text-align: left;
+}
+.textRight{
+    text-align: right;
+}
+
+
+
+/* Tabellen Ausrichtung */
+.alignCenter{
+    text-align: center;
+}
+.alignLeft{
+    text-align: left;
+}
+.alignRight{
+    text-align: right;
+}
+
+
+/* Paddings und Abstände */
+.rPaddingSix {
+    padding-right: 6px;
+}
+.lPaddingSix {
+    padding-right: 6px;
+}

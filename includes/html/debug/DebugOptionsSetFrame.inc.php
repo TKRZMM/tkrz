@@ -8,5 +8,11 @@
 
 print ('<div id="containerDebugOptions" class="container DebugOptionsOuter"><div class="container DebugOptions">');
 include 'DebugOptions.inc.php';
+
+
+print ('<div id="containerDebugLinkList" class="container DebugLinkListOuter" style="display: none;" ><div class="container DebugLinkList">');
+include 'DebugLinkList.inc.php';
+
+print ('</div></div>');
 print ('</div></div>');
 

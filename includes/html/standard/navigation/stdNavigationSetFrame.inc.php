@@ -6,7 +6,7 @@
  * Time: 11:59
  */
 
-print ('<div id="containerNavigation" class="container NavigationOuter"><div class="container Navigation"">');
+print ('<div id="containerNavigation" class="container NavigationOuter"><div class="container Navigation">');
 include 'stdNavigation.inc.php';
 print ('</div></div>');
 

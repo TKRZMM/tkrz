@@ -8,6 +8,6 @@
 ?>
 <div class="DebugButtons DebugUpDown" onclick="reSize('Footer');"><i class="fa fa-arrows-v fa-lg"></i></div>
 <div class="DebugButtons DebugSettings"><i class="fa fa-cogs fa-lg"></i></div>
-<div class="DebugButtons DebugLinks" ><i class="fa fa-bars fa-lg"></i></div>
+<div class="DebugButtons DebugLinks" onclick="showOnOff('containerDebugLinkList')"><i class="fa fa-bars fa-lg"></i></div>
 <div class="DebugButtons DebugMove" onmousedown="dragstart('containerDebugOptions')" ondblclick="sendDebugHome('containerDebugOptions')"><i class="fa fa-arrows fa-lg"></i></div>
 
