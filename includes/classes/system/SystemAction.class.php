@@ -15,14 +15,14 @@
  *                      '-> Abstract CoreQuery                      Child
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
- * ==>                              '-> CoreExtends                 Child
- *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
+ *                                  '-> CoreExtends                 Child
+ * ==>                                  '-> ConcreteClass1          CoreExtends - Child - AnyCreature
  *                                      |-> ...                     CoreExtends - Child - AnyCreature
  *                                      |-> ...                     CoreExtends - Child - AnyCreature
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
-class CoreExtends extends CoreObject
+class SystemAction extends CoreExtends
 {
 
     public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
@@ -39,27 +39,13 @@ class CoreExtends extends CoreObject
         parent::__construct();
 
 
-
         // Benutze das globale Core-Klassen-Objekt in der Klasse!
         if ($flagUseGlobalCoreClassObj)
             $this->getGlobalCoreObject();
 
 
-        // DefaultConfig laden?
-        if ( (!isset($this->coreGlobal['Flag']['Cfg']['Loaded']['Default'])) || ($this->coreGlobal['Flag']['Cfg']['Loaded']['Default'] != 'yes') )
-            $this->loadDefaultConfigs();
-
-
-        // SystemConfig laden?
-        if ( (!isset($this->coreGlobal['Flag']['Cfg']['Loaded']['System'])) || ($this->coreGlobal['Flag']['Cfg']['Loaded']['System'] != 'yes') )
-            $this->loadSystemConfigs();
-
-
-        // Datenbank - Verbindung aufbauen?
-        if ( (!isset($this->coreGlobal['Objects']['DBConnection'])) || (!is_object($this->coreGlobal['Objects']['DBConnection'])) )
-            $this->createDBConnection();
-        else
-            $this->getDBConnection();
+        // Initial Aufruf für generelle Überprüfungen (Login usw.)
+        $this->loadOnInit();
 
     }   // END function __construct(...)
 
@@ -81,4 +67,19 @@ class CoreExtends extends CoreObject
 
 
 
-}   // END abstract class CoreExtends extends CoreObject
+
+
+    // Initial Methode bei Aufruf/Init der Klasse
+    private function loadOnInit()
+    {
+        $this->coreGlobal['Objects']['hLogin'] = new SystemLogin();
+
+        $hLogin = $this->coreGlobal['Objects']['hLogin'];
+
+        // Login - Status prüfen
+        $hLogin->initCheckLoginStatus();
+    }
+
+
+
+}   // END class SystemAction extends CoreExtends

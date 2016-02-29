@@ -14,6 +14,7 @@ var setTimeoutFooter = 3;    // Timeout - Wert für das Footer-Div-Fenster bei d
 
 
 
+
 //Ermittel die Browser - Abmessungen (Fenster)
 function getSize() {
     var myWidth = 0, myHeight = 0;
@@ -79,16 +80,22 @@ function doReSize (obj, curHigh, dir)
 
         if (nextHigh <= maxHighFooter){
 
+            obj.style.overflow = 'auto';
+
             MoveBoddy('up');
             setHigh(obj, nextHigh);
 
-            setTimeout(function(){ doReSize(obj, nextHigh, dir); }, setTimeoutFooter);
+            doReSize(obj, nextHigh, dir);
+            //setTimeout(function(){ doReSize(obj, nextHigh, dir); }, setTimeoutFooter);
         }
     }
     else {
         nextHigh = curHigh - setStepsFooter;
 
         if (nextHigh >= minHighFooter){
+
+            obj.style.overflow = 'hidden';
+
             MoveBoddy('down');
             setHigh(obj, nextHigh);
 
@@ -121,10 +128,22 @@ function setBottom(obj, newBottom)
 
 
 
+// Sub Funktion setzt den Abstand zum Bottom
+function setTop(obj, newTop)
+{
+    obj.style.top = newTop + "px";
+}
+
+
+
+
+
 // Sub Funktion ändert den Abstand des Body - Div zum Fensterboden
 function MoveBoddy(dir)
 {
     var curElement = 'containerBody';
+    var nextObj = document.getElementById('debugContentSelections');
+    var debugSelecitonsBottom;
 
     var obj = document.getElementById(curElement);
     var tmpBottom = obj.style.bottom;
@@ -133,9 +152,13 @@ function MoveBoddy(dir)
     var newBottom;
     if (dir == 'up'){
         newBottom = curBottom + setStepsFooter;
+        debugSelecitonsBottom = newBottom - 34;
     }
     else {
         newBottom = curBottom - setStepsFooter;
+        debugSelecitonsBottom = newBottom - 73;
     }
     setBottom(obj, newBottom);
+    setBottom(nextObj, debugSelecitonsBottom);
 }
+

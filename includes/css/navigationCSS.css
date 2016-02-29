@@ -17,7 +17,6 @@
     transition: max-height 0.5s ease-out;
     transition-delay: 1.0s;
 
-
     /*box-shadow: {Verschiebung von links nach rechts}px {Verschiebung von obne nach unten}px {Weichzeichner, je höher der Wert, um so weicher der Schatten}px grey;*/
 }
 
@@ -32,6 +31,7 @@
     transition: max-height 1.0s ease-in;
     transition-delay: 0.2s;
     box-shadow: 4px 5px 4px grey;
+    cursor: pointer;
 }
 
 
@@ -45,6 +45,7 @@
     transition: max-height 1.0s ease-in;
     transition-delay: 0.2s;
     box-shadow: 4px 5px 4px grey;
+    cursor: pointer;
 }
 
 
@@ -56,6 +57,7 @@
 }
 .SubSubMenue:hover {
     box-shadow: 4px 5px 4px grey;
+    cursor: pointer;
 }
 
 

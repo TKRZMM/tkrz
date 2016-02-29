@@ -24,6 +24,8 @@
  */
 abstract class CoreDebug extends CoreMessage
 {
+    public $debugMessages;
+
 
     // Klassen eigener Konstruktor
     function __construct()
@@ -32,5 +34,16 @@ abstract class CoreDebug extends CoreMessage
         parent::__construct();
 
     }   // END function __construct()
+
+
+
+
+
+    function addDebugMessage($var)
+    {
+        $this->debugMessages = $var;
+
+        $this->coreGlobal['debugMessages'][] = $this->debugMessages;
+    }
 
 }   // END abstract class CoreDebug extends CoreMessage

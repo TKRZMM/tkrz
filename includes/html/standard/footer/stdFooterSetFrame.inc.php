@@ -6,11 +6,18 @@
  * Time: 12:07
 //print ('<div id="containerFooter" class="container Footer">');
  */
+?>
 
-print ('<div id="Footer" class="container Footer" ondblclick="reSize(\'Footer\');" style="height: 15px;">');
-include 'stdFooter.inc.php';
 
-print("<br><hr>");
 
-include 'includes/html/debug/DebugOutput.inc.php';
-print ('</div>');
+<div id="Footer" class="container Footer" ondblclick="reSize('Footer');" style="height: 15px;">
+    <?php
+
+    // Include Footer Text
+    include 'stdFooter.inc.php';
+
+    // Include Debug Ausgabe und Selektion
+    include 'includes/html/debug/DebugOutput.inc.php';
+
+    ?>
+</div>

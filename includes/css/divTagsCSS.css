@@ -52,6 +52,7 @@
 }
 .NavigationOuter:hover {
     height: 420px;
+    cursor: pointer;
 }
 .Navigation {
     z-index: 110;
@@ -166,12 +167,55 @@
 /* Individual Div - Container-Set */
 .Footer {
     z-index: 100;
-    overflow: auto;
+    overflow: hidden;
     left: 5px;
     right: 5px;
     bottom: 5px;
     /*height: 16px;*/
     background-image: linear-gradient(90deg, rgba(204, 252, 255, 1), transparent);
+}
+
+
+
+
+
+.debugContentSelections {
+    z-index: 999;
+    position: fixed;
+    right: 5px;
+    left: 10px;
+    bottom: -45px;
+    border-right: 1px solid rgb(122, 167, 170);
+}
+
+
+.debugSelectionTab {
+    position: relative;
+    width: auto;
+    bottom: -1px;
+    height: 20px;
+    background-color: rgb(170, 228, 109);
+    border-radius: 10px 10px 2px 2px;
+    text-align: center;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    border-top: 1px solid rgb(122, 167, 170);
+    border-left: 1px solid rgb(122, 167, 170);
+    border-right: 1px solid rgb(122, 167, 170);
+}
+
+.debugSelectionTab:hover{
+    cursor: pointer;
+}
+
+.divHiddenOnLoad {
+    display: none;
+}
+
+.lastDebugSelection {
+    width: 100px;
 }
 
 

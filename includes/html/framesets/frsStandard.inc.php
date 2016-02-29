@@ -23,10 +23,6 @@ include 'includes/html/debug/DebugOptionsSetFrame.inc.php';
 
 
 
-
-
-
-
 // TODO Dynamisches Laden der Information-Datei
 // Lade: Information - Datei !Kann durch die Action - Steuerung überschrieben werden
 include 'includes/html/standard/information/stdInformationSetFrame.inc.php';
@@ -41,9 +37,12 @@ include 'includes/html/standard/body/stdBodySetFrame.inc.php';
 
 
 
+
+
 // TODO Dynamisches Laden der Navigations-Datei
 // Lade: Navigation - Datei !Kann durch die Action - Steuerung überschrieben werden
 include 'includes/html/standard/navigation/stdNavigationSetFrame.inc.php';
+
 
 
 

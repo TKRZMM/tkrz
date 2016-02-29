@@ -100,6 +100,11 @@ table.debugLinkList {
     padding: 10px;
 
 }
+table.debugContentSelection {
+    background-image: linear-gradient(90deg, rgba(186, 243, 250, 0.67), white);
+    text-align: left;
+    white-space:nowrap;
+}
 td.debugLinkList {
     padding: 5px;
     text-align: left;
@@ -123,6 +128,9 @@ td.debugLinkList {
 }
 .bottomLineGreen{
     border-bottom: 1px solid rgb(122, 167, 170);
+}
+.borderGreen{
+    border: 1px solid rgb(122, 167, 170);
 }
 
 
@@ -161,3 +169,6 @@ td.debugLinkList {
 .lPaddingSix {
     padding-right: 6px;
 }
+
+
+.nobr	{ white-space:nowrap; }

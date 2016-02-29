@@ -18,6 +18,18 @@ require_once 'includes/system/systemClassAutoLoad.inc.php';
 
 
 
+
+
+// Lade: Action Steuerung via Action - KLasse
+$hAction = new SystemAction();
+
+$hCore->addDebugMessage('Add aus index.php');
+$hCore->addDebugMessage('Diana');
+
+
+
+
+
 // TODO Dynmisches Laden der Frameset - Datei geregelt über die Action
 // Lade: Frameset - Setting
 require_once 'includes/system/systemFramesetLoader.inc.php';
