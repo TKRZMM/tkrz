@@ -61,7 +61,11 @@ a:active {
     color: #000000;
     box-shadow: 4px 5px 4px grey;
 }
-
+.noLinkEffekt:hover {
+    text-decoration: none;
+    box-shadow: none;
+    border: none;
+}
 
 /* Standard Link - Color-Set */
 a.std:link, a.std:visited, a.std:hover, a.std:active {
@@ -159,6 +163,14 @@ td.debugLinkList {
 }
 .alignRight{
     text-align: right;
+}
+
+
+/* Div Ausrichtung */
+.center {
+    margin: auto;
+    width: 25%;
+    padding: 0px;
 }
 
 

@@ -28,6 +28,9 @@ abstract class CoreBase
 	// Initialsiere Variable
 	public $coreGlobal;      // Globale Variable für alle weiteren Klassen
 
+	const LOGINFRAMESET = 'frsLogin.inc.php';
+	const HOMEFRAMESET = 'frsStandard.inc.php';
+
 
 
 	// Klassen eigener Konstruktor
@@ -36,5 +39,19 @@ abstract class CoreBase
 
 
 	}   // END function __construct()
+
+
+
+
+
+	// Gibt das zu ladende Frameset zurück
+	function getFrameset()
+	{
+		if ( (isset($this->coreGlobal['Load']['Frameset'])) && (strlen($this->coreGlobal['Load']['Frameset']) > 0) ){
+			return $this->coreGlobal['Load']['Frameset'];
+		}
+
+		return LOGINFRAMESET;
+	}	// END function getFrameset()
 
 }   // END class CoreBase

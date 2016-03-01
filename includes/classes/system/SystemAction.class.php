@@ -38,12 +38,6 @@ class SystemAction extends CoreExtends
 
         parent::__construct();
 
-
-        // Benutze das globale Core-Klassen-Objekt in der Klasse!
-        if ($flagUseGlobalCoreClassObj)
-            $this->getGlobalCoreObject();
-
-
         // Initial Aufruf für generelle Überprüfungen (Login usw.)
         $this->loadOnInit();
 
@@ -53,32 +47,65 @@ class SystemAction extends CoreExtends
 
 
 
-    // Benutze in der Klasse das globale Core-Klassen-Objekt
-    private function getGlobalCoreObject()
-    {
-
-        // Sicher stellen das wir den Core-Klassen-Objekt - Handler der Basisklassen nur einmal haben / benutzen
-        $this->myDynObj = CoreObject::getSingleton();
-
-        // Lokales coreGlobal referenzieren
-        $this->coreGlobal = & $this->myDynObj->coreGlobal;
-
-    }   // END private function getGlobalCoreObject()
-
-
-
-
-
     // Initial Methode bei Aufruf/Init der Klasse
     private function loadOnInit()
     {
+
+        // Login - Status prüfen
         $this->coreGlobal['Objects']['hLogin'] = new SystemLogin();
 
         $hLogin = $this->coreGlobal['Objects']['hLogin'];
 
-        // Login - Status prüfen
-        $hLogin->initCheckLoginStatus();
-    }
+        if (!$checkUserID = $hLogin->checkLoginStatus()) {
+
+            // Keine userID also noch kein eingeloggter User
+
+            // Login - Action aufgerufen? ---> Weiterleiten zur Login - Prüfung
+            if ( (isset($_POST['callAction'])) && ($_POST['callAction'] == 'callLogin')) {
+
+                // Login - Daten ok! User wurde in der Login - Klasse eingeloggt!
+                if ($hLogin->callLogin()) {
+                    // Setzte Default Frameset ... wird ggf. später überschrieben
+                    $this->coreGlobal['Load']['Frameset'] = 'frsStandard.inc.php';
+                    return true;
+                }
+            }
+
+            // Setze Frameset auf Login - Maske
+            $this->coreGlobal['Load']['Frameset'] = 'frsLogin.inc.php';
+
+            return true;
+        }
+
+
+
+
+        // Hier geht es nur wetier wenn der User eingeloggt ist (userID vorhanden)!
+
+
+
+        // Logout aufgerufen
+        if ( (isset($_GET['callAction'])) && ($_GET['callAction'] == 'callLogout')) {
+            $hLogin->callLogout();
+
+            return true;
+        }
+
+
+
+
+
+        // Setzte Default Frameset ... wird ggf. später überschrieben
+        $this->coreGlobal['Load']['Frameset'] = 'frsStandard.inc.php';
+
+        // TODO ... Action - Steuerung!!
+
+
+
+
+        return true;
+
+    }   // END private function loadOnInit()
 
 
 

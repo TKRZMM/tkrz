@@ -12,24 +12,24 @@
 
             <table border=0 class="textRight logedinUser">
                 <tr>
-                    <td class="bottomLine rPaddingSix">Benutzer:</td><td class="bottomLine">Max</td>
+                    <td class="bottomLine rPaddingSix">Benutzer:</td><td class="bottomLine"><?php print ($_SESSION['Login']['userName']); ?></td>
                 </tr>
 
                 <tr>
-                    <td class="rPaddingSix">Status:</td><td>Entwickler</td>
+                    <td class="rPaddingSix">Status:</td><td><?php print ($_SESSION['Login']['userRoleName']); ?></td>
                 </tr>
 
                 <tr>
-                    <td class="rPaddingSix">Login:</td><td>2016-02-25 12:53:59</td>
+                    <td class="rPaddingSix">Login:</td><td><?php print ($_SESSION['Login']['dateCurLogin']); ?></td>
                 </tr>
 
                 <tr>
-                    <td class="bottomLine rPaddingSix">Letzter Login:</td><td class="bottomLine">2016-02-24 12:53:59</td>
+                    <td class="bottomLine rPaddingSix">Letzter Login:</td><td class="bottomLine"><?php print ($_SESSION['Login']['dateLastLogin']); ?></td>
                 </tr>
 
                 <?php
 
-                print ('<tr><td colspan="2"><a href="#"><i class="fa fa-power-off"></i>&nbsp;Logout&nbsp;</a></td></tr>');
+                print ('<tr><td colspan="2"><a href="'.$_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'].'callLogout"><i class="fa fa-power-off"></i>&nbsp;Logout&nbsp;</a></td></tr>');
 
                 ?>
             </table>

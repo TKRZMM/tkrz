@@ -1,0 +1,104 @@
+@CHARSET "ISO-8859-1";
+
+
+html {
+    background: transparent!important
+}
+
+main, svg {
+    border-radius: 0.5em 0.5em 0.5em;
+    border: 1px solid;
+    padding: 10px;
+}
+main {
+    display: block;
+    /* für IE */
+    background: #ced8dd;
+    border-color: #8a9da8;
+    min-height: 190px;
+    padding-left: 50px;
+}
+
+
+
+form {
+    padding-top: 5px;
+    position: relative;
+}
+form.loginForm {
+    width: 30em;
+}
+
+
+
+input {
+    margin: 0 0 1em 31%;
+    padding: .2em .5em;
+    width: 60%;
+    background-color: #fffbf0;
+    border: none;
+}
+input:required + label::before {
+    position: absolute;
+    left: 300%;
+    content: "★";
+    color: #ff952c;
+}
+
+input:required:valid + label::before {
+    content: "✔";
+    color: green;
+}
+.login {
+    background-color: transparent;
+    border-bottom: 1px solid rgb(122, 167, 170);
+
+}
+.login:focus {
+    border-bottom: 1px solid #e7c157;
+    background-color: transparent;
+}
+
+
+
+label {
+    text-align: right;
+    line-height: 2.0;
+    width: 30%;
+    position: absolute;
+    left: 0;
+}
+label::after {
+    content: ":";
+    margin-right: 4px;
+}
+
+
+
+button {
+
+}
+button.loginButton {
+    position: absolute;
+    background-color: #499faf;
+    border: none;
+
+    color: white;
+    padding: 5px 10px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px 2px;
+
+    cursor: pointer;
+    border-radius: 4px;
+    right: 14px;
+    top: 99%;
+}
+button.loginButton:hover {
+    /*color: #ffc56d;*/
+}
+
+
+

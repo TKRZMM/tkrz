@@ -3,7 +3,7 @@
  */
 
 
-var debugSelections = ["debugMessages",
+var debugSelections = ["messagesDebug",
                         "debugCoreGlobal",
                         "debugSESSION",
                         "debugGETPOST"];
@@ -38,6 +38,7 @@ function showOnOffDebugSelections(getElement)
     var nextTemp;
     var selectedTab;
 
+
     for	(index = 0; index < debugSelections.length; index++) {
         tmp = debugSelections[index];
         nextTemp = debugSelectionsTabs[index];
@@ -45,24 +46,21 @@ function showOnOffDebugSelections(getElement)
         obj = document.getElementById(tmp);
         selectedTab = document.getElementById(nextTemp);
 
-        if (tmp == getElement) {
-            obj.style.display = 'block';
-            selectedTab.style.backgroundColor = 'white';
-        }
-        else {
-            obj.style.display = 'none';
-            selectedTab.style.backgroundColor = 'rgb(170, 228, 109)';
+        //alert("getElement: " + getElement + " -> tmp: " + tmp + " -> index: " + index + " -> obj: " + obj);
+
+        if (obj) {
+            if (tmp == getElement) {
+                obj.style.display = 'block';
+                selectedTab.style.backgroundColor = 'white';
+            }
+            else {
+                obj.style.display = 'none';
+                selectedTab.style.backgroundColor = 'rgb(170, 228, 109)';
+            }
         }
     }
 }
 
 
 
-function OLD_hallo()
-{
-    var obj = document.getElementById('debugMessages');
-    var selectedTab = document.getElementById('set_debugMessages');
 
-    obj.style.display = 'block';
-    selectedTab.style.backgroundColor = 'white';
-}

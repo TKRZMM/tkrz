@@ -1,38 +1,17 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: MMelching
- * Date: 18.02.2016
- * Time: 11:35
- */
-// Starte: Session
-session_start();
+<!DOCTYPE html>
+<html>
 
 
+<head>
+    <!-- HTML meta refresh URL redirection -->
+    <meta http-equiv="refresh" content="0; url=http://localhost/tkrz/home">
+    <title>Odin - Development</title>
+</head>
 
 
-
-// Lade: Klassen - Autoloader
-require_once 'includes/system/systemClassAutoLoad.inc.php';
-
-
+<body>
+<p>The page has moved to: <a href="http://localhost/tkrz/home">this page</a></p>
+</body>
 
 
-
-
-// Lade: Action Steuerung via Action - KLasse
-$hAction = new SystemAction();
-
-$hCore->addDebugMessage('Add aus index.php');
-$hCore->addDebugMessage('Diana');
-
-
-
-
-
-// TODO Dynmisches Laden der Frameset - Datei geregelt über die Action
-// Lade: Frameset - Setting
-require_once 'includes/system/systemFramesetLoader.inc.php';
-
-
-// Achtung keine Webausgabe mehr noch dieser Zeile!!! Footer und HTML - Ende wird in loadFrameset.inc.php geladen!
+</html>

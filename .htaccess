@@ -1,0 +1,31 @@
+#
+# Hilfe nachzuselesen hier:
+# https://wiki.selfhtml.org/wiki/Webserver/mod_rewrite#Allgemeines_-_URLs_manipulieren_mit_mod_rewrite
+# http://www.leonardaustin.com/blog/technical/enable-mod_rewrite-in-xampp/
+#
+# !!!
+# httpd.conf ->
+# #LoadModule rewrite_module modules/mod_rewrite.so -> LoadModule rewrite_module modules/mod_rewrite.so
+# AllowOverride None -> AllowOverride All
+# Restart Apache
+#
+RewriteEngine on
+RewriteBase "/tkrz/"
+
+# Das Webseiten Charset wird in der customConfig.inc.php definiert!
+# AddDefaultCharset UTF-8
+
+# Wenn ich die RewriteCond aktiviere... kann man auch deep-Links ausführen
+# z.B. http://loacalhost/tkrz/includes/classes/Login.class.php
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-l
+
+
+RewriteRule ^([^/.]+)(/)+?.php|.class.php|.inc.php|.htm/?$ main.php?callAction=forbidden&subAction=callUrl [L]
+
+RewriteRule ^([^/.]+)/?$ main.php?callAction=$1 [L]
+RewriteRule ^([^/.]+)/([^/.]+)/?$ main.php?callAction=$1&subAction=$2 [L]
+RewriteRule ^([^/.]+)/([^/.]+)/([^/.]+)/?$ main.php?callAction=$1&subAction=$2&valueAction=$3 [L]
+
+#RewriteRule ^([^/.]+)/([^/.]+)/([^/.]+)/(.*)/?$ main.php?callAction=$1&subAction=$2&valueAction=$3&parseAction=$4 [L]

@@ -11,9 +11,9 @@ include 'includes/html/basic/head/bscHead.inc.php';
 
 
 
-// TODO Dynamisches Laden der Framesetz ermöglichen
 // Lade: Frameset - Template
-include 'includes/html/framesets/frsStandard.inc.php';
+$curFrameset = 'includes/html/framesets/' . $hCore->getFrameset();
+include ($curFrameset);
 
 
 

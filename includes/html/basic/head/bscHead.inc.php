@@ -13,9 +13,12 @@
 
     <meta charset="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['DefaultEncodeWebFormat']); ?>">
     <title><?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['DefaultWebsiteTitle']); ?></title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" >
+    <link rel="icon" type="image/ico" href="favicon.ico">
 
 
     <link rel="stylesheet" type="text/css" href="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/css/defaultCSS.css" />
+    <link rel="stylesheet" type="text/css" href="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/css/formCSS.css" />
     <link rel="stylesheet" href="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/css/font-awesome-4.5.0/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/css/divTagsCSS.css" />
     <link rel="stylesheet" type="text/css" href="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/css/navigationCSS.css" />

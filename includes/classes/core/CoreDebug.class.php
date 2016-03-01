@@ -24,7 +24,8 @@
  */
 abstract class CoreDebug extends CoreMessage
 {
-    public $debugMessages;
+    public $messagesDebug;
+    public $messagesSimpleout;
 
 
     // Klassen eigener Konstruktor
@@ -39,11 +40,35 @@ abstract class CoreDebug extends CoreMessage
 
 
 
-    function addDebugMessage($var)
-    {
-        $this->debugMessages = $var;
 
-        $this->coreGlobal['debugMessages'][] = $this->debugMessages;
+    // Methode fügt eine Debugausgabe an vohandene Debugausgaben an.
+    function addDebugMessage($var, $setExtraKey=false)
+    {
+        $this->messagesDebug = $var;
+
+        if ($setExtraKey)
+            $this->coreGlobal['messagesDebug'][][$setExtraKey] = $this->messagesDebug;
+        else
+            $this->coreGlobal['messagesDebug'][] = $this->messagesDebug;
+
     }
+
+
+
+
+
+
+
+    // Methode fügt eine Debugausgabe an vohandene Debugausgaben an.
+    function simpleout($var, $setExtraKey=false)
+    {
+        $this->messagesSimpleout = $var;
+
+        if ($setExtraKey)
+            $this->coreGlobal['messagesSimpleout'][][$setExtraKey] = $this->messagesSimpleout;
+        else
+            $this->coreGlobal['messagesSimpleout'][] = $this->messagesSimpleout;
+    }
+
 
 }   // END abstract class CoreDebug extends CoreMessage
