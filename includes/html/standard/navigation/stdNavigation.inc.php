@@ -13,12 +13,12 @@
     <i class="fa fa-upload"></i>&nbsp;&nbsp;Datei - Upload
     <div id="SubMenueID" class="navMenueGlobals SubMenue">
         <i class="fa fa-user"></i>&nbsp;&nbsp;Stammdaten
-        <a href="#" class="navLink">
+        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/1/1" class="navLink">
             <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
                 Centron
             </div>
         </a>
-        <a href="#" class="navLink">
+        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/1/2" class="navLink">
             <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
                 Dimari
             </div>
@@ -27,12 +27,16 @@
 
     <div id="SubMenueID" class="navMenueGlobals SubMenue">
         <i class="fa fa-university"></i>&nbsp;&nbsp;Buchungssatz
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
-            Centron
-        </div>
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
-            Dimari
-        </div>
+        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/2/1" class="navLink">
+            <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+                Centron
+            </div>
+        </a>
+        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/2/2" class="navLink">
+            <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+                Dimari
+            </div>
+        </a>
     </div>
 </div>
 
