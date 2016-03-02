@@ -29,7 +29,7 @@ function showOnOff(getElement)
 
 
 
-// Div - Tags der Debug Selektion ein/ausblenden
+// Div - Tags der Deb-Selektion ein/ausblenden
 function showOnOffDebugSelections(getElement)
 {
     var index;

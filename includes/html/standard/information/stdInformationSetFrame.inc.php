@@ -9,4 +9,3 @@
 print ('<div id="containerStepInformation" class="container StepInformation">');
 include 'stdInformation.inc.php';
 print ('</div>');
-
