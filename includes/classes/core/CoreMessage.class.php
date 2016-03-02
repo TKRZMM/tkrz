@@ -42,13 +42,29 @@ abstract class CoreMessage extends CoreDefaultConfig
 
 
 
+//$hCore->gCore['Messages']['Type'][]      = 'Info';
+//$hCore->gCore['Messages']['Code'][]      = 'Login';
+//$hCore->gCore['Messages']['Headline'][]  = 'Erfolgreicher Login!';
+//$hCore->gCore['Messages']['Message'][]   = 'Willkommen '.$_SESSION['Login']['User']['userName'].'!';
 
-
-    function addMessage($var)
+    function addMessage($headline=NULL, $message, $type=NULL, $code=NULL, $explain=NULL)
     {
-       // echo $this->coreGlobal;
-
-        $this->messages[] = $var;
+        $this->coreMessages['headline'][]   = $headline;
+        $this->coreMessages['message'][]    = $message;
+        $this->coreMessages['type'][]       = $type;
+        $this->coreMessages['code'][]       = $code;
+        $this->coreMessages['explain'][]    = $explain;
     }
+
+
+
+    function messageTest()
+    {
+        $numArg = func_num_args();
+
+        echo $numArg;
+
+    }
+
 
 }   // END abstract class CoreMessage extends CoreDefaultConfig

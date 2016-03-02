@@ -132,7 +132,7 @@
 
 <?php
 // Wenn Debug-Messages gefüllt ist, dann den Reiter auch aktivieren
-if (isset($hCore->messagesDebug)) {
+if (isset($hCore->coreGlobal['messagesDebug'])) {
     // print ('<script>reSize(\'Footer\');</script>');
     print ('<script>showOnOffDebugSelections(\'messagesDebug\');</script>');
 }

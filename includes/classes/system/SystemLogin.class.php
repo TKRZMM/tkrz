@@ -38,36 +38,25 @@ class SystemLogin extends CoreExtends
 
         parent::__construct();
 
-
-        // Initial Aufruf für generelle Überprüfungen (Login usw.)
-        $this->loadOnInit();
-
     }   // END function __construct(...)
 
 
 
 
 
-    // Initial Methode bei Aufruf/Init der Klasse
-    private function loadOnInit()
-    {
-
-    }
-
-
-
-
+    // Prüft ob der User eingeloggt ist und gibt bei Erfolg die userID zuürck : false
     function checkLoginStatus()
     {
+
         return $this->getLoginStatus();
-    }
+
+    }   // END function checkLoginStatus()
 
 
 
 
 
-
-    // Bei eingeloggtem User gibt die Methode die Login - ID zurück
+    // Bei eingeloggtem User gibt die Methode die Login - ID zurück : false
     function getLoginStatus()
     {
 
@@ -81,33 +70,28 @@ class SystemLogin extends CoreExtends
 
 
 
+
     // Login - Versuch des Users
     function callLogin()
     {
-        // TODO SAVE POST - Variable abfangen
-        $userName       = $_POST['userName'];
-        $userPassword   = $_POST['userPassword'];
 
-        // TODO Query auslagern
+        $userName       = $this->coreGlobal['POST']['userName'];
+        $userPassword   = $this->coreGlobal['POST']['userPassword'];
 
-        $query = "SELECT u.*
-                            ,r.userRoleID
-                            ,r.userRoleName
-                              FROM user u
-                                LEFT JOIN userrole r ON (u.userRoleID = r.userRoleID)
-                              WHERE u.userName      = '".$userName."'
-                                AND u.userPassword  = md5('".$userPassword."')
-                                AND u.activeStatus  = 'yes'
-                                AND r.activeStatus  = 'yes'
-                                LIMIT 1";
+
+        // Query zum Login ermitteln
+        $paramArray = array('userName'=>$userName, 'userPassword'=>$userPassword);
+        $query = $this->getQuery('SystemLogin_callLogin_tryUserLogin', $paramArray);
 
         $result = $this->query($query);
 
         if ($this->num_rows($result) != 1) {
 
-            // TODO Fehlerhaften Login ausgeben
+            // Message für fehlerhaften Login
+            $this->addMessage('Fehlerhafter Login!', 'Benutzername und/oder Passwort Kombination nicht bekannt.', 'error', 'login');
 
             $this->free_result($result);
+
             return false;
         }
 
@@ -122,11 +106,14 @@ class SystemLogin extends CoreExtends
 
 
         // Vorgang des Logins speichern
-        $this->loginWriteUserLoginToDB();
+        $this->doWriteUserLoginToDB();
 
 
         // Letzen Login einlesen
-        $this->loginGetUserLastLogin();
+        $this->getUserLastLogin();
+
+        // Message für erfolgreicher Login
+        $this->addMessage('Erfolgreicher Login!', 'Herzlich willkommen '.$_SESSION['Login']['userName'].'!', 'ok', 'login');
 
         return true;
 
@@ -136,48 +123,31 @@ class SystemLogin extends CoreExtends
 
 
 
-
     // Speichert den Login-Vorgang eines Benutzers
-    private function loginWriteUserLoginToDB()
+    private function doWriteUserLoginToDB()
     {
 
-        // Login - Vorgang Loggen
-        $query = "INSERT INTO log_user_login (userID,
-									REMOTE_ADDR,
-									HTTP_USER_AGENT,
-									HTTP_REFERER,
-									HTTP_COOKIE,
-									REQUEST_URI,
-									SCRIPT_NAME,
-									PHP_SELF
-								  ) VALUES ('".$_SESSION['Login']['userID']."',
-								  	'".$_SERVER['REMOTE_ADDR']."',
-								  	'".$_SERVER['HTTP_USER_AGENT']."',
-								  	'".$_SERVER['HTTP_REFERER']."',
-								  	'".$_SERVER['HTTP_COOKIE']."',
-								  	'".$_SERVER['REQUEST_URI']."',
-								  	'".$_SERVER['SCRIPT_NAME']."',
-								  	'".$_SERVER['PHP_SELF']."')";
+        // Query zum Login ermitteln
+        $paramArray = array('userID'=>$_SESSION['Login']['userID']);
+        $query = $this->getQuery('SystemLogin_doWriteUserLoginToDB_logUserLogin', $paramArray);
 
         $this->query($query);
 
-        RETURN TRUE;
+        return true;
 
-    }	// END private function loginWriteUserLoginToDB(...)
+    }	// END private function doWriteUserLoginToDB()
 
 
 
 
 
     // Liest letzte Login-Informationen eines Betnutzers
-    private function loginGetUserLastLogin()
+    private function getUserLastLogin()
     {
-        // Hole mir die Query
-        $query  = "SELECT `lastLogin`
-					          FROM log_user_login
-					          WHERE `userID` LIKE '".$_SESSION['Login']['userID']."'
-					          ORDER BY log_user_loginID DESC
-					          LIMIT 0,2";
+
+        // Query ermitteln
+        $paramArray = array('userID'=>$_SESSION['Login']['userID']);
+        $query = $this->getQuery('SystemLogin_getUserLastLogin_getUserLastLoginDate', $paramArray);
 
         // Führe Query aus
         $result = $this->query($query);
@@ -208,14 +178,14 @@ class SystemLogin extends CoreExtends
         else {
             $this->free_result($result);
 
-            RETURN FALSE;
+            return true;
         }
 
         $this->free_result($result);
 
-        RETURN TRUE;
+        return true;
 
-    }	// END private function loginGetUserLastLogin(...)
+    }	// END private function getUserLastLogin()
 
 
 
@@ -240,6 +210,7 @@ class SystemLogin extends CoreExtends
         exit;
 
     }   // END function callLogout()
+
 
 
 

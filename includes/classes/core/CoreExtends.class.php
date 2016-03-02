@@ -27,6 +27,7 @@ class CoreExtends extends CoreObject
 
     public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
     public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
+    public $coreMessages;   // Kopiere globale Variable aus der Start-Klasse
 
 
 
@@ -76,6 +77,9 @@ class CoreExtends extends CoreObject
 
         // Lokales coreGlobal referenzieren
         $this->coreGlobal = & $this->myDynObj->coreGlobal;
+
+        // Lokales coreMessages referenzieren
+        $this->coreMessages = & $this->myDynObj->coreMessages;
 
     }   // END private function getGlobalCoreObject()
 

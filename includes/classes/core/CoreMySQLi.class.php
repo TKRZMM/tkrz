@@ -134,6 +134,9 @@ abstract class CoreMySQLi extends CoreQuery
     // MySQLi Query ausführen
     public function query($query, $debug=false)
     {
+        if ($debug)
+            $this->addDebugMessage($query);
+
 
         // Aktuelle DB - Verbindung holen
         $mysqli = $this->getDBConnection();

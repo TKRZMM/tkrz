@@ -61,7 +61,7 @@ class SystemAction extends CoreExtends
             // Keine userID also noch kein eingeloggter User
 
             // Login - Action aufgerufen? ---> Weiterleiten zur Login - Prüfung
-            if ( (isset($_POST['callAction'])) && ($_POST['callAction'] == 'callLogin')) {
+            if ( (isset($this->coreGlobal['POST']['callAction'])) && ($this->coreGlobal['POST']['callAction'] == 'callLogin')) {
 
                 // Login - Daten ok! User wurde in der Login - Klasse eingeloggt!
                 if ($hLogin->callLogin()) {
@@ -85,7 +85,7 @@ class SystemAction extends CoreExtends
 
 
         // Logout aufgerufen
-        if ( (isset($_GET['callAction'])) && ($_GET['callAction'] == 'callLogout')) {
+        if ( (isset($this->coreGlobal['GET']['callAction'])) && ($this->coreGlobal['GET']['callAction'] == 'callLogout')) {
             $hLogin->callLogout();
 
             return true;

@@ -109,6 +109,19 @@ table.debugContentSelection {
     text-align: left;
     white-space:nowrap;
 }
+table.infoMessage {
+    border-radius: 0.5em 0.5em 0.5em;
+    border: 1px solid;
+    padding: 10px;
+}
+table.infoMessage {
+    /* für IE */
+    background: #ced8dd;
+    border-color: #8a9da8;
+    padding-left: 30px;
+    border-collapse: separate;
+}
+
 td.debugLinkList {
     padding: 5px;
     text-align: left;
@@ -127,14 +140,35 @@ td.debugLinkList {
 .leftLine{
     border-left: 1px solid black;
 }
+.allLine{
+    border: 1px solid black;
+}
 .bottomLine{
     border-bottom: 1px solid black;
 }
 .bottomLineGreen{
     border-bottom: 1px solid rgb(122, 167, 170);
 }
+.topLineGreen{
+    border-top: 1px solid rgb(122, 167, 170);
+}
+.leftLineGreen{
+    border-left: 1px solid rgb(122, 167, 170);
+}
+.rightLineGreen{
+    border-right: 1px solid rgb(122, 167, 170);
+}
 .borderGreen{
     border: 1px solid rgb(122, 167, 170);
+}
+.borerGreenShadow{
+    border-right: 1px solid rgb(122, 167, 170);
+    border-bottom: 1px solid rgb(122, 167, 170);
+}
+
+
+.bgwhite{
+    background-color: rgb(216, 226, 231);
 }
 
 
@@ -150,6 +184,12 @@ td.debugLinkList {
 }
 .textRight{
     text-align: right;
+}
+.textTop{
+    vertical-align: text-top;
+}
+.textBottom{
+    vertical-align: text-bottom;
 }
 
 
