@@ -59,8 +59,8 @@
     transition: height 0.5s;
 }
 .NavigationOuter:hover {
-    height: 420px;
-    cursor: pointer;
+    height: 680px;
+
 }
 .Navigation {
     z-index: 110;

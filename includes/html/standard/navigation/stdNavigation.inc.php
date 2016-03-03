@@ -9,85 +9,249 @@
 <i class="fa fa-list fa-lg"></i>&nbsp;&nbsp; Navigation
 <br><br>
 
-<div id="mainMenueID" class="navMenueGlobals mainMenue">
-    <i class="fa fa-upload"></i>&nbsp;&nbsp;Datei - Upload
-    <div id="SubMenueID" class="navMenueGlobals SubMenue">
-        <i class="fa fa-user"></i>&nbsp;&nbsp;Stammdaten
-        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/1/1" class="navLink">
-            <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
-                Centron
-            </div>
-        </a>
-        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/1/2" class="navLink">
-            <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
-                Dimari
-            </div>
-        </a>
-    </div>
 
-    <div id="SubMenueID" class="navMenueGlobals SubMenue">
-        <i class="fa fa-university"></i>&nbsp;&nbsp;Buchungssatz
-        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/2/1" class="navLink">
-            <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
-                Centron
-            </div>
-        </a>
-        <a href="<?php print($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/2/2" class="navLink">
-            <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
-                Dimari
-            </div>
-        </a>
-    </div>
-</div>
+<table border="0" width="100%" class="standard">
+    <tr>
+        <td width="20px" align="center" class="bottomLineGreen submenueA">
+            <i class="fa fa-upload"></i>
+        </td>
+        <td colspan="3" class="bottomLineGreen submenueA">
+            Datei - Upload
+        </td>
+    </tr>
 
-
-
-
-<div id="mainMenueID" class="navMenueGlobals mainMenue">
-    <i class="fa fa-sign-in fa-lg"></i>&nbsp;&nbsp;Datenbank - Import
-    <div id="SubMenueID" class="navMenueGlobals SubMenue">
-        <i class="fa fa-user"></i>&nbsp;&nbsp;Stammdaten
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+    <tr>
+        <td class="submenueB">
+            &nbsp;
+        </td>
+        <td width="20px" align="center" class="bottomLineGreen submenueB">
+            <i class="fa fa-user"></i>
+        </td>
+        <td colspan="2" class="bottomLineGreen submenueB">
+            Stammdaten
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Centron
-        </div>
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Dimari
-        </div>
-    </div>
+        </td>
+    </tr>
 
-    <div id="SubMenueID" class="navMenueGlobals SubMenue">
-        <i class="fa fa-university"></i>&nbsp;&nbsp;Buchungssatz
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+    <tr>
+        <td colspan="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="submenueB">
+            &nbsp;
+        </td>
+        <td width="20px" align="center" class="bottomLineGreen submenueB">
+            <i class="fa fa-university"></i>
+        </td>
+        <td colspan="2" class="bottomLineGreen submenueB">
+            Buchungssatz
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Centron
-        </div>
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Dimari
-        </div>
-    </div>
-</div>
+        </td>
+    </tr>
+</table>
 
 
 
 
-<div id="mainMenueID" class="navMenueGlobals mainMenue">
-    <i class="fa fa-sign-out fa-lg"></i>&nbsp;&nbsp;Datenbank - Export
-    <div id="SubMenueID" class="navMenueGlobals SubMenue">
-        <i class="fa fa-user"></i>&nbsp;&nbsp;Stammdaten
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+
+<br><br>
+
+
+
+
+
+<table border="0" width="100%" class="standard">
+    <tr>
+        <td width="20px" align="center" class="bottomLineGreen submenueA">
+            <i class="fa fa-sign-in fa-lg"></i>
+        </td>
+        <td colspan="3" class="bottomLineGreen submenueA">
+            Datenbank - Import
+        </td>
+    </tr>
+
+    <tr>
+        <td class="submenueB">
+            &nbsp;
+        </td>
+        <td width="20px" align="center" class="bottomLineGreen submenueB">
+            <i class="fa fa-user"></i>
+        </td>
+        <td colspan="2" class="bottomLineGreen submenueB">
+            Stammdaten
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Centron
-        </div>
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Dimari
-        </div>
-    </div>
+        </td>
+    </tr>
 
-    <div id="SubMenueID" class="navMenueGlobals SubMenue">
-        <i class="fa fa-university"></i>&nbsp;&nbsp;Buchungssatz
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+    <tr>
+        <td colspan="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="submenueB">
+            &nbsp;
+        </td>
+        <td width="20px" align="center" class="bottomLineGreen submenueB">
+            <i class="fa fa-university"></i>
+        </td>
+        <td colspan="2" class="bottomLineGreen submenueB">
+            Buchungssatz
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Centron
-        </div>
-        <div id="SubMenueID" class="navMenueGlobals SubSubMenue">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
             Dimari
-        </div>
-    </div>
-</div>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+<br><br>
+
+
+
+
+
+<table border="0" width="100%" class="standard">
+    <tr>
+        <td width="20px" align="center" class="bottomLineGreen submenueA">
+            <i class="fa fa-sign-out fa-lg"></i>
+        </td>
+        <td colspan="3" class="bottomLineGreen submenueA">
+            Datenbank - Export
+        </td>
+    </tr>
+
+    <tr>
+        <td class="submenueB">
+            &nbsp;
+        </td>
+        <td width="20px" align="center" class="bottomLineGreen submenueB">
+            <i class="fa fa-user"></i>
+        </td>
+        <td colspan="2" class="bottomLineGreen submenueB">
+            Stammdaten
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
+            Centron
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
+            Dimari
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="submenueB">
+            &nbsp;
+        </td>
+        <td width="20px" align="center" class="bottomLineGreen submenueB">
+            <i class="fa fa-university"></i>
+        </td>
+        <td colspan="2" class="bottomLineGreen submenueB">
+            Buchungssatz
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
+            Centron
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="submenueC">&nbsp;</td>
+        <td width="20px" align="center" class="submenueC">
+            <i class="fa fa-chevron-right"></i>
+        </td>
+        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'">
+            Dimari
+        </td>
+    </tr>
+</table>
+

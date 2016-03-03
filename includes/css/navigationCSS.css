@@ -21,10 +21,12 @@
 }
 
 .mainMenue {
+    overflow: auto;
+    /*height: auto;*/
     width: 235px;
     /*background: #a2e4a6;*/
     background-image: linear-gradient(to right, #a2e4a6, transparent);
-    margin-left:10px;
+    margin-left: 10px;
 }
 .mainMenue:hover {
     max-height: 500px;
@@ -83,6 +85,28 @@
     color: black;
     background: rgb(149, 202, 246);
 }
+
+
+
+.submenueA{
+    padding: 6px;
+}
+.submenueB{
+    padding: 6px;
+}
+.submenueC{
+    padding: 3px;
+}
+
+
+.subMenueLink{
+    border-bottom: 1px solid rgb(255, 255, 255);
+}
+.subMenueLink:hover{
+    background-image: linear-gradient(to right, #e0ffff, transparent);
+    cursor: pointer;
+}
+
 
 
 

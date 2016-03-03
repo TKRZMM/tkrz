@@ -8,8 +8,6 @@
 if (isset($hCore->coreMessages['headline'])){
 
     foreach ($hCore->coreMessages['headline'] as $index=>$headline){
-
-
         ?>
 
         <div style="padding-top: 5px; padding-left: 8%">
