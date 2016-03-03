@@ -26,7 +26,7 @@
 
     <script type="text/javascript" src="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/javascript/defaultJSP.js"></script>
     <script type="text/javascript" src="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/javascript/mvoeBodyFooterDivsJSP.js"></script>
-    <script type="text/javascript" src="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/javascript/mvoeNavigationJSP.js"></script>
+    <script type="text/javascript" src="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/javascript/navigationJSP.js"></script>
     <script type="text/javascript" src="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>includes/javascript/debugOptionsJSP.js"></script>
 
 </head>
