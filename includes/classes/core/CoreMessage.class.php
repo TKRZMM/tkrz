@@ -41,7 +41,7 @@ abstract class CoreMessage extends CoreDefaultConfig
 
 
 
-
+// Format
 //$hCore->gCore['Messages']['Type'][]      = 'Info';
 //$hCore->gCore['Messages']['Code'][]      = 'Login';
 //$hCore->gCore['Messages']['Headline'][]  = 'Erfolgreicher Login!';
