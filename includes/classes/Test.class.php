@@ -17,3 +17,4 @@ class Test extends CoreExtends
         echo "</pre><br>";
     }
 }
+
