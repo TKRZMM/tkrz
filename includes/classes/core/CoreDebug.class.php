@@ -24,8 +24,10 @@
  */
 abstract class CoreDebug extends CoreMessage
 {
-    public $messagesDebug;
-    public $messagesSimpleout;
+
+    // Initialsiere Variable
+    public $messagesDebug;      // Globale DebugMessage Variable für alle weiteren Klassen
+    public $messagesSimpleout;  // Globale SimpleoutMessage Variable für alle weiteren Klassen
 
 
     // Klassen eigener Konstruktor
@@ -41,7 +43,7 @@ abstract class CoreDebug extends CoreMessage
 
 
 
-    // Methode fügt eine Debugausgabe an vohandene Debugausgaben an.
+    // Methode fügt eine Debugausgabe an eventuell schon vohandene Debugausgaben an.
     function addDebugMessage($var, $setExtraKey=false)
     {
         $this->messagesDebug = $var;
@@ -51,7 +53,7 @@ abstract class CoreDebug extends CoreMessage
         else
             $this->coreGlobal['messagesDebug'][] = $this->messagesDebug;
 
-    }
+    }   // END function addDebugMessage(...)
 
 
 
@@ -59,7 +61,7 @@ abstract class CoreDebug extends CoreMessage
 
 
 
-    // Methode fügt eine Debugausgabe an vohandene Debugausgaben an.
+    // Methode fügt eine Debugausgabe an eventuell schon vohandene Simpleout Debugausgaben an.
     function simpleout($var, $setExtraKey=false)
     {
         $this->messagesSimpleout = $var;

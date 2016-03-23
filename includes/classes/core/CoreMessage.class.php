@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,47 +26,54 @@
  */
 abstract class CoreMessage extends CoreDefaultConfig
 {
-    // Public Message - Var
-    public $messages;
+
+	// Initialsiere Variable
+	public $messages;	// Globale Message Variable für alle weiteren Klassen
 
 
 
 
 
-    // Klassen eigener Konstruktor
-    function __construct()
-    {
 
-        parent::__construct();
+	// Klassen eigener Konstruktor
+	function __construct()
+	{
 
-    }   // END function __construct()
+		parent::__construct();
 
-
-
-// Format
-//$hCore->gCore['Messages']['Type'][]      = 'Info';
-//$hCore->gCore['Messages']['Code'][]      = 'Login';
-//$hCore->gCore['Messages']['Headline'][]  = 'Erfolgreicher Login!';
-//$hCore->gCore['Messages']['Message'][]   = 'Willkommen '.$_SESSION['Login']['User']['userName'].'!';
-
-    function addMessage($headline=NULL, $message, $type=NULL, $code=NULL, $explain=NULL)
-    {
-        $this->coreMessages['headline'][]   = $headline;
-        $this->coreMessages['message'][]    = $message;
-        $this->coreMessages['type'][]       = $type;
-        $this->coreMessages['code'][]       = $code;
-        $this->coreMessages['explain'][]    = $explain;
-    }
+	}   // END function __construct()
 
 
 
-    function messageTest()
-    {
-        $numArg = func_num_args();
 
-        echo $numArg;
 
-    }
+
+	// Fügt einen Message - Datensatz hinzu, der ausgegeben werden soll
+	function addMessage($headline = null, $message, $type = null, $code = null, $explain = null)
+	{
+
+		$this->coreMessages['headline'][] = $headline;    // z.B. "Fehlerhafter Login"
+		$this->coreMessages['message'][] = $message;    // z.B. "Benutzername und/oder Passwort-Kombination unbekannt.
+		$this->coreMessages['type'][] = $type;    // z.B. "error" ... für Kategorisierung
+		$this->coreMessages['code'][] = $code;    // z.B. "login" ... für Bereich
+		$this->coreMessages['explain'][] = $explain;    // z.B. "Bitte überprüfen Sie ihr Zugangsdaten".
+
+	}    // END function addMessage(...)
+
+
+
+
+
+
+	// ???
+	function messageTest()
+	{
+
+		$numArg = func_num_args();
+
+		echo $numArg;
+
+	}
 
 
 }   // END abstract class CoreMessage extends CoreDefaultConfig

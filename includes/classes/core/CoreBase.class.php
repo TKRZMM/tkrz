@@ -29,10 +29,14 @@ abstract class CoreBase
 
 	// Initialsiere Variable
 	public $coreGlobal;      // Globale Variable für alle weiteren Klassen
-	public $coreMessages;    // Globale Variable für alle weiteren Klassen
+	public $coreMessages;    // Globale CoreMessage Variable für alle weiteren Klassen
 
-	const LOGINFRAMESET = 'frsLogin.inc.php';
-	const HOMEFRAMESET = 'frsStandard.inc.php';
+	// Definiere das default Frameset... es wird geladen wenn kein anderes Frameset gesetzt wurde
+	const LOGINFRAMESET = 'frsLogin.inc.php';        // Frameset für Login - Form/Prozedur
+
+	// Definiere das default Frameset nach dem Login... es wird gealden wenn der User eingeloggt ist, aber keine
+	// weiteres Frameset gesetzt wurde
+	const HOMEFRAMESET = 'frsStandard.inc.php';        // Frameset nach dem Login
 
 
 
@@ -53,15 +57,16 @@ abstract class CoreBase
 
 
 
-	// Gibt das zu ladende Frameset zurück
+	// Gibt das aktuell zu ladende Frameset zurück
 	function getFrameset()
 	{
 
-		if ((isset($this->coreGlobal['Load']['Frameset'])) && (strlen($this->coreGlobal['Load']['Frameset']) > 0)) {
+		// Wenn ein Frameset gesetzt wurde, gebe das zurück
+		if ((isset($this->coreGlobal['Load']['Frameset'])) && (strlen($this->coreGlobal['Load']['Frameset']) > 0))
 			return $this->coreGlobal['Load']['Frameset'];
-		}
 
-		return LOGINFRAMESET;
+		// Kein Frameset gesetzt, gebe das default Login - Frameset zurück
+		return self::LOGINFRAMESET;
 
 	}    // END function getFrameset()
 
@@ -74,24 +79,25 @@ abstract class CoreBase
 	private function setGetPostVar()
 	{
 
-		if (isset($_GET)) {
+		// Übernehme die $_GET Argumente nach dem "Cleanup"
+		if (isset($_GET))
 			$this->coreGlobal['GET'] = $this->cleanGetPost($_GET);
-		}
 
-		if (isset($_POST)) {
+
+		// Übernehme die $_POS Argumente nach dem "Cleanup"
+		if (isset($_POST))
 			$this->coreGlobal['POST'] = $this->cleanGetPost($_POST);
-		}
 
 		return true;
 
-	}    // END function saveGetPostVar()
+	}    // END function setGetPostVar()
 
 
 
 
 
 
-	// Säubert $_GET und $_POST - Variable
+	// "Cleanup" Säubert $_GET und $_POST - Variable
 	private function cleanGetPost($arg)
 	{
 
@@ -99,16 +105,16 @@ abstract class CoreBase
 
 		if (is_array($arg)) {
 
+			// Selbstaufruf bei übergebenem Array als Parameter
 			foreach($arg as $index => $value)
 				$retArray[$index] = $this->cleanGetPost($value);
 
 			return $retArray;
 
-		} else {
+		} else
 			return $this->checkAddslashes($arg);
-		}
 
-	}    // END function cleanGetPost($arg)
+	}    // END function cleanGetPost(...)
 
 
 

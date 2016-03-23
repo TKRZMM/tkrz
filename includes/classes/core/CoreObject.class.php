@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -25,39 +27,46 @@
 class CoreObject extends CoreMySQLi
 {
 
-    protected static $obj = null;
+	// Initialsiere Variable
+	protected static $obj = null;
 
 
 
 
 
-    // Klassen eigener Konstruktor
-    function __construct()
-    {
 
-        parent::__construct();
+	// Klassen eigener Konstruktor
+	function __construct()
+	{
 
-    }   // END function __construct()
+		parent::__construct();
 
-
-
-
-
-    // Vor Clone-Funktion schützen
-    protected function __clone() { }
+	}   // END function __construct()
 
 
 
 
 
-    // Stellt sicher, dass nur eine Instanz der Klasse erzeugt wird...
-    // Aufruf dann über {klassenname}::getSigleton() ... gibt das Objekt zurück
-    public static function getSingleton()
-    {
-        if (null === self::$obj)
-            self::$obj = new self;
 
-        return self::$obj;
-    }
+	// Vor Clone-Funktion schützen
+	protected function __clone()
+	{
+	}	// END protected function __clone()
 
-}   // END abstract class CoreObject extends CoreMySQLi
+
+
+
+
+	// Stellt sicher, dass nur eine Instanz der Klasse erzeugt wird...
+	// Aufruf dann über {klassenname}::getSigleton() ... gibt das Objekt zurück
+	public static function getSingleton()
+	{
+
+		if (null === self::$obj)
+			self::$obj = new self;
+
+		return self::$obj;
+
+	}   // END public static function getSingleton()
+
+}   // END class CoreObject extends CoreMySQLi

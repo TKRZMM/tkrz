@@ -59,10 +59,10 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
 		// Default Config - File einlesen
 		$this->loadSingleConfig(self::FULLCFGFILEDEFAULT);
 
-		// Config als geladen setzen
+		// Flag für "Config geladen" setzen
 		$this->coreGlobal['Flag']['Cfg']['Loaded']['Default'] = 'yes';
 
-	}   // END loadDefaultConfig()
+	}   // END loadDefaultConfigs()
 
 
 
@@ -114,29 +114,18 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
 		header('Content-Type: text/html; charset=Utf-8');
 		print ("<pre>");
 
+		$message = 'FEHLER -KRITISCH FÜHRT ZU EXIT-<br>Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>Fehlermeldung: <br>';
+
 		switch ($getCaseNum) {
 			case 1:
-				$message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-				$message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
-				$message .= "Fehlermeldung: <br>";
 				$message .= "Datei '" . $addArg . "' existiert nicht oder kann nicht gelesen werden!";
-
 				break;
-
 
 			case 2:
-				$message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-				$message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
-				$message .= "Fehlermeldung: <br>";
 				$message .= "Datei '" . $addArg . "' Syntax error!";
-
 				break;
 
-
 			default:
-				$message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-				$message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
-				$message .= "Fehlermeldung: <br>";
 				$message .= "Unbekannter Fehler bei Konfigurationsdatei: " . $addArg;
 		}
 
@@ -144,7 +133,7 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
 		print ("</pre>");
 		exit;
 
-	}
+	}    // END private function mySimpleout(...)
 
 
 }   // END abstract class CoreDefaultConfig extends CoreSystemConfig

@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -25,50 +27,51 @@
 abstract class CoreQuery extends CoreDebug
 {
 
-    // Klassen eigener Konstruktor
-    function __construct()
-    {
+	// Klassen eigener Konstruktor
+	function __construct()
+	{
 
-        parent::__construct();
+		parent::__construct();
 
-    }   // END function __construct()
-
-
+	}   // END function __construct()
 
 
 
-    // Gibt die gewnüschte Query zurück
-    public function getQuery($queryName,$paramArray = array())
-    {
 
-        // Parameter - und Eingabe sichern sprich Injections verhindern
-        $paramArray = $this->getCleanDBInput($paramArray);
 
-        $getQuery = '';
 
-        switch ($queryName){
-            case 'SystemLogin_callLogin_tryUserLogin':
-                // Login - Abfrage
+	// Gibt die gewnüschte Query zurück
+	public function getQuery($queryName, $paramArray = array())
+	{
 
-                $getQuery = "SELECT u.*
+		// Parameter - und Eingabe sichern sprich Injections verhindern
+		$paramArray = $this->getCleanDBInput($paramArray);
+
+		$getQuery = '';
+
+		switch ($queryName) {
+			case 'SystemLogin_callLogin_tryUserLogin':
+				// Login - Abfrage
+
+				$getQuery = "SELECT u.*
                             ,r.userRoleID
                             ,r.userRoleName
                               FROM user u
                                 LEFT JOIN userrole r ON (u.userRoleID = r.userRoleID)
-                              WHERE u.userName      = '".$paramArray['userName']."'
-                                AND u.userPassword  = md5('".$paramArray['userPassword']."')
+                              WHERE u.userName      = '" . $paramArray['userName'] . "'
+                                AND u.userPassword  = md5('" . $paramArray['userPassword'] . "')
                                 AND u.activeStatus  = 'yes'
                                 AND r.activeStatus  = 'yes'
                                 LIMIT 1";
 
-                break;
+				break;
 
 
 
-            case 'SystemLogin_doWriteUserLoginToDB_logUserLogin':
-                // Login - Vorgang in DB schreiben
+			case 'SystemLogin_doWriteUserLoginToDB_logUserLogin':
+				// Login - Vorgang in DB schreiben
 
-                $getQuery = "INSERT INTO log_user_login (userID,
+				$getQuery = "INSERT INTO log_user_login (userID,
 									REMOTE_ADDR,
 									HTTP_USER_AGENT,
 									HTTP_REFERER,
@@ -76,62 +79,63 @@ abstract class CoreQuery extends CoreDebug
 									REQUEST_URI,
 									SCRIPT_NAME,
 									PHP_SELF
-								  ) VALUES ('".$paramArray['userID']."',
-								  	'".$_SERVER['REMOTE_ADDR']."',
-								  	'".$_SERVER['HTTP_USER_AGENT']."',
-								  	'".$_SERVER['HTTP_REFERER']."',
-								  	'".$_SERVER['HTTP_COOKIE']."',
-								  	'".$_SERVER['REQUEST_URI']."',
-								  	'".$_SERVER['SCRIPT_NAME']."',
-								  	'".$_SERVER['PHP_SELF']."')";
+								  ) VALUES ('" . $paramArray['userID'] . "',
+								  	'" . $_SERVER['REMOTE_ADDR'] . "',
+								  	'" . $_SERVER['HTTP_USER_AGENT'] . "',
+								  	'" . $_SERVER['HTTP_REFERER'] . "',
+								  	'" . $_SERVER['HTTP_COOKIE'] . "',
+								  	'" . $_SERVER['REQUEST_URI'] . "',
+								  	'" . $_SERVER['SCRIPT_NAME'] . "',
+								  	'" . $_SERVER['PHP_SELF'] . "')";
 
-                break;
+				break;
 
 
 
-            case 'SystemLogin_getUserLastLogin_getUserLastLoginDate':
-                // letzte Login-Informationen eines Betnutzers ermitteln
+			case 'SystemLogin_getUserLastLogin_getUserLastLoginDate':
+				// letzte Login-Informationen eines Betnutzers ermitteln
 
-                $getQuery = "SELECT `lastLogin`
+				$getQuery = "SELECT `lastLogin`
 					          FROM log_user_login
-					          WHERE `userID` LIKE '".$paramArray['userID']."'
+					          WHERE `userID` LIKE '" . $paramArray['userID'] . "'
 					          ORDER BY log_user_loginID DESC
 					          LIMIT 0,2";
 
-                break;
+				break;
+
+
+
+			default:
+				break;
+		}
+
+		return $getQuery;
+
+	}   // END public function getQuery(...)
 
 
 
 
-            default:
-                break;
-        }
-
-        return $getQuery;
-
-    }   // END public function getQuery(...)
 
 
+	// Sonderzeichen der Eingabe vor der DB - Nutzung säubern
+	function getCleanDBInput($paramArray)
+	{
 
+		$retArray = array();
 
+		foreach($paramArray as $key => $value) {
 
-    // Sonderzeichen der Eingabe vor der DB - Nutzung säubern
-    function getCleanDBInput($paramArray)
-    {
-        $retArray = array();
+			$curCleanValue = mysqli_real_escape_string($this->getDBConnection(), $value);
 
-        foreach ($paramArray as $key=>$value) {
+			$curCleanValue = addcslashes($curCleanValue, '%_');
 
-            $curCleanValue = mysqli_real_escape_string($this->getDBConnection(),$value);
+			$retArray[$key] = $curCleanValue;
 
-            $curCleanValue = addcslashes($curCleanValue, '%_');
+		}
 
-            $retArray[$key] = $curCleanValue;
+		return $retArray;
 
-        }
-
-        return $retArray;
-
-    }   // END function getCleanDBInput($paramArray)
+	}   // END function getCleanDBInput($paramArray)
 
 }   // END abstract class CoreQuery extends CoreDebug
