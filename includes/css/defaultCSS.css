@@ -225,13 +225,3 @@ td.debugLinkList {
 
 .nobr	{ white-space:nowrap; }
 
-
-.bild1 {
-    background: url("/tkrz/includes/images/logo_tkrz.png") no-repeat, right, top;
-    width:100px;
-    height:50px;
-}
-
-.bild1:hover {
-    background: url("/tkrz/includes/images/one_px_line.jpg") no-repeat;
-}

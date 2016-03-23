@@ -27,14 +27,17 @@
 class SystemAction extends CoreExtends
 {
 
+	// Initialsiere Variable
 	public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
 	public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
 
 
 
 
+
+
 	// Klassen eigener Konstruktor
-	function __construct($flagUseGlobalCoreClassObj = TRUE)
+	function __construct($flagUseGlobalCoreClassObj = true)
 	{
 
 		parent::__construct();
@@ -54,22 +57,25 @@ class SystemAction extends CoreExtends
 	{
 
 		// Login - Status prüfen
-		$this->coreGlobal['Objects']['hLogin'] = new SystemLogin();
+		$hLogin = new SystemLogin();
 
-		$hLogin = $this->coreGlobal['Objects']['hLogin'];
+		$this->coreGlobal['Objects']['hLogin'] = $hLogin;
 
 		if (!$checkUserID = $hLogin->checkLoginStatus()) {
 
-			// Keine userID also noch kein eingeloggter User
+			// Keine userID also noch kein eingelogter User
 
 			// Login - Action aufgerufen? ---> Weiterleiten zur Login - Prüfung
 			if ((isset($this->coreGlobal['POST']['callAction'])) && ($this->coreGlobal['POST']['callAction'] == 'callLogin')) {
 
 				// Login - Daten ok! User wurde in der Login - Klasse eingeloggt!
 				if ($hLogin->callLogin()) {
+
 					// Setzte Default Frameset ... wird ggf. später überschrieben
 					$this->coreGlobal['Load']['Frameset'] = 'frsStandard.inc.php';
+
 					return true;
+
 				}
 			}
 
@@ -86,10 +92,11 @@ class SystemAction extends CoreExtends
 
 
 		// Logout aufgerufen
-		if ((isset($this->coreGlobal['GET']['callAction'])) && ($this->coreGlobal['GET']['callAction'] == 'callLogout')) {
+		if ($this->checkCallActionByGET('callLogout')) {
 			$hLogin->callLogout();
 
 			return true;
+
 		}
 
 
@@ -97,13 +104,66 @@ class SystemAction extends CoreExtends
 		// Setzte Default Frameset ... wird ggf. später überschrieben
 		$this->coreGlobal['Load']['Frameset'] = 'frsStandard.inc.php';
 
+
+
 		// TODO ... Action - Steuerung!!
 
+
+		// Datei Upload?
+		if ($this->checkCallActionByGET('fileUpload')) {
+
+			// Setzte zu ladendes Frameset
+			//$this->coreGlobal['Load']['Frameset'] = 'frsFileUpload.inc.php';
+
+			// Setze zu ladendes Body Frameset
+			$this->coreGlobal['Load']['FramesetBody'] = 'fileUpload/body/fileUploadBodySetFrame.inc.php';
+		}
 
 
 		return true;
 
 	}   // END private function loadOnInit()
+
+
+
+	// TODO Rechte - Klasse?
+	// Prüfung (true/false) auf eine callAction inkl. Rechte - Prüfung wenn nicht anders übergeben
+	private function checkCallActionByGET($checkCallActionValue, $noRightCheck = false)
+	{
+
+		if ((isset($this->coreGlobal['GET']['callAction'])) && ($this->coreGlobal['GET']['callAction'] == $checkCallActionValue)) {
+
+			// Rechteprüfung nicht gewünscht?
+			if ($noRightCheck == false)
+				return true;
+			else {
+				// Zur Rechteprüfung
+				if (!$this->checkRightForCallActionByUserID($checkCallActionValue))
+					return false;
+
+				return true;
+			}
+		}
+
+		return false;
+
+	}    // END private function checkCallActionByGET(...)
+
+
+
+	// TODO Rechte - Klasse?
+	// Prüft ob die übergebene callAction vom User aufgerufen werden darf.
+	private function checkRightForCallActionByUserID($checkCallActionValue)
+	{
+
+		// TODO hier muss der Rechte-Check eingebaut werden und bei fail eine Message gesetzt werden
+		if ($checkCallActionValue) {
+			// irgendwas in DB nachsehen
+		}
+
+		return true;
+
+	}    // END private function checkRightForCallActionByUserID(...)
 
 
 }   // END class SystemAction extends CoreExtends

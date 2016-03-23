@@ -33,7 +33,11 @@ include 'includes/html/standard/information/stdInformationSetFrame.inc.php';
 
 // TODO Dynamisches Laden der Body-Datei
 // Lade: Body - Datei !Kann durch die Action - Steuerung überschrieben werden
-include 'includes/html/standard/body/stdBodySetFrame.inc.php';
+if (isset($hCore->coreGlobal['Load']['FramesetBody'])) {
+	include 'includes/html/' . $hCore->coreGlobal['Load']['FramesetBody'];
+}
+else
+	include 'includes/html/standard/body/stdBodySetFrame.inc.php';
 
 
 

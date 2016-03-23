@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -25,194 +27,196 @@
 class SystemLogin extends CoreExtends
 {
 
-    public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
-    public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
+	// Initialsiere Variable
+	public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
+	public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
 
 
 
 
 
-    // Klassen eigener Konstruktor
-    function __construct($flagUseGlobalCoreClassObj=TRUE)
-    {
 
-        parent::__construct();
+	// Klassen eigener Konstruktor
+	function __construct($flagUseGlobalCoreClassObj = true)
+	{
 
-    }   // END function __construct(...)
+		parent::__construct();
 
+	}   // END function __construct(...)
 
 
 
 
-    // Prüft ob der User eingeloggt ist und gibt bei Erfolg die userID zuürck : false
-    function checkLoginStatus()
-    {
 
-        return $this->getLoginStatus();
 
-    }   // END function checkLoginStatus()
+	// Prüft ob der User eingeloggt ist und gibt bei Erfolg die userID zuürck : false
+	function checkLoginStatus()
+	{
 
+		return $this->getLoginStatus();
 
+	}   // END function checkLoginStatus()
 
 
 
-    // Bei eingeloggtem User gibt die Methode die Login - ID zurück : false
-    function getLoginStatus()
-    {
 
-        if ((isset($_SESSION['Login']['userID'])) && ($_SESSION['Login']['userID'] > 0))
-            return $_SESSION['Login']['userID'];
-        else
-            return false;
 
-    }   // END function getLoginStatus()
 
+	// Bei eingeloggtem User gibt die Methode die Login - ID zurück : false
+	function getLoginStatus()
+	{
 
+		if ((isset($_SESSION['Login']['userID'])) && ($_SESSION['Login']['userID'] > 0))
+			return $_SESSION['Login']['userID'];
+		else
+			return false;
 
+	}   // END function getLoginStatus()
 
 
-    // Login - Versuch des Users
-    function callLogin()
-    {
 
-        $userName       = $this->coreGlobal['POST']['userName'];
-        $userPassword   = $this->coreGlobal['POST']['userPassword'];
 
 
-        // Query zum Login ermitteln
-        $paramArray = array('userName'=>$userName, 'userPassword'=>$userPassword);
-        $query = $this->getQuery('SystemLogin_callLogin_tryUserLogin', $paramArray);
 
-        $result = $this->query($query);
+	// Login - Versuch des Users
+	function callLogin()
+	{
 
-        if ($this->num_rows($result) != 1) {
+		$userName = $this->coreGlobal['POST']['userName'];
+		$userPassword = $this->coreGlobal['POST']['userPassword'];
 
-            // Message für fehlerhaften Login
-            $this->addMessage('Fehlerhafter Login!', 'Benutzername und/oder Passwort Kombination nicht bekannt.', 'error', 'login');
 
-            $this->free_result($result);
+		// Query zum Login ermitteln
+		$paramArray = array('userName' => $userName, 'userPassword' => $userPassword);
+		$query = $this->getQuery('SystemLogin_callLogin_tryUserLogin', $paramArray);
 
-            return false;
-        }
+		$result = $this->query($query);
 
-        $row = $result->fetch_object();
+		if ($this->num_rows($result) != 1) {
 
-        $_SESSION['Login']['userID']        = $row->userID;
-        $_SESSION['Login']['userName']      = $row->userName;
-        $_SESSION['Login']['userRoleID']    = $row->userRoleID;
-        $_SESSION['Login']['userRoleName']  = $row->userRoleName;
+			// Message für fehlerhaften Login
+			$this->addMessage('Fehlerhafter Login!', 'Benutzername und/oder Passwort-Kombination unbekannt.', 'error', 'login');
 
-        $this->free_result($result);
+			$this->free_result($result);
 
+			return false;
+		}
 
-        // Vorgang des Logins speichern
-        $this->doWriteUserLoginToDB();
+		$row = $result->fetch_object();
 
+		$_SESSION['Login']['userID'] = $row->userID;
+		$_SESSION['Login']['userName'] = $row->userName;
+		$_SESSION['Login']['userRoleID'] = $row->userRoleID;
+		$_SESSION['Login']['userRoleName'] = $row->userRoleName;
 
-        // Letzen Login einlesen
-        $this->getUserLastLogin();
+		$this->free_result($result);
 
-        // Message für erfolgreicher Login
-        $this->addMessage('Erfolgreicher Login!', 'Herzlich willkommen '.$_SESSION['Login']['userName'].'!', 'ok', 'login');
 
-        return true;
+		// Vorgang des Logins speichern
+		$this->doWriteUserLoginToDB();
 
-    }   // END function callLogin()
 
+		// Letzen Login einlesen
+		$this->getUserLastLogin();
 
+		// Message für erfolgreicher Login
+		$this->addMessage('Erfolgreicher Login!', 'Herzlich willkommen ' . $_SESSION['Login']['userName'] . '!', 'ok', 'login');
 
+		return true;
 
+	}   // END function callLogin()
 
-    // Speichert den Login-Vorgang eines Benutzers
-    private function doWriteUserLoginToDB()
-    {
 
-        // Query zum Login ermitteln
-        $paramArray = array('userID'=>$_SESSION['Login']['userID']);
-        $query = $this->getQuery('SystemLogin_doWriteUserLoginToDB_logUserLogin', $paramArray);
 
-        $this->query($query);
 
-        return true;
 
-    }	// END private function doWriteUserLoginToDB()
 
+	// Speichert den Login-Vorgang eines Benutzers
+	private function doWriteUserLoginToDB()
+	{
 
+		// Query zum Login ermitteln
+		$paramArray = array('userID' => $_SESSION['Login']['userID']);
+		$query = $this->getQuery('SystemLogin_doWriteUserLoginToDB_logUserLogin', $paramArray);
 
+		$this->query($query);
 
+		return true;
 
-    // Liest letzte Login-Informationen eines Betnutzers
-    private function getUserLastLogin()
-    {
+	}    // END private function doWriteUserLoginToDB()
 
-        // Query ermitteln
-        $paramArray = array('userID'=>$_SESSION['Login']['userID']);
-        $query = $this->getQuery('SystemLogin_getUserLastLogin_getUserLastLoginDate', $paramArray);
 
-        // Führe Query aus
-        $result = $this->query($query);
 
-        if ($this->num_rows($result) >= 1) {
 
-            $bGotLast = false;
 
-            while($row = $result->fetch_object()){
 
-                if (!$bGotLast){
-                    // Speichere beide Info-Variable auf dateLastLogin
-                    // Im zweiten Durchlauf der Schleife ist dann alles richtig.
-                    // So fange ich ab, wenn der User sich zum ersten mal einlogt
+	// Liest letzte Login-Informationen eines Betnutzers
+	private function getUserLastLogin()
+	{
 
-                    $_SESSION['Login']['dateCurLogin']  = $row->lastLogin;
-                    $_SESSION['Login']['dateLastLogin'] = $row->lastLogin;
+		// Query ermitteln
+		$paramArray = array('userID' => $_SESSION['Login']['userID']);
+		$query = $this->getQuery('SystemLogin_getUserLastLogin_getUserLastLoginDate', $paramArray);
 
-                    $bGotLast = true;
-                }
-                else {
-                    $_SESSION['Login']['dateLastLogin'] = $row->lastLogin;
-                }
+		// Führe Query aus
+		$result = $this->query($query);
 
-            }
+		if ($this->num_rows($result) >= 1) {
 
-        }
-        else {
-            $this->free_result($result);
+			$bGotLast = false;
 
-            return true;
-        }
+			while ($row = $result->fetch_object()) {
 
-        $this->free_result($result);
+				if (!$bGotLast) {
+					// Speichere beide Info-Variable auf dateLastLogin
+					// Im zweiten Durchlauf der Schleife ist dann alles richtig.
+					// So fange ich ab, wenn der User sich zum ersten mal einlogt
 
-        return true;
+					$_SESSION['Login']['dateCurLogin'] = $row->lastLogin;
+					$_SESSION['Login']['dateLastLogin'] = $row->lastLogin;
 
-    }	// END private function getUserLastLogin()
+					$bGotLast = true;
+				} else
+					$_SESSION['Login']['dateLastLogin'] = $row->lastLogin;
 
+			}
 
+		} else {
+			$this->free_result($result);
 
+			return true;
+		}
 
+		$this->free_result($result);
 
-    // Logge User aus
-    function callLogout()
-    {
+		return true;
 
-        // Soll gleich wohin leiten?
-        $redirectTo = $_SESSION['Cfg']['Default']['WebsiteSettings']['ExternToHome'];
+	}    // END private function getUserLastLogin()
 
-        // Session - Save initial mit Array
-        $_SESSION = array();
 
-        // Session - loeschen
-        session_destroy();
 
-        // Header Redirect
-        header('Location: '.$redirectTo.'');
 
-        exit;
 
-    }   // END function callLogout()
 
+	// Logge User aus
+	function callLogout()
+	{
 
+		// Soll gleich wohin leiten?
+		$redirectTo = $_SESSION['Cfg']['Default']['WebsiteSettings']['ExternToHome'];
 
+		// Session - Save initial mit Array
+		$_SESSION = array();
+
+		// Session - loeschen
+		session_destroy();
+
+		// Header Redirect
+		header('Location: ' . $redirectTo . '');
+
+		exit;
+
+	}   // END function callLogout()
 
 
 }   // END class SystemLogin extends CoreExtends
