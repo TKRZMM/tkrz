@@ -6,7 +6,7 @@
  * Date: 18.02.2016
  * Time: 12:26
  */
-class Test extends CoreExtends
+class test extends CoreExtends
 {
 
     function helloWorld()
@@ -15,6 +15,21 @@ class Test extends CoreExtends
         echo "<pre>";
         print_r($this->coreGlobal);
         echo "</pre><br>";
+    }
+
+
+    function test()
+    {
+
+        $str1 = 'Hello Markus';
+        $str = '' . $str1 . '';
+
+        print ('' . $str . '');
+
+
+
+
+
     }
 }
 

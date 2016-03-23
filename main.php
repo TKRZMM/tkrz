@@ -11,7 +11,6 @@ session_start();
 
 
 
-
 // Lade: Klassen - Autoloader
 require_once 'includes/system/systemClassAutoLoad.inc.php';
 
@@ -28,7 +27,6 @@ $hAction = new SystemAction();
 
 // $hCore->addDebugMessage('Add aus index.php');
 //$hCore->simpleout('Hallo Markus');
-
 
 
 
