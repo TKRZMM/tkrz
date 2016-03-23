@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -25,119 +27,124 @@
 abstract class CoreDefaultConfig extends CoreSystemConfig
 {
 
-    // Config - Datein die geladen werden sollen
-    const FULLCFGFILEDEFAULT  = 'includes/configs/defaultConfig.inc.ini';
-    const FULLCFGFILEDATABASE = 'includes/configs/databaseConfig.inc.ini';
+	// Config - Datein die geladen werden sollen
+	const FULLCFGFILEDEFAULT = 'includes/configs/defaultConfig.inc.ini';
+	const FULLCFGFILEDATABASE = 'includes/configs/databaseConfig.inc.ini';
 
 
 
 
 
-    // Klassen eigener Konstruktor
-    function __construct()
-    {
 
-        parent::__construct();
+	// Klassen eigener Konstruktor
+	function __construct()
+	{
 
-    }   // END function __construct()
+		parent::__construct();
 
-
-
-
-
-    // Lade Config - Files
-    function loadDefaultConfigs()
-    {
-
-        // Datenbank Config - File einlesen
-        $this->loadSingleConfig(self::FULLCFGFILEDATABASE);
-
-        // Default Config - File einlesen
-        $this->loadSingleConfig(self::FULLCFGFILEDEFAULT);
-
-        // Config als geladen setzen
-        $this->coreGlobal['Flag']['Cfg']['Loaded']['Default'] = 'yes';
-
-    }   // END loadDefaultConfig()
+	}   // END function __construct()
 
 
 
 
 
-    // Lade Config - File
-    private function loadSingleConfig($curConfigFile)
-    {
 
-        if (!file_exists($curConfigFile))
-            $this->mySimpleout(1, $curConfigFile);
+	// Lade Config - Files
+	function loadDefaultConfigs()
+	{
 
+		// Datenbank Config - File einlesen
+		$this->loadSingleConfig(self::FULLCFGFILEDATABASE);
 
-        if (!$iniArray = @parse_ini_file($curConfigFile, TRUE))
-            $this->mySimpleout(2, $curConfigFile);
+		// Default Config - File einlesen
+		$this->loadSingleConfig(self::FULLCFGFILEDEFAULT);
 
+		// Config als geladen setzen
+		$this->coreGlobal['Flag']['Cfg']['Loaded']['Default'] = 'yes';
 
-        // Übergebe an Methode zur Session - Übergabe
-        $this->setDefaultConfig($iniArray);
-
-    }   // END function loadSingleConfig(...)
-
-
-
-
-
-    // Setzt die geladenen Config - Werte in der Session
-    private function setDefaultConfig($getConfigArray)
-    {
-
-        if (isset($_SESSION['Cfg']['Default']))
-            $_SESSION['Cfg']['Default'] = array_merge($_SESSION['Cfg']['Default'],$getConfigArray);
-        else
-            $_SESSION['Cfg']['Default'] = $getConfigArray;
-
-    }   // END private function setDefaultConfig(...)
+	}   // END loadDefaultConfig()
 
 
 
 
 
-    // Fehlermeldungen die nicht über die Message - Klasse abgefangen werden können
-    private function mySimpleout($getCaseNum, $addArg='')
-    {
 
-        header('Content-Type: text/html; charset=Utf-8');
-        print ("<pre>");
+	// Lade Config - File
+	private function loadSingleConfig($curConfigFile)
+	{
 
-        switch ($getCaseNum) {
-            case 1:
-                $message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-                $message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
-                $message .= "Fehlermeldung: <br>";
-                $message .= "Datei '".$addArg."' existiert nicht oder kann nicht gelesen werden!";
-
-                break;
+		if (!file_exists($curConfigFile))
+			$this->mySimpleout(1, $curConfigFile);
 
 
-            case 2:
-                $message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-                $message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
-                $message .= "Fehlermeldung: <br>";
-                $message .= "Datei '".$addArg."' Syntax error!";
-
-                break;
+		if (!$iniArray = @parse_ini_file($curConfigFile, true))
+			$this->mySimpleout(2, $curConfigFile);
 
 
-            default:
-                $message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-                $message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
-                $message .= "Fehlermeldung: <br>";
-                $message .= "Unbekannter Fehler bei Konfigurationsdatei: " . $addArg;
-        }
+		// Übergebe an Methode zur Session - Übergabe
+		$this->setDefaultConfig($iniArray);
 
-        print($message);
-        print ("</pre>");
-        exit;
+	}   // END function loadSingleConfig(...)
 
-    }
+
+
+
+
+
+	// Setzt die geladenen Config - Werte in der Session
+	private function setDefaultConfig($getConfigArray)
+	{
+
+		if (isset($_SESSION['Cfg']['Default']))
+			$_SESSION['Cfg']['Default'] = array_merge($_SESSION['Cfg']['Default'], $getConfigArray);
+		else
+			$_SESSION['Cfg']['Default'] = $getConfigArray;
+
+	}   // END private function setDefaultConfig(...)
+
+
+
+
+
+
+	// Fehlermeldungen die nicht über die Message - Klasse abgefangen werden können
+	private function mySimpleout($getCaseNum, $addArg = '')
+	{
+
+		header('Content-Type: text/html; charset=Utf-8');
+		print ("<pre>");
+
+		switch ($getCaseNum) {
+			case 1:
+				$message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
+				$message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
+				$message .= "Fehlermeldung: <br>";
+				$message .= "Datei '" . $addArg . "' existiert nicht oder kann nicht gelesen werden!";
+
+				break;
+
+
+			case 2:
+				$message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
+				$message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
+				$message .= "Fehlermeldung: <br>";
+				$message .= "Datei '" . $addArg . "' Syntax error!";
+
+				break;
+
+
+			default:
+				$message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
+				$message .= "Versuch Konfigurationsdatei einzulesen fehlgeschlagen!<br>";
+				$message .= "Fehlermeldung: <br>";
+				$message .= "Unbekannter Fehler bei Konfigurationsdatei: " . $addArg;
+		}
+
+		print($message);
+		print ("</pre>");
+		exit;
+
+	}
 
 
 }   // END abstract class CoreDefaultConfig extends CoreSystemConfig
