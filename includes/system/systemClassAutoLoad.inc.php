@@ -4,7 +4,12 @@
  * User: MMelching
  * Date: 18.02.2016
  * Time: 12:25
+ *
+ * @param $getContent
+ *
+ * @return mixed
  */
+
 
 
 // Fehlermeldungen die nicht über die Message - Klasse abgefangen werden können
@@ -12,32 +17,28 @@
  * @param $getCaseNum
  * @param string $addArg
  */
-function mySimpleout($getCaseNum, $addArg='')
+function mySimpleout($getCaseNum, $addArg = '')
 {
 
-    header('Content-Type: text/html; charset=Utf-8');
-    print ("<pre>");
+	header('Content-Type: text/html; charset=Utf-8');
+	print ("<pre>");
 
-    switch ($getCaseNum) {
-        case 1:
-            $message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-            $message .= "Versuch Klassen-Datei einzulesen fehlgeschlagen!<br>";
-            $message .= "Fehlermeldung: <br>";
-            $message .= "Datei für die angeforderte Klasse '".$addArg."' existiert nicht oder kann nicht gelesen werden!";
+	$message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>Versuch Klassen-Datei einzulesen fehlgeschlagen!<br>Fehlermeldung: <br>";
 
-            break;
+	switch ($getCaseNum) {
+		case 1:
+			$message .= "Datei für die angeforderte Klasse '" . $addArg . "' existiert nicht oder kann nicht gelesen werden!";
+
+			break;
 
 
-        default:
-            $message = "FEHLER -KRITISCH FÜHRT ZU EXIT-<br>";
-            $message .= "Versuch Klassen-Datei einzulesen fehlgeschlagen!<br>";
-            $message .= "Fehlermeldung: <br>";
-            $message .= "Unbekannter Fehler bei Klasse / Klassen-Datei: " . $addArg;
-    }
+		default:
+			$message .= "Unbekannter Fehler bei Klasse / Klassen-Datei: " . $addArg;
+	}
 
-    print($message);
-    print ("</pre>");
-    exit;
+	print($message);
+	print ("</pre>");
+	exit;
 
 }   // END function mySimpleout(...)
 
@@ -45,49 +46,44 @@ function mySimpleout($getCaseNum, $addArg='')
 
 
 
-// Liefert den Pfad zu einer Klasse via preg_match
-function getClassDir ($searchForClass, $matchPath)
+
+
+
+// Ersetze Slashe vor-zurück
+function revertSlashes($getContent)
 {
-    $search = '/(.*)('.$searchForClass.')$/';
-    $pattern = $matchPath;
-    preg_match($search, $pattern, $matches);
 
-    return $matches[1];
-}   // END function getClassDir (...)
+	// Erstetze / durch \
+	$returnValue = str_replace("\\", '/', $getContent);
 
+	return $returnValue;
 
-
+}   // END function revertSlashes($getContent)
 
 
-// INITIAL Liefert den Pfad zu einer Klasse
-function findClassDir ($searchForClass)
+
+
+
+
+
+
+// Prüft ob "classes" mit im Pfad ist und gibt true oder false zurück
+function checkForClassesDir($class)
 {
-    $path[] = 'includes/classes/*';
+	if (!preg_match('/classes\/(.+)/',$class, $mathes))
+		return false;
 
-    while(count($path) != 0)
-    {
-        $shiftedPath = array_shift($path);
+	return true;
 
-        foreach(glob($shiftedPath) as $item)
-        {
-            if (is_dir($item))
-                $path[] = $item . '/*';
+}	// END function checkForClassesDir(...)
 
-            elseif (is_file($item))
-            {
-                // Datei entspricht der gesuchten Klasse?
-                if (basename($item) == $searchForClass)
-                {
-                    return getClassDir($searchForClass, $item);
-                }
-            }
-        }
-    }
 
-    // Wenn wir bis hier kommen, gibt es die Klasse / Klassen-Datei nicht!
-    mySimpleout(1,$searchForClass);
-    exit;
-}   // END function findClassDir (...)
+
+
+
+
+
+
 
 
 
@@ -98,21 +94,34 @@ function findClassDir ($searchForClass)
 // PHP Klassen Auto-Loader (REQUIRE PHP Version >= 5.3.0)
 spl_autoload_register(
 
-    function ($class)
-    {
-        // Pfad zur gewünschten Klasse finden
-        $classIncludePath = findClassDir($class . '.class.php');
+	function ($class) {
 
-        // Gewünschte Klasse laden
-        include $classIncludePath . $class . '.class.php';
-    }
+		$class = revertSlashes($class);
+
+		$class .= '.class.php';
+
+		if (!checkForClassesDir($class))
+			$fullPath = 'includes/classes/' . $class;
+		else
+			$fullPath = 'includes/' . $class;
+
+
+		if (file_exists($fullPath)){
+			include $fullPath;
+		}
+		else {
+			// Wenn wir bis hier kommen, gibt es die Klasse / Klassen-Datei nicht!
+			mySimpleout(1, $fullPath);
+			exit;
+		}
+
+	}
 
 );
 
 
 
-
-
 // Initialisiere Base->Core - Klassen - Objekt
-$hCore = new CoreExtends();
+//$hCore = new CoreExtends();
+$hCore = new classes\core\CoreExtends();
 

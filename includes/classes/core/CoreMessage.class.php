@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,11 +21,18 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\core;
+
+
 abstract class CoreMessage extends CoreDefaultConfig
 {
 
 	// Initialsiere Variable
-	public $messages;	// Globale Message Variable für alle weiteren Klassen
+	public $messages;    // Globale Message Variable für alle weiteren Klassen
+
+
+
+
 
 
 
@@ -48,6 +52,10 @@ abstract class CoreMessage extends CoreDefaultConfig
 
 
 
+
+
+
+
 	// Fügt einen Message - Datensatz hinzu, der ausgegeben werden soll
 	function addMessage($headline = null, $message, $type = null, $code = null, $explain = null)
 	{
@@ -59,6 +67,10 @@ abstract class CoreMessage extends CoreDefaultConfig
 		$this->coreMessages['explain'][] = $explain;    // z.B. "Bitte überprüfen Sie ihr Zugangsdaten".
 
 	}    // END function addMessage(...)
+
+
+
+
 
 
 

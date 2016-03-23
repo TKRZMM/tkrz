@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: MMelching
- * Date: 18.02.2016
- * Time: 11:53
+ * Date: 23.03.2016
+ * Time: 16:49
  *
  * Vererbungsfolge der (Basis) - Klassen:
  *  Abstract CoreBase                                               Adam/Eva
@@ -13,66 +13,45 @@
  *                  '-> Abstract CoreDebug                          Child
  *                      '-> Abstract CoreQuery                      Child
  *                          '-> Abstract CoreMySQLi                 Child
- * ==>                          '-> CoreObject                      Child
+ *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
+ * ==>                                  '-> ConcreteClass1          CoreExtends - Child - AnyCreature
  *                                      |-> ...                     CoreExtends - Child - AnyCreature
  *                                      |-> ...                     CoreExtends - Child - AnyCreature
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
-namespace classes\core;
+namespace fileUpload;
 
 
-class CoreObject extends CoreMySQLi
+use classes\core\CoreExtends;
+
+
+class FileUpload extends CoreExtends
 {
 
 	// Initialsiere Variable
-	protected static $obj = null;
-
-
-
-
-
-
-
-
+	public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
+	public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
 
 
 	// Klassen eigener Konstruktor
-	function __construct()
+	function __construct($flagUseGlobalCoreClassObj = true)
 	{
 
 		parent::__construct();
 
-	}   // END function __construct()
+		// Initial Aufruf für generelle Überprüfungen (Login usw.)
+		// $this->loadOnInit();
+
+	}   // END function __construct(...)
 
 
 
 
-
-
-
-
-
-
-	// Vor Clone-Funktion schützen
-	protected function __clone()
+	function callMe()
 	{
-	}    // END protected function __clone()
+		$this->addMessage('FileUpload Headline', 'Hier die Message', 'info', 'FileUpload', 'Kannst nix besser machen');
+	}
 
-
-
-	// Stellt sicher, dass nur eine Instanz der Klasse erzeugt wird...
-	// Aufruf dann über {klassenname}::getSigleton() ... gibt das Objekt zurück
-	public static function getSingleton()
-	{
-
-		if (null === self::$obj)
-			self::$obj = new self;
-
-		return self::$obj;
-
-	}   // END public static function getSingleton()
-
-}   // END class CoreObject extends CoreMySQLi
+}   // END class FileUpload

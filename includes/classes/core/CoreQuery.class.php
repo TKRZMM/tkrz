@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,6 +21,9 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\core;
+
+
 abstract class CoreQuery extends CoreDebug
 {
 
@@ -34,6 +34,10 @@ abstract class CoreQuery extends CoreDebug
 		parent::__construct();
 
 	}   // END function __construct()
+
+
+
+
 
 
 
@@ -118,6 +122,10 @@ abstract class CoreQuery extends CoreDebug
 
 
 
+
+
+
+
 	// Sonderzeichen der Eingabe vor der DB - Nutzung säubern
 	function getCleanDBInput($paramArray)
 	{
@@ -126,7 +134,10 @@ abstract class CoreQuery extends CoreDebug
 
 		foreach($paramArray as $key => $value) {
 
-			$curCleanValue = mysqli_real_escape_string($this->getDBConnection(), $value);
+			// TODO Sicherheit ... brauch ich ysqli_real_escape_string für Eingaben?
+			// Habe an dieser STelle die Methode getDBConnection() nicht!
+			// $curCleanValue = mysqli_real_escape_string($this->getDBConnection(), $value);
+			$curCleanValue = $value;
 
 			$curCleanValue = addcslashes($curCleanValue, '%_');
 

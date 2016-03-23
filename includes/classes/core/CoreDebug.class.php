@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -22,38 +21,15 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\core;
+
+
 abstract class CoreDebug extends CoreMessage
 {
 
-    // Initialsiere Variable
-    public $messagesDebug;      // Globale DebugMessage Variable für alle weiteren Klassen
-    public $messagesSimpleout;  // Globale SimpleoutMessage Variable für alle weiteren Klassen
-
-
-    // Klassen eigener Konstruktor
-    function __construct()
-    {
-
-        parent::__construct();
-
-    }   // END function __construct()
-
-
-
-
-
-
-    // Methode fügt eine Debugausgabe an eventuell schon vohandene Debugausgaben an.
-    function addDebugMessage($var, $setExtraKey=false)
-    {
-        $this->messagesDebug = $var;
-
-        if ($setExtraKey)
-            $this->coreGlobal['messagesDebug'][][$setExtraKey] = $this->messagesDebug;
-        else
-            $this->coreGlobal['messagesDebug'][] = $this->messagesDebug;
-
-    }   // END function addDebugMessage(...)
+	// Initialsiere Variable
+	public $messagesDebug;      // Globale DebugMessage Variable für alle weiteren Klassen
+	public $messagesSimpleout;  // Globale SimpleoutMessage Variable für alle weiteren Klassen
 
 
 
@@ -61,16 +37,59 @@ abstract class CoreDebug extends CoreMessage
 
 
 
-    // Methode fügt eine Debugausgabe an eventuell schon vohandene Simpleout Debugausgaben an.
-    function simpleout($var, $setExtraKey=false)
-    {
-        $this->messagesSimpleout = $var;
 
-        if ($setExtraKey)
-            $this->coreGlobal['messagesSimpleout'][][$setExtraKey] = $this->messagesSimpleout;
-        else
-            $this->coreGlobal['messagesSimpleout'][] = $this->messagesSimpleout;
-    }
+
+
+	// Klassen eigener Konstruktor
+	function __construct()
+	{
+
+		parent::__construct();
+
+	}   // END function __construct()
+
+
+
+
+
+
+
+
+
+
+	// Methode fügt eine Debugausgabe an eventuell schon vohandene Debugausgaben an.
+	function addDebugMessage($var, $setExtraKey = false)
+	{
+
+		$this->messagesDebug = $var;
+
+		if ($setExtraKey)
+			$this->coreGlobal['messagesDebug'][][$setExtraKey] = $this->messagesDebug;
+		else
+			$this->coreGlobal['messagesDebug'][] = $this->messagesDebug;
+
+	}   // END function addDebugMessage(...)
+
+
+
+
+
+
+
+
+
+
+	// Methode fügt eine Debugausgabe an eventuell schon vohandene Simpleout Debugausgaben an.
+	function simpleout($var, $setExtraKey = false)
+	{
+
+		$this->messagesSimpleout = $var;
+
+		if ($setExtraKey)
+			$this->coreGlobal['messagesSimpleout'][][$setExtraKey] = $this->messagesSimpleout;
+		else
+			$this->coreGlobal['messagesSimpleout'][] = $this->messagesSimpleout;
+	}
 
 
 }   // END abstract class CoreDebug extends CoreMessage

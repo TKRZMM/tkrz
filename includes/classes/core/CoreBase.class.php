@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,6 +21,9 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\core;
+
+
 abstract class CoreBase
 {
 
@@ -37,6 +37,10 @@ abstract class CoreBase
 	// Definiere das default Frameset nach dem Login... es wird gealden wenn der User eingeloggt ist, aber keine
 	// weiteres Frameset gesetzt wurde
 	const HOMEFRAMESET = 'frsStandard.inc.php';        // Frameset nach dem Login
+
+
+
+
 
 
 
@@ -57,6 +61,10 @@ abstract class CoreBase
 
 
 
+
+
+
+
 	// Gibt das aktuell zu ladende Frameset zurück
 	function getFrameset()
 	{
@@ -69,6 +77,10 @@ abstract class CoreBase
 		return self::LOGINFRAMESET;
 
 	}    // END function getFrameset()
+
+
+
+
 
 
 
@@ -97,6 +109,10 @@ abstract class CoreBase
 
 
 
+
+
+
+
 	// "Cleanup" Säubert $_GET und $_POST - Variable
 	private function cleanGetPost($arg)
 	{
@@ -115,6 +131,10 @@ abstract class CoreBase
 			return $this->checkAddslashes($arg);
 
 	}    // END function cleanGetPost(...)
+
+
+
+
 
 
 

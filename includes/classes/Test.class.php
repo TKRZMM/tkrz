@@ -6,6 +6,11 @@
  * Date: 18.02.2016
  * Time: 12:26
  */
+
+namespace classes;
+
+use classes\core\CoreExtends;
+
 class test extends CoreExtends
 {
 

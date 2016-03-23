@@ -20,7 +20,7 @@ require_once 'includes/system/systemClassAutoLoad.inc.php';
 
 
 // Lade: Action Steuerung via Action - KLasse
-$hAction = new SystemAction();
+$hAction = new classes\system\SystemAction();
 
 
 

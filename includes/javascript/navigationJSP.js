@@ -9,13 +9,13 @@ function showInformation(mainMenu,subMenu,selection)
 
     // mainMenu unterscheiden
     if (mainMenu == 'Datei - Upload'){
-        newContent = '<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-upload"></i>&nbsp;&nbsp;';
+        newContent = '<i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;HOME&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-upload"></i>&nbsp;&nbsp;';
     }
     else if (mainMenu == 'Datenbank - Import'){
-        newContent = '<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-in fa-lg"></i>&nbsp;&nbsp;';
+        newContent = '<i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;HOME&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-in fa-lg"></i>&nbsp;&nbsp;';
     }
     else if (mainMenu == 'Datenbank - Export'){
-        newContent = '<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-out fa-lg"></i>&nbsp;&nbsp;';
+        newContent = '<i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;HOME&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-sign-out fa-lg"></i>&nbsp;&nbsp;';
     }
     if (mainMenu)
         newContent += mainMenu + '&nbsp;&nbsp;&nbsp;&nbsp;';

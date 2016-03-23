@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,11 +21,18 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\core;
+
+
 abstract class CoreSystemConfig extends CoreBase
 {
 
 	// Config - Datei die geladen werden sollen
 	const FULLCFGFILESYSTEM = 'includes/configs/systemConfig.inc.ini';
+
+
+
+
 
 
 
@@ -48,6 +52,10 @@ abstract class CoreSystemConfig extends CoreBase
 
 
 
+
+
+
+
 	// Lade Config - File
 	function loadSystemConfigs()
 	{
@@ -59,6 +67,10 @@ abstract class CoreSystemConfig extends CoreBase
 		$this->coreGlobal['Flag']['Cfg']['Loaded']['System'] = 'yes';
 
 	}   // END loadSystemConfigs()
+
+
+
+
 
 
 
@@ -87,6 +99,10 @@ abstract class CoreSystemConfig extends CoreBase
 
 
 
+
+
+
+
 	// Setzt die geladenen Config - Werte in der Session
 	private function setSystemConfig($getConfigArray)
 	{
@@ -97,6 +113,10 @@ abstract class CoreSystemConfig extends CoreBase
 			$_SESSION['Cfg']['System'] = $getConfigArray;
 
 	}   // END private function setSystemConfig(...)
+
+
+
+
 
 
 

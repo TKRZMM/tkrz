@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,6 +21,12 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\core;
+
+
+use mysqli;
+
+
 abstract class CoreMySQLi extends CoreQuery
 {
 
@@ -38,6 +41,10 @@ abstract class CoreMySQLi extends CoreQuery
 	private $DBNAME = '';        // (Default) Datenbank Name
 	private $DBUSER = '';        // Datenbank Benutzer
 	private $DBPASSWORD = '';        // Datenbank Passwort
+
+
+
+
 
 
 
@@ -63,6 +70,10 @@ abstract class CoreMySQLi extends CoreQuery
 
 
 
+
+
+
+
 	// Placebo - Methode / Funktion
 	function doNothing()
 	{
@@ -70,6 +81,10 @@ abstract class CoreMySQLi extends CoreQuery
 		RETURN true;
 
 	}   // END function doNothing()
+
+
+
+
 
 
 
@@ -122,6 +137,10 @@ abstract class CoreMySQLi extends CoreQuery
 
 
 
+
+
+
+
 	// Liefert den aktuellen Objekt - Handler für die DB - Verbindung
 	function getDBConnection()
 	{
@@ -132,6 +151,10 @@ abstract class CoreMySQLi extends CoreQuery
 			return false;
 
 	}   // END function getDBConnection()
+
+
+
+
 
 
 
@@ -155,7 +178,9 @@ abstract class CoreMySQLi extends CoreQuery
 
 
 		// Wurde Autoincrement hochgezählt? Wenn ja, letzte ID speichern
+		/** @noinspection PhpUndefinedFieldInspection */
 		if ($mysqli->insert_id > 0)
+			/** @noinspection PhpUndefinedFieldInspection */
 			$this->lastInsertID = $mysqli->insert_id;
 
 
@@ -172,6 +197,10 @@ abstract class CoreMySQLi extends CoreQuery
 
 
 
+
+
+
+
 	// MySQLi Funktion mysql_num_rows
 	public function num_rows($result = null)
 	{
@@ -181,11 +210,16 @@ abstract class CoreMySQLi extends CoreQuery
 		else
 			$inc = $result;
 
+		/** @noinspection PhpUndefinedFieldInspection */
 		$num_rows = $inc->num_rows;
 
 		return ($num_rows);
 
 	}    // END public function num_result(...)
+
+
+
+
 
 
 

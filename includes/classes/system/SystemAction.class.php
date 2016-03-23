@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,12 +21,23 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\system;
+
+
+use classes\core\CoreExtends;
+use fileUpload\FileUpload;
+
+
 class SystemAction extends CoreExtends
 {
 
 	// Initialsiere Variable
 	public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
 	public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
+
+
+
+
 
 
 
@@ -46,6 +54,10 @@ class SystemAction extends CoreExtends
 		$this->loadOnInit();
 
 	}   // END function __construct(...)
+
+
+
+
 
 
 
@@ -117,6 +129,10 @@ class SystemAction extends CoreExtends
 
 			// Setze zu ladendes Body Frameset
 			$this->coreGlobal['Load']['FramesetBody'] = 'fileUpload/body/fileUploadBodySetFrame.inc.php';
+
+			// TODO fileUpload - Klasse laden
+			$curObj = new FileUpload();
+			$curObj->callMe();
 		}
 
 
@@ -126,10 +142,18 @@ class SystemAction extends CoreExtends
 
 
 
-	// TODO Rechte - Klasse?
+
+
+
+
+
+
+
 	// Prüfung (true/false) auf eine callAction inkl. Rechte - Prüfung wenn nicht anders übergeben
 	private function checkCallActionByGET($checkCallActionValue, $noRightCheck = false)
 	{
+
+		// TODO Rechte - Klasse?
 
 		if ((isset($this->coreGlobal['GET']['callAction'])) && ($this->coreGlobal['GET']['callAction'] == $checkCallActionValue)) {
 
@@ -151,10 +175,18 @@ class SystemAction extends CoreExtends
 
 
 
-	// TODO Rechte - Klasse?
+
+
+
+
+
+
+
 	// Prüft ob die übergebene callAction vom User aufgerufen werden darf.
 	private function checkRightForCallActionByUserID($checkCallActionValue)
 	{
+
+		// TODO Rechte - Klasse?
 
 		// TODO hier muss der Rechte-Check eingebaut werden und bei fail eine Message gesetzt werden
 		if ($checkCallActionValue) {

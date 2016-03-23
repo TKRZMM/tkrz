@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,12 +21,20 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\core;
+
+
 abstract class CoreDefaultConfig extends CoreSystemConfig
 {
 
 	// Config - Datein die geladen werden sollen
 	const FULLCFGFILEDEFAULT = 'includes/configs/defaultConfig.inc.ini';
+
 	const FULLCFGFILEDATABASE = 'includes/configs/databaseConfig.inc.ini';
+
+
+
+
 
 
 
@@ -43,6 +48,10 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
 		parent::__construct();
 
 	}   // END function __construct()
+
+
+
+
 
 
 
@@ -63,6 +72,10 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
 		$this->coreGlobal['Flag']['Cfg']['Loaded']['Default'] = 'yes';
 
 	}   // END loadDefaultConfigs()
+
+
+
+
 
 
 
@@ -91,6 +104,10 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
 
 
 
+
+
+
+
 	// Setzt die geladenen Config - Werte in der Session
 	private function setDefaultConfig($getConfigArray)
 	{
@@ -101,6 +118,10 @@ abstract class CoreDefaultConfig extends CoreSystemConfig
 			$_SESSION['Cfg']['Default'] = $getConfigArray;
 
 	}   // END private function setDefaultConfig(...)
+
+
+
+
 
 
 

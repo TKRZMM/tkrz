@@ -6,6 +6,16 @@
  * Time: 11:59
  */
 ?>
-<a href="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>home"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;HOME</a>
+<div id="infoField" class="infoOnHoverMenue"></div>
 
-<div id="infoField" style="position: absolute; top: 5px; left: 70px;"></div>
+
+<div id="infoFieldClicked" class="infoOnHoverMenueClicked">
+
+
+	Centron&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-left fa-lg"></i>&nbsp;&nbsp;&nbsp;
+	Stammdaten&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-left fa-lg"></i>&nbsp;&nbsp;&nbsp;
+	Datei Upload&nbsp;&nbsp;&nbsp;<i class="fa fa-upload"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-left fa-lg"></i>&nbsp;&nbsp;&nbsp;
+	<a href="<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>home">HOME&nbsp;&nbsp;<i class="fa fa-home fa-lg"></i></a>
+
+</div>
+

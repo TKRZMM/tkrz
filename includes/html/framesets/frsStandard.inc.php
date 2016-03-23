@@ -12,14 +12,18 @@ include 'includes/html/standard/head/stdHeadSetFrame.inc.php';
 
 
 
-
-
 // TODO Dynamisches Laden der Debug-Optionen
 // Lade: DebugOptionen - Datei !Kann durch die Action - Steuerung überschrieben werden
 include 'includes/html/debug/DebugOptionsSetFrame.inc.php';
 
 
 
+// TODO ... Prüfen ob Frameset-Datei existiert
+// Lade: Body - Datei! Kann durch die Action - Steuerung überschrieben werden
+if (isset($hCore->coreGlobal['Load']['FramesetBody']))
+	include 'includes/html/' . $hCore->coreGlobal['Load']['FramesetBody'];    // Aufruf durch Action - Steuerung
+else
+	include 'includes/html/standard/body/stdBodySetFrame.inc.php';            // Default
 
 
 
@@ -29,25 +33,9 @@ include 'includes/html/standard/information/stdInformationSetFrame.inc.php';
 
 
 
-
-
-// TODO Dynamisches Laden der Body-Datei
-// Lade: Body - Datei !Kann durch die Action - Steuerung überschrieben werden
-if (isset($hCore->coreGlobal['Load']['FramesetBody'])) {
-	include 'includes/html/' . $hCore->coreGlobal['Load']['FramesetBody'];
-}
-else
-	include 'includes/html/standard/body/stdBodySetFrame.inc.php';
-
-
-
-
-
 // TODO Dynamisches Laden der Navigations-Datei
 // Lade: Navigation - Datei !Kann durch die Action - Steuerung überschrieben werden
 include 'includes/html/standard/navigation/stdNavigationSetFrame.inc.php';
-
-
 
 
 

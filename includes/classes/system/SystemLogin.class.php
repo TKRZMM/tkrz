@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Created by PhpStorm.
  * User: MMelching
@@ -24,12 +21,22 @@
  *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
  *
  */
+namespace classes\system;
+
+
+use classes\core\CoreExtends;
+
+
 class SystemLogin extends CoreExtends
 {
 
 	// Initialsiere Variable
 	public $myDynObj;       // Objekt Handler aus dem Core - Klassen - System
 	public $coreGlobal;     // Kopiere globale Variable aus der Start-Klasse
+
+
+
+
 
 
 
@@ -49,6 +56,10 @@ class SystemLogin extends CoreExtends
 
 
 
+
+
+
+
 	// Prüft ob der User eingeloggt ist und gibt bei Erfolg die userID zuürck : false
 	function checkLoginStatus()
 	{
@@ -56,6 +67,10 @@ class SystemLogin extends CoreExtends
 		return $this->getLoginStatus();
 
 	}   // END function checkLoginStatus()
+
+
+
+
 
 
 
@@ -72,6 +87,10 @@ class SystemLogin extends CoreExtends
 			return false;
 
 	}   // END function getLoginStatus()
+
+
+
+
 
 
 
@@ -131,6 +150,10 @@ class SystemLogin extends CoreExtends
 
 
 
+
+
+
+
 	// Speichert den Login-Vorgang eines Benutzers
 	private function doWriteUserLoginToDB()
 	{
@@ -144,6 +167,10 @@ class SystemLogin extends CoreExtends
 		return true;
 
 	}    // END private function doWriteUserLoginToDB()
+
+
+
+
 
 
 
@@ -192,6 +219,10 @@ class SystemLogin extends CoreExtends
 		return true;
 
 	}    // END private function getUserLastLogin()
+
+
+
+
 
 
 
