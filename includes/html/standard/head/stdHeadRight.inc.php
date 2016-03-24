@@ -29,7 +29,7 @@
 
                 <?php
 
-                print ('<tr><td colspan="2"><a href="'.$_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'].'callLogout"><i class="fa fa-power-off"></i>&nbsp;Logout&nbsp;</a></td></tr>');
+                print ('<tr><td colspan="2"><a href="'.$_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'].'/callLogout"><i class="fa fa-power-off"></i>&nbsp;Logout&nbsp;</a></td></tr>');
 
                 ?>
             </table>

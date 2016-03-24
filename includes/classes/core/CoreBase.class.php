@@ -59,6 +59,20 @@ abstract class CoreBase
 
 
 
+	// Gibt den Inhalt von globalCore[GET oder POST][xxxAction] zurück
+	function getActionAsString($actionType)
+	{
+
+		if (isset($this->coreGlobal['GET'][$actionType]))
+			return $this->coreGlobal['GET'][$actionType];
+
+		elseif (isset($this->coreGlobal['POST'][$actionType]))
+			return $this->coreGlobal['POST'][$actionType];
+
+		else
+			return null;
+
+	}	// END function getCallActionAsString()
 
 
 
@@ -77,6 +91,20 @@ abstract class CoreBase
 		return self::LOGINFRAMESET;
 
 	}    // END function getFrameset()
+
+
+
+
+
+
+
+	// Gibt eine formatierte Nummer mit führenden Nullen gewünscht zurück
+	function getFormatedNumberWithLeadingNulls($getNumber, $maxNumbers)
+	{
+
+		return sprintf("%'.0".$maxNumbers."d", $getNumber);
+
+	}	// END function getFormatedNumberWithLeadingNulls(...)
 
 
 
@@ -127,7 +155,8 @@ abstract class CoreBase
 
 			return $retArray;
 
-		} else
+		}
+		else
 			return $this->checkAddslashes($arg);
 
 	}    // END function cleanGetPost(...)
@@ -151,7 +180,7 @@ abstract class CoreBase
 		else
 			return $arg;
 
-	}    // END function checkAddslashes(...){
+	}    // END function checkAddslashes(...)
 
 
 }   // END class CoreBase

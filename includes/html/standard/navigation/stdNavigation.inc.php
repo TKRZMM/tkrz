@@ -36,7 +36,7 @@
         <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datei - Upload','Stammdaten','Centron')" onmouseout="clearInformation()">
             <i class="fa fa-angle-double-right fa-lg"></i>
         </td>
-        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>fileUpload/baseData/Centron'" onmouseover="showInformation('Datei - Upload','Stammdaten','Centron')" onmouseout="clearInformation()">
+        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/fileUpload/baseData/Centron'" onmouseover="showInformation('Datei - Upload','Stammdaten','Centron')" onmouseout="clearInformation()">
             Centron
         </td>
     </tr>
@@ -70,7 +70,7 @@
         <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datei - Upload','Buchungssatz','Centron')" onmouseout="clearInformation()">
             <i class="fa fa-angle-double-right fa-lg"></i>
         </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datei - Upload','Buchungssatz','Centron')" onmouseout="clearInformation()">
+        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/fileUpload/bookingData/Centron'" onmouseover="showInformation('Datei - Upload','Buchungssatz','Centron')" onmouseout="clearInformation()">
             Centron
         </td>
     </tr>

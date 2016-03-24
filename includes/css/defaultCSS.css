@@ -121,6 +121,18 @@ table.infoMessage {
     padding-left: 30px;
     border-collapse: separate;
 }
+table.formBackground {
+    border-radius: 0.5em 0.5em 0.5em;
+    border: 1px solid;
+    padding: 10px;
+}
+table.formBackground {
+    /* für IE */
+    background: #ced8dd;
+    border-color: #8a9da8;
+    padding-left: 30px;
+    border-collapse: separate;
+}
 
 td.debugLinkList {
     padding: 5px;
@@ -161,16 +173,21 @@ td.debugLinkList {
 .borderGreen{
     border: 1px solid rgb(122, 167, 170);
 }
-.borerGreenShadow{
+.borderGreenShadow {
     border-right: 1px solid rgb(122, 167, 170);
     border-bottom: 1px solid rgb(122, 167, 170);
 }
 
 
-.bgwhite{
+.bgMessageStandard {
     background-color: rgb(216, 226, 231);
 }
-
+.bgMessageError{
+    background-color: rgb(231, 90, 83);
+}
+.bgMessageDone{
+    background-color: rgb(179, 231, 124);
+}
 
 
 /* AUSRICHTUNGEN */

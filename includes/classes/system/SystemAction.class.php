@@ -104,7 +104,8 @@ class SystemAction extends CoreExtends
 
 
 		// Logout aufgerufen
-		if ($this->checkCallActionByGET('callLogout')) {
+		if ($this->checkCallActionByMethodType('GET', 'callLogout')) {
+
 			$hLogin->callLogout();
 
 			return true;
@@ -118,22 +119,23 @@ class SystemAction extends CoreExtends
 
 
 
-		// TODO ... Action - Steuerung!!
+		//////////////////////////////// Ab hier ist die Action - Steuerung aktive ////////////////////////////////
 
 
 		// Datei Upload?
-		if ($this->checkCallActionByGET('fileUpload')) {
+		if ($this->checkCallActionByAnyMethod('fileUpload')) {
 
-			// Setzte zu ladendes Frameset
-			//$this->coreGlobal['Load']['Frameset'] = 'frsFileUpload.inc.php';
+			// Lade FileUpload - Klasse
+			$objFileUpload = new FileUpload();
 
-			// Setze zu ladendes Body Frameset
-			$this->coreGlobal['Load']['FramesetBody'] = 'fileUpload/body/fileUploadBodySetFrame.inc.php';
+			// Übergebe an Initial-Methode der FileUpload - Klasse
+			$objFileUpload->initialFileUpload();
 
-			// TODO fileUpload - Klasse laden
-			$curObj = new FileUpload();
-			$curObj->callMe();
-		}
+			// Keine weiteren Prüfungen in der Action an dieser Stelle
+			return true;
+
+		}    // END // Datei Upload?
+
 
 
 		return true;
@@ -149,13 +151,39 @@ class SystemAction extends CoreExtends
 
 
 
-	// Prüfung (true/false) auf eine callAction inkl. Rechte - Prüfung wenn nicht anders übergeben
-	private function checkCallActionByGET($checkCallActionValue, $noRightCheck = false)
+	// Prüfung GET und POST (true/false) auf eine callAction inkl. Rechte - Prüfung wenn nicht anders übergeben
+	private function checkCallActionByAnyMethod($checkCallActionValue, $noRightCheck = false)
+	{
+
+		// Prüfe zunächste auf GET
+		if ($this->checkCallActionByMethodType('GET', $checkCallActionValue, $noRightCheck))
+			return true;
+
+		// Wenn noch nicht ok, prüfe ich jetzt auf POST
+		if ($this->checkCallActionByMethodType('POST', $checkCallActionValue, $noRightCheck))
+			return true;
+
+		// Keine der Methoden liefert true... also gebe ich auch false zurück
+		return false;
+
+	}    // END private function checkCallActionByAnyMethod(...)
+
+
+
+
+
+
+
+
+
+
+	// Prüfung GET oder POST (true/false) auf eine callAction inkl. Rechte - Prüfung wenn nicht anders übergeben
+	private function checkCallActionByMethodType($methodType, $checkCallActionValue, $noRightCheck = false)
 	{
 
 		// TODO Rechte - Klasse?
 
-		if ((isset($this->coreGlobal['GET']['callAction'])) && ($this->coreGlobal['GET']['callAction'] == $checkCallActionValue)) {
+		if ((isset($this->coreGlobal[$methodType]['callAction'])) && ($this->coreGlobal[$methodType]['callAction'] == $checkCallActionValue)) {
 
 			// Rechteprüfung nicht gewünscht?
 			if ($noRightCheck == false)

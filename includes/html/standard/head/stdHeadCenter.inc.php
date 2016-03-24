@@ -5,121 +5,131 @@
  * Date: 19.02.2016
  * Time: 09:14
  */
-if (isset($hCore->coreMessages['headline'])){
+if (isset($hCore->coreMessages['headline'])) {
 
-    foreach ($hCore->coreMessages['headline'] as $index=>$headline){
+	foreach($hCore->coreMessages['headline'] as $index => $headline) {
 
-
-        ?>
-
-        <div style="padding-top: 5px; padding-left: 8%">
-            <table border="0" width="90%" class="standard infoMessage">
-                <tr>
-                    <td>
-                        <table border="0" width="100%">
-                            <tr>
-                                <td width="20px" class="bgwhite textCenter borerGreenShadow">
-                                    <i class="fa fa-bullhorn"></i>
-                                </td>
-
-                                <td width="50px" class="textRight">
-                                    Nr. <i class="fa fa-arrow-right"></i>&nbsp;
-                                </td>
-
-                                <td width="100px" class="bgwhite textCenter borerGreenShadow">
-                                    # <?php print ($index); ?>
-                                </td>
+		$indexInfo = $index + 1;
 
 
+		// Typ ... error, info, ok usw abhandeln
+		$curClass = 'bgMessageStandard';
+		$curTypeIndx = strtolower($hCore->coreMessages['type'][$index]);
 
-                                <td width="90px" class="textRight">
-                                    Typ <i class="fa fa-arrow-right"></i>&nbsp;
-                                </td>
+		if ($curTypeIndx == 'fehler')
+			$curClass = 'bgMessageError';
 
-                                <td width="100px" class="bgwhite textCenter borerGreenShadow">
-                                    <?php print ($hCore->coreMessages['type'][$index]); ?>
-                                </td>
-
-
-
-                                <td width="90px" class="textRight">
-                                    Kategorie <i class="fa fa-arrow-right"></i>&nbsp;
-                                </td>
-
-                                <td width="140px" class="bgwhite textCenter borerGreenShadow">
-                                    <?php print ($hCore->coreMessages['code'][$index]); ?>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <table style="padding-left: 50px" border="0" width="100%">
-                            <tr>
-                                <td width="90px" class="textRight">
-                                    Headline &nbsp;
-                                </td>
-
-                                <td class="bgwhite borerGreenShadow" align="left">
-                                    <?php print ($hCore->coreMessages['headline'][$index]); ?>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+		elseif ($curTypeIndx == 'erfolg')
+			$curClass = 'bgMessageDone';
 
 
-                <tr>
-                    <td>
-                        <table style="padding-left: 150px" border="0" width="100%">
-                            <tr>
-                                <td width="90px" class="textRight textTop">
-                                    Information &nbsp;
-                                </td>
+		?>
 
-                                <td class="bgwhite borerGreenShadow" align="left">
-                                    <?php print ($hCore->coreMessages['message'][$index]); ?>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+		<div style="padding-top: 5px; padding-left: 8%">
+			<table border="0" width="90%" class="standard infoMessage">
+				<tr>
+					<td>
+						<table border="0" width="100%">
+							<tr>
+								<td width="20px" class="bgMessageStandard textCenter borderGreenShadow">
+									<i class="fa fa-bullhorn"></i>
+								</td>
 
-                <?php
-                if ($hCore->coreMessages['explain'][$index])
-                {
-                    ?>
+								<td width="50px" class="textRight">
+									Nr. <i class="fa fa-arrow-right"></i>&nbsp;
+								</td>
 
-                    <tr>
-                        <td>
-                            <table style="padding-left: 150px" border="0" width="100%">
-                                <tr>
-                                    <td width="90px" class="textRight textTop">
-                                        Anmerkung &nbsp;
-                                    </td>
+								<td width="100px" class="bgMessageStandard textCenter borderGreenShadow">
+									# <?php print ($indexInfo); ?>
+								</td>
 
-                                    <td class="bgwhite borerGreenShadow" align="left">
-                                        <?php print ($hCore->coreMessages['explain'][$index]); ?>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <?php
-                }
-                ?>
-            </table>
 
-            <?php
-            if ($index > 0)
-                print ('<br>');
-            ?>
+								<td width="90px" class="textRight">
+									Typ <i class="fa fa-arrow-right"></i>&nbsp;
+								</td>
 
-        </div>
+								<td width="100px" class="<?php print ($curClass); ?> textCenter borderGreenShadow">
+									<?php print ($hCore->coreMessages['type'][$index]); ?>
+								</td>
 
-        <?php
-    }
+
+								<td width="90px" class="textRight">
+									Kategorie <i class="fa fa-arrow-right"></i>&nbsp;
+								</td>
+
+								<td width="140px" class="bgMessageStandard textCenter borderGreenShadow">
+									<?php print ($hCore->coreMessages['code'][$index]); ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<table style="padding-left: 50px" border="0" width="100%">
+							<tr>
+								<td width="90px" class="textRight">
+									Headline &nbsp;
+								</td>
+
+								<td class="bgMessageStandard borderGreenShadow" align="left">
+									<?php print ($hCore->coreMessages['headline'][$index]); ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>
+						<table style="padding-left: 150px" border="0" width="100%">
+							<tr>
+								<td width="90px" class="textRight textTop">
+									Information &nbsp;
+								</td>
+
+								<td class="bgMessageStandard borderGreenShadow" align="left">
+									<?php print ($hCore->coreMessages['message'][$index]); ?>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<?php
+				if ($hCore->coreMessages['explain'][$index]) {
+					?>
+
+					<tr>
+						<td>
+							<table style="padding-left: 150px" border="0" width="100%">
+								<tr>
+									<td width="90px" class="textRight textTop">
+										Anmerkung &nbsp;
+									</td>
+
+									<td class="bgMessageStandard borderGreenShadow" align="left">
+										<?php print ($hCore->coreMessages['explain'][$index]); ?>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<?php
+				}
+				?>
+			</table>
+
+			<?php
+			if ($index > 0)
+				print ('<br>');
+			?>
+
+		</div>
+
+		<?php
+	}
 }
 ?>

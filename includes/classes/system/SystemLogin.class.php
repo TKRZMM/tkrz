@@ -114,7 +114,7 @@ class SystemLogin extends CoreExtends
 		if ($this->num_rows($result) != 1) {
 
 			// Message für fehlerhaften Login
-			$this->addMessage('Fehlerhafter Login!', 'Benutzername und/oder Passwort-Kombination unbekannt.', 'error', 'login');
+			$this->addMessage('Fehlerhafter Login!', 'Benutzername und/oder Passwort-Kombination unbekannt.', 'Fehler', 'Login');
 
 			$this->free_result($result);
 
@@ -139,7 +139,7 @@ class SystemLogin extends CoreExtends
 		$this->getUserLastLogin();
 
 		// Message für erfolgreicher Login
-		$this->addMessage('Erfolgreicher Login!', 'Herzlich willkommen ' . $_SESSION['Login']['userName'] . '!', 'ok', 'login');
+		$this->addMessage('Erfolgreicher Login!', 'Herzlich willkommen ' . $_SESSION['Login']['userName'] . '!', 'Info', 'Login');
 
 		return true;
 

@@ -16,7 +16,7 @@ if (isset($hCore->coreMessages['headline'])){
                     <td>
                         <table border="0" width="100%">
                             <tr>
-                                <td width="20px" class="bgwhite textCenter borerGreenShadow">
+                                <td width="20px" class="bgMessageStandard textCenter borderGreenShadow">
                                     <i class="fa fa-bullhorn"></i>
                                 </td>
 
@@ -24,7 +24,7 @@ if (isset($hCore->coreMessages['headline'])){
                                     Nr. <i class="fa fa-arrow-right"></i>&nbsp;
                                 </td>
 
-                                <td width="100px" class="bgwhite textCenter borerGreenShadow">
+                                <td width="100px" class="bgMessageStandard textCenter borderGreenShadow">
                                     # <?php print ($index); ?>
                                 </td>
 
@@ -34,7 +34,7 @@ if (isset($hCore->coreMessages['headline'])){
                                     Typ <i class="fa fa-arrow-right"></i>&nbsp;
                                 </td>
 
-                                <td width="100px" class="bgwhite textCenter borerGreenShadow">
+                                <td width="100px" class="bgMessageStandard textCenter borderGreenShadow">
                                     <?php print ($hCore->coreMessages['type'][$index]); ?>
                                 </td>
 
@@ -44,7 +44,7 @@ if (isset($hCore->coreMessages['headline'])){
                                     Kategorie <i class="fa fa-arrow-right"></i>&nbsp;
                                 </td>
 
-                                <td width="140px" class="bgwhite textCenter borerGreenShadow">
+                                <td width="140px" class="bgMessageStandard textCenter borderGreenShadow">
                                     <?php print ($hCore->coreMessages['code'][$index]); ?>
                                 </td>
                             </tr>
@@ -60,7 +60,7 @@ if (isset($hCore->coreMessages['headline'])){
                                     Headline &nbsp;
                                 </td>
 
-                                <td class="bgwhite borerGreenShadow" align="left">
+                                <td class="bgMessageStandard borderGreenShadow" align="left">
                                     <?php print ($hCore->coreMessages['headline'][$index]); ?>
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@ if (isset($hCore->coreMessages['headline'])){
                                     Information &nbsp;
                                 </td>
 
-                                <td class="bgwhite borerGreenShadow" align="left">
+                                <td class="bgMessageStandard borderGreenShadow" align="left">
                                     <?php print ($hCore->coreMessages['message'][$index]); ?>
                                 </td>
                             </tr>
@@ -98,7 +98,7 @@ if (isset($hCore->coreMessages['headline'])){
                                         Anmerkung &nbsp;
                                     </td>
 
-                                    <td class="bgwhite borerGreenShadow" align="left">
+                                    <td class="bgMessageStandard borderGreenShadow" align="left">
                                         <?php print ($hCore->coreMessages['explain'][$index]); ?>
                                     </td>
                                 </tr>

@@ -52,9 +52,16 @@ input:required:valid + label::before {
 .login {
     background-color: transparent;
     border-bottom: 1px solid rgb(122, 167, 170);
-
 }
 .login:focus {
+    border-bottom: 1px solid #e7c157;
+    background-color: transparent;
+}
+.fileUpload {
+    background-color: transparent;
+    border-bottom: 1px solid rgb(122, 167, 170);
+}
+.fileUpload:focus {
     border-bottom: 1px solid #e7c157;
     background-color: transparent;
 }
@@ -99,6 +106,28 @@ button.loginButton {
 button.loginButton:hover {
     /*color: #ffc56d;*/
 }
+button.sendButton {
+    /*position: absolute;*/
+    background-color: #499faf;
+    border: none;
+
+    color: white;
+    padding: 5px 10px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px 2px;
+
+    cursor: pointer;
+    border-radius: 4px;
+    right: 14px;
+    top: 99%;
+}
+button.sendButton:hover {
+    /*color: #ffc56d;*/
+}
+
 
 
 
