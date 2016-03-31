@@ -107,7 +107,7 @@ class SystemLogin extends CoreExtends
 
 		// Query zum Login ermitteln
 		$paramArray = array('userName' => $userName, 'userPassword' => $userPassword);
-		$query = $this->getQuery('SystemLogin_callLogin_tryUserLogin', $paramArray);
+		$query = $this->getQuery('tryUserLogin', $paramArray);
 
 		$result = $this->query($query);
 
@@ -160,7 +160,7 @@ class SystemLogin extends CoreExtends
 
 		// Query zum Login ermitteln
 		$paramArray = array('userID' => $_SESSION['Login']['userID']);
-		$query = $this->getQuery('SystemLogin_doWriteUserLoginToDB_logUserLogin', $paramArray);
+		$query = $this->getQuery('doLogUserLogin', $paramArray);
 
 		$this->query($query);
 
@@ -183,7 +183,7 @@ class SystemLogin extends CoreExtends
 
 		// Query ermitteln
 		$paramArray = array('userID' => $_SESSION['Login']['userID']);
-		$query = $this->getQuery('SystemLogin_getUserLastLogin_getUserLastLoginDate', $paramArray);
+		$query = $this->getQuery('getUserLastLoginDate', $paramArray);
 
 		// Führe Query aus
 		$result = $this->query($query);

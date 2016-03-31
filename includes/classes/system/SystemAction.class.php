@@ -118,8 +118,9 @@ class SystemAction extends CoreExtends
 		$this->coreGlobal['Load']['Frameset'] = 'frsStandard.inc.php';
 
 
-
-		//////////////////////////////// Ab hier ist die Action - Steuerung aktive ////////////////////////////////
+		//////////////////////////////////////////////
+		// Ab hier ist die Action - Steuerung aktiv //
+		//////////////////////////////////////////////
 
 
 		// Datei Upload?

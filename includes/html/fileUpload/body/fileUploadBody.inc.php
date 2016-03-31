@@ -7,7 +7,6 @@
  */
 
 ?>
-Hallo ich bin der Body File Upload
 <br>
 
 <div style="position: absolute; left: 280px; right: 300px;">

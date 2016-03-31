@@ -213,6 +213,13 @@ class FileUpload extends CoreExtends
 			// Verschiebe jetzt die tmp-Datei in das eigentliche Zielverzeichnis
 			if (move_uploaded_file($_FILES['file']['tmp_name'], $fullUploadPath)) {
 
+				$this->addDebugMessage($fullUploadPath);
+				$this->addDebugMessage($this->coreGlobal);
+				// Eintrag in DB Loggen
+				// TODO der Upload ... muss geloggt werden ... die DB-Tabelle ist vorhaden... Methode von früher kopierte... siehe datei ganz unten
+				//$this->logFileBaseData('','',$)
+
+
 				// Hat alles geklappt ... Info-Ausgabe
 				// $expain = 'Neuer Ordner und Dateiname:<br>' . $fullUploadPath;
 				$this->addMessage('Datei Upload erfolgreich!', 'Die Datei: "' . $origFileName . '"" wurde erfolgreich hochgeladen.', 'Erfolg', 'File Upload');
@@ -353,6 +360,57 @@ class FileUpload extends CoreExtends
 		return true;
 
 	}    // END private function checkCreatePath(...)
+
+
+
+
+
+
+	// File - Upload in DB schreiben
+	private function logFileBaseData($uploaddir, $uploadfile, $IDs, $IDt){
+
+		$hCore = $this->hCore;
+
+		$targetFileName = basename($uploadfile);
+
+		$varSet = $uploadfile;
+		$searchMatch = '/(.*?)(uploads\/)(.*)/';
+
+		preg_match_all($searchMatch, $varSet, $match);
+
+		$downloadLink = 'uploads/' . $match[3][0];
+
+		$query = "INSERT INTO fileUpload (
+									sourceSystemID,
+									sourceTypeID,
+									userID,
+									uploadDateTime,
+									fileOriginName,
+									fileTmpName,
+									fileTargetName,
+									fileTargetPath,
+									fileTargetFullPath,
+									fileSize,
+									downloadLink
+								  ) VALUES (
+									'".$IDs."',
+									'".$IDt."',
+								  	'".$_SESSION['Login']['User']['userID']."',
+								  	now(),
+								  	'".$_FILES['fileToUpload']['name']."',
+								  	'".$_FILES['fileToUpload']['tmp_name']."',
+								  	'".$targetFileName."',
+								  	'".$uploaddir."',
+								  	'".$uploadfile."',
+								  	'".$_FILES['fileToUpload']['size']."',
+								  	'".$downloadLink."')";
+
+		// Resultat der Konvertierungs - Typen
+		$this->gCoreDB->query($query);
+
+		return true;
+
+	}   // END private function logFileBaseData(...){
 
 
 }   // END class FileUpload

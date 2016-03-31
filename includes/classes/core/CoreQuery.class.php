@@ -17,8 +17,8 @@
  *                                  '-> CoreExtends                 Child
  *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
  *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
- *  -> ClassXYZ                 									AnyCreature from Outerspace
- *  -> ...         													AnyCreature from Outerspace
+ *  -> ClassXYZ                                                    AnyCreature from Outerspace
+ *  -> ...                                                            AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -54,25 +54,24 @@ abstract class CoreQuery extends CoreDebug
 		$getQuery = '';
 
 		switch ($queryName) {
-			case 'SystemLogin_callLogin_tryUserLogin':
+			case 'tryUserLogin':
 				// Login - Abfrage
 
 				$getQuery = "SELECT u.*
                             		,r.userRoleID
                             		,r.userRoleName
                                FROM user u
-                          LEFT JOIN userrole r ON (u.userRoleID = r.userRoleID)
+                          LEFT JOIN user_role r ON (u.userRoleID = r.userRoleID)
                               WHERE u.userName      = '" . $paramArray['userName'] . "'
                                 AND u.userPassword  = md5('" . $paramArray['userPassword'] . "')
                                 AND u.activeStatus  = 'yes'
                                 AND r.activeStatus  = 'yes'
                               LIMIT 1";
-
 				break;
 
 
 
-			case 'SystemLogin_doWriteUserLoginToDB_logUserLogin':
+			case 'doLogUserLogin':
 				// Login - Vorgang in DB schreiben
 
 				$getQuery = "INSERT INTO log_user_login (userID,
@@ -91,22 +90,69 @@ abstract class CoreQuery extends CoreDebug
 								  			'" . $_SERVER['REQUEST_URI'] . "',
 								  			'" . $_SERVER['SCRIPT_NAME'] . "',
 								  			'" . $_SERVER['PHP_SELF'] . "')";
-
 				break;
 
 
 
-			case 'SystemLogin_getUserLastLogin_getUserLastLoginDate':
-				// letzte Login-Informationen eines Betnutzers ermitteln
+			case 'getUserLastLoginDate':
+				// Letzte Login-Informationen eines Betnutzers ermitteln
 
 				$getQuery = "SELECT `lastLogin`
 					          FROM log_user_login
 					          WHERE `userID` LIKE '" . $paramArray['userID'] . "'
 					       ORDER BY log_user_loginID DESC
 					          LIMIT 0,2";
-
 				break;
 
+
+
+			case 'getActiveSourceTypeOrderByArg':
+				// Liest Informationen über die Sourcetpyen anhand der übergebenen ID
+
+				$getQuery = "SELECT * FROM `source_type` WHERE active = 'yes' ORDER BY " . $paramArray['orderBy'];
+				break;
+
+
+
+			case 'getActiveSourceTypeByID':
+				// Liest Informationen über die Sourcetype anhand der übergebenen ID
+
+				$getQuery = "SELECT * FROM `source_type` WHERE active = 'yes' AND sourceTypeID = '" . $paramArray['sourceTypeID'] . "' LIMIT 1";
+				break;
+
+
+
+			case 'getActiveSourceSystemsOrderByArg':
+				// Liest Informationen über das Sourcesystem anhand der übergebenen ID
+
+				$getQuery = "SELECT * FROM `source_system` WHERE active = 'yes' ORDER BY " . $paramArray['orderBy'];
+				break;
+
+
+
+			case 'getActiveSourceSystemByID':
+				// Liest Informationen über das Sourcesystem anhand der übergebenen ID
+
+				$getQuery = "SELECT * FROM `source_system` WHERE active = 'yes' AND sourceSystemID = '" . $paramArray['sourceSystemID'] . "' LIMIT 1";
+				break;
+
+
+
+			case 'getNavMenue':
+				// Liest das komplette Navigations-Menue ein
+
+				$getQuery = "SELECT sst.*
+          							,st.*
+          							,ss.*
+     						   FROM source_system_type sst
+						  LEFT JOIN source_type st    ON st.sourceTypeID = sst.sourceTypeID
+						  LEFT JOIN source_system ss  ON ss.sourceSystemID = sst.sourceSystemID
+    						  WHERE sst.active = 'yes'
+      							AND st.active  = 'yes'
+      							AND ss.active  = 'yes'
+ 						   ORDER BY st.orderBy,
+          							ss.orderBy";
+				break;
 
 
 			default:
