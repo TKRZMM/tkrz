@@ -15,10 +15,10 @@
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- * ==>                                  '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ * ==>                                  '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *  -> ClassXYZ                 									AnyCreature from Outerspace
+ *  -> ...         													AnyCreature from Outerspace
  *
  */
 namespace fileUpload;
@@ -109,7 +109,7 @@ class FileUpload extends CoreExtends
 
 
 		// Prüfung ob Datei hochgeladen wurde, oder hätte hochgeladen werden können:
-		$this->checkForFileUploadFullHandling();
+		$this->checkFileUploadFullHandling();
 
 	}    // END public function initialFileUpload()
 
@@ -128,7 +128,7 @@ class FileUpload extends CoreExtends
 	 * ... Prüfe ob es ein Datei-Upload gegeben haben könnte
 	 *        ... wenn ja, Weiterleitung -> moveUploadedFileFullHandling
 	 */
-	private function checkForFileUploadFullHandling()
+	private function checkFileUploadFullHandling()
 	{
 
 		// Prüfung ob es einen Upload gegeben haben könnte
@@ -156,7 +156,7 @@ class FileUpload extends CoreExtends
 
 		}    // END // Prüfung ob es einen Upload gegeben haben könnte
 
-	}    // END private function checkForFileUpload()
+	}    // END private function checkFileUploadFullHandling()
 
 
 
@@ -186,7 +186,7 @@ class FileUpload extends CoreExtends
 		if (!$uploadPath = $this->checkUploadDir($this->coreGlobal['GET']['subAction'], $this->coreGlobal['GET']['valueAction']))
 			return false;
 
-		// Um Hack (z.B. passwd) zu verhindern gehen wir über die if-Bedingung is_upload_file
+		// Damit ein Hack (z.B. passwd) zu verhindern gehen wir über die if-Bedingung und PHP-eigene Funktion is_upload_file
 		if (is_uploaded_file($_FILES['file']['tmp_name'])) {
 
 			// Erstelle neuen Dateinamen:...
@@ -217,10 +217,10 @@ class FileUpload extends CoreExtends
 				// $expain = 'Neuer Ordner und Dateiname:<br>' . $fullUploadPath;
 				$this->addMessage('Datei Upload erfolgreich!', 'Die Datei: "' . $origFileName . '"" wurde erfolgreich hochgeladen.', 'Erfolg', 'File Upload');
 
-				// Resette zu ladendes Body Frameset
+				// Reset zu ladendes Body Frameset
 				unset($this->coreGlobal['Load']['FramesetBody']);
 
-				// Resette GET und POST in der coreGlobal
+				// Reset GET und POST in der coreGlobal
 				unset($this->coreGlobal['GET']);
 				unset($this->coreGlobal['POST']);
 			}
@@ -345,6 +345,8 @@ class FileUpload extends CoreExtends
 
 				return false;
 			}
+
+			return true;
 
 		}
 

@@ -15,10 +15,10 @@
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *     -> ClassXYZ                 									AnyCreature from Outerspace
+ *     -> ...         												AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -59,6 +59,12 @@ abstract class CoreBase
 
 
 
+
+
+
+
+
+
 	// Gibt den Inhalt von globalCore[GET oder POST][xxxAction] zurück
 	function getActionAsString($actionType)
 	{
@@ -72,7 +78,11 @@ abstract class CoreBase
 		else
 			return null;
 
-	}	// END function getCallActionAsString()
+	}    // END function getCallActionAsString()
+
+
+
+
 
 
 
@@ -98,15 +108,16 @@ abstract class CoreBase
 
 
 
+
+
+
 	// Gibt eine formatierte Nummer mit führenden Nullen gewünscht zurück
 	function getFormatedNumberWithLeadingNulls($getNumber, $maxNumbers)
 	{
 
-		return sprintf("%'.0".$maxNumbers."d", $getNumber);
+		return sprintf("%'.0" . $maxNumbers . "d", $getNumber);
 
-	}	// END function getFormatedNumberWithLeadingNulls(...)
-
-
+	}    // END function getFormatedNumberWithLeadingNulls(...)
 
 
 
@@ -115,7 +126,9 @@ abstract class CoreBase
 
 
 
-	// $_GET  und $_POST abfangen und auf Sicherheit prüfen
+
+
+	// $_GET und $_POST abfangen und auf Sicherheit prüfen
 	private function setGetPostVar()
 	{
 

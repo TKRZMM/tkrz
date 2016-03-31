@@ -15,10 +15,10 @@
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- * ==>                                  '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ * ==>                                  '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *  -> ClassXYZ                 									AnyCreature from Outerspace
+ *  -> ...         													AnyCreature from Outerspace
  *
  */
 namespace classes\system;
@@ -98,9 +98,9 @@ class SystemAction extends CoreExtends
 		}
 
 
-
-		// Hier geht es nur wetier wenn der User eingeloggt ist (userID vorhanden)!
-
+		//////////////////////////////////////////////////////////////////////////////
+		// Hier geht es nur weiter wenn der User eingeloggt ist (userID vorhanden)! //
+		//////////////////////////////////////////////////////////////////////////////
 
 
 		// Logout aufgerufen

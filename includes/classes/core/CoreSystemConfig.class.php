@@ -15,10 +15,10 @@
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *  -> ClassXYZ                 									AnyCreature from Outerspace
+ *  -> ...         													AnyCreature from Outerspace
  *
  */
 namespace classes\core;

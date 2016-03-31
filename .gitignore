@@ -50,8 +50,8 @@ crashlytics.properties
 crashlytics-build.properties
 
 # Upload file directory ... uploaded by user
-/files/uploads
+/filetransfer/uploads
 
 # Export file direcotry ... generated files
-/files/exports
+/filetransfer/exports
 

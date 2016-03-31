@@ -15,10 +15,10 @@
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- * ==>                                  '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ * ==>                                  '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *  -> ClassXYZ                 									AnyCreature from Outerspace
+ *  -> ...         													AnyCreature from Outerspace
  *
  */
 namespace classes\system;
@@ -203,15 +203,17 @@ class SystemLogin extends CoreExtends
 					$_SESSION['Login']['dateLastLogin'] = $row->lastLogin;
 
 					$bGotLast = true;
-				} else
+				}
+				else
 					$_SESSION['Login']['dateLastLogin'] = $row->lastLogin;
 
 			}
 
-		} else {
+		}
+		else {
 			$this->free_result($result);
 
-			return true;
+			return false;
 		}
 
 		$this->free_result($result);

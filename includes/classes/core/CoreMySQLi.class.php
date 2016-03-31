@@ -15,10 +15,10 @@
  * ==>                      '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *  -> ClassXYZ                 									AnyCreature from Outerspace
+ *  -> ...         													AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -32,7 +32,7 @@ abstract class CoreMySQLi extends CoreQuery
 
 	// Initialsiere Variable
 	private $lastResult = '';       // MySQLi Letztes Resultat
-	private $lastInsertID = 0;        // Letzte eingefügte ID in einer Tabelle
+	private $lastInsertID = 0;      // Letzte eingefügte ID in einer Tabelle
 
 
 	// Definiere Initial - Variable!
@@ -40,7 +40,7 @@ abstract class CoreMySQLi extends CoreQuery
 	private $DBHOST = '';        // Datenbank Host
 	private $DBNAME = '';        // (Default) Datenbank Name
 	private $DBUSER = '';        // Datenbank Benutzer
-	private $DBPASSWORD = '';        // Datenbank Passwort
+	private $DBPASSWORD = '';    // Datenbank Passwort
 
 
 

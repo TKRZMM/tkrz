@@ -15,10 +15,10 @@
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *  -> ClassXYZ                 									AnyCreature from Outerspace
+ *  -> ...         													AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -58,15 +58,15 @@ abstract class CoreQuery extends CoreDebug
 				// Login - Abfrage
 
 				$getQuery = "SELECT u.*
-                            ,r.userRoleID
-                            ,r.userRoleName
-                              FROM user u
-                                LEFT JOIN userrole r ON (u.userRoleID = r.userRoleID)
+                            		,r.userRoleID
+                            		,r.userRoleName
+                               FROM user u
+                          LEFT JOIN userrole r ON (u.userRoleID = r.userRoleID)
                               WHERE u.userName      = '" . $paramArray['userName'] . "'
                                 AND u.userPassword  = md5('" . $paramArray['userPassword'] . "')
                                 AND u.activeStatus  = 'yes'
                                 AND r.activeStatus  = 'yes'
-                                LIMIT 1";
+                              LIMIT 1";
 
 				break;
 
@@ -84,13 +84,13 @@ abstract class CoreQuery extends CoreDebug
 									SCRIPT_NAME,
 									PHP_SELF
 								  ) VALUES ('" . $paramArray['userID'] . "',
-								  	'" . $_SERVER['REMOTE_ADDR'] . "',
-								  	'" . $_SERVER['HTTP_USER_AGENT'] . "',
-								  	'" . $_SERVER['HTTP_REFERER'] . "',
-								  	'" . $_SERVER['HTTP_COOKIE'] . "',
-								  	'" . $_SERVER['REQUEST_URI'] . "',
-								  	'" . $_SERVER['SCRIPT_NAME'] . "',
-								  	'" . $_SERVER['PHP_SELF'] . "')";
+								  			'" . $_SERVER['REMOTE_ADDR'] . "',
+								  			'" . $_SERVER['HTTP_USER_AGENT'] . "',
+								  			'" . $_SERVER['HTTP_REFERER'] . "',
+								  			'" . $_SERVER['HTTP_COOKIE'] . "',
+								  			'" . $_SERVER['REQUEST_URI'] . "',
+								  			'" . $_SERVER['SCRIPT_NAME'] . "',
+								  			'" . $_SERVER['PHP_SELF'] . "')";
 
 				break;
 
@@ -102,7 +102,7 @@ abstract class CoreQuery extends CoreDebug
 				$getQuery = "SELECT `lastLogin`
 					          FROM log_user_login
 					          WHERE `userID` LIKE '" . $paramArray['userID'] . "'
-					          ORDER BY log_user_loginID DESC
+					       ORDER BY log_user_loginID DESC
 					          LIMIT 0,2";
 
 				break;
@@ -134,7 +134,7 @@ abstract class CoreQuery extends CoreDebug
 
 		foreach($paramArray as $key => $value) {
 
-			// TODO Sicherheit ... brauch ich ysqli_real_escape_string für Eingaben?
+			// TODO Sicherheit ... brauch ich msqli_real_escape_string für Eingaben?
 			// Habe an dieser STelle die Methode getDBConnection() nicht!
 			// $curCleanValue = mysqli_real_escape_string($this->getDBConnection(), $value);
 			$curCleanValue = $value;

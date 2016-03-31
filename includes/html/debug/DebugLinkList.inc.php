@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <td class="debugLinkList">
-            &bull; <a href="http://localhost/phpmyadmin/" target="_blank">PHP MyAdmin</a>
+            &bull; <a href="<?php print ($_SESSION['Cfg']['Default']['LinkSettings']['PHPMyAdmin']); ?>" target="_blank">PHP MyAdmin</a>
         </td>
     </tr>
     <tr>

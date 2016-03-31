@@ -15,10 +15,10 @@
  *                          '-> Abstract CoreMySQLi                 Child
  *                              '-> CoreObject                      Child
  *                                  '-> CoreExtends                 Child
- *                                      '-> ConcreteClass1          CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ...                     CoreExtends - Child - AnyCreature
- *                                      |-> ConcreteClass20         CoreExtends - Child - AnyCreature
+ *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
+ *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
+ *  -> ClassXYZ                 									AnyCreature from Outerspace
+ *  -> ...         													AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -64,28 +64,9 @@ abstract class CoreMessage extends CoreDefaultConfig
 		$this->coreMessages['message'][] = $message;    // z.B. "Benutzername und/oder Passwort-Kombination unbekannt.
 		$this->coreMessages['type'][] = $type;    // z.B. "error" ... für Kategorisierung
 		$this->coreMessages['code'][] = $code;    // z.B. "login" ... für Bereich
-		$this->coreMessages['explain'][] = $explain;    // z.B. "Bitte überprüfen Sie ihr Zugangsdaten".
+		$this->coreMessages['explain'][] = $explain;    // z.B. "Bitte überprüfen Sie ihre Zugangsdaten".
 
 	}    // END function addMessage(...)
-
-
-
-
-
-
-
-
-
-
-	// ???
-	function messageTest()
-	{
-
-		$numArg = func_num_args();
-
-		echo $numArg;
-
-	}
 
 
 }   // END abstract class CoreMessage extends CoreDefaultConfig
