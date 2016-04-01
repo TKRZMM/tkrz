@@ -99,4 +99,93 @@ class SystemLayout extends CoreExtends
 	}    // END function getNavMenueFullHandling()
 
 
+
+
+
+
+
+
+
+
+	// Liefert gesuchte Daten aus der DB Tabelle source_type
+	function getActiveSourceTypeDataByX($getType, $getSearchVal)
+	{
+
+		$returnArray = $this->getActiveSourceDataByX('source_type', $getType, $getSearchVal);
+
+		return $returnArray;
+
+	}    // END function getSourceTypeDataBy(...)
+
+
+
+
+
+
+
+
+
+
+	// Liefert gesuchte Daten aus der DB Tabelle source_system
+	function getActiveSourceSystemDataByX($getType, $getSearchVal)
+	{
+
+		$returnArray = $this->getActiveSourceDataByX('source_system', $getType, $getSearchVal);
+
+		return $returnArray;
+
+	}    // END function getActiveSourceSystemDataByX(...)
+
+
+
+
+
+
+
+
+
+
+	// Liefert gesuchte Daten aus der DB Tabelle x
+	private function getActiveSourceDataByX($getTableName, $getType, $getSearchVal)
+	{
+		$returnArray = array();
+
+		// Feldnamen der Tabelle dynamisch einlesen
+		$fieldNameArray = $this->dbGetFieldnamesByTablename($getTableName);
+
+		// Wenn die Feldnamen nicht eingelesen werden können, dann hier schon abbrechen
+		if (count($fieldNameArray) < 1)
+			return $returnArray;
+
+		// Query ermitteln
+		$paramArray = array('FROM' => $getTableName, 'WHERE' => $getType, 'SEARCH' => $getSearchVal);
+		$query = $this->getQuery('getActiveSourceXDataByX', $paramArray);
+
+		// Führe Query aus
+		$result = $this->query($query);
+
+		if ($this->num_rows($result) == 1) {
+
+			// Resultat der Tabelle durchgehen
+			while ($row = mysqli_fetch_object($result)) {
+
+				// Feldnamen der Tabelle durchgen
+				foreach($fieldNameArray as $index => $curFieldname) {
+
+					// Dynamisches Speichern der Feldnamen und Inhalte in dem Rückagebe-Array
+					$returnArray[$curFieldname] = $row->$curFieldname;
+
+				}
+
+			}
+
+		}
+
+		$this->free_result($result);
+
+		return $returnArray;
+
+	}    // END private function getActiveSourceDataByX(...)
+
+
 }   // END class SystemLayout extends CoreExtends

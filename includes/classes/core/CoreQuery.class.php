@@ -155,6 +155,62 @@ abstract class CoreQuery extends CoreDebug
 				break;
 
 
+
+			case 'getActiveSourceTypeDataByX':
+				// Liefert die Daten aus "source_type" anhand des gesuchten Parameter
+
+				$getQuery = "SELECT * FROM `source_type` WHERE active = 'yes' AND ".$paramArray['WHERE']." = '".$paramArray['SEARCH']."' ORDER BY ".$paramArray['WHERE']." LIMIT 1";
+				break;
+
+
+
+			case 'getActiveSourceSystemDataByX':
+				// Liefert die Daten aus "source_system" anhand des gesuchten Parameter
+
+				$getQuery = "SELECT * FROM `source_system` WHERE active = 'yes' AND  ".$paramArray['WHERE']." = '".$paramArray['SEARCH']."' ORDER BY ".$paramArray['WHERE']." LIMIT 1";
+				break;
+
+
+
+			case 'getActiveSourceXDataByX':
+				// Liefert die Daten aus Tabelle X anhand des gesuchten Parameter
+
+				$getQuery = "SELECT * FROM `".$paramArray['FROM']."` WHERE active = 'yes' AND  ".$paramArray['WHERE']." = '".$paramArray['SEARCH']."' ORDER BY ".$paramArray['WHERE']." LIMIT 1";
+				break;
+
+
+
+			case 'getlogFileUpload':
+				// Inser Query für den Datei - Upload
+
+				$getQuery = "INSERT INTO file_upload (
+									sourceTypeID,
+									sourceSystemID,
+									userID,
+									uploadDateTime,
+									fileOriginName,
+									fileTmpName,
+									fileTargetName,
+									fileTargetPath,
+									fileTargetFullPath,
+									fileSize,
+									downloadLink
+								  ) VALUES (
+									'".$paramArray['sourceTypeID']."',
+									'".$paramArray['sourceSystemID']."',
+								  	'".$paramArray['userID']."',
+								  	now(),
+								  	'".$paramArray['file_name']."',
+								  	'".$paramArray['file_tmp_name']."',
+								  	'".$paramArray['newFilename']."',
+								  	'".$paramArray['uploadPath']."',
+								  	'".$paramArray['fullUploadPath']."',
+								  	'".$paramArray['file_size']."',
+								  	'".$paramArray['downloadLink']."')";
+
+				break;
+
+
 			default:
 				break;
 		}
@@ -184,8 +240,6 @@ abstract class CoreQuery extends CoreDebug
 			// Habe an dieser STelle die Methode getDBConnection() nicht!
 			// $curCleanValue = mysqli_real_escape_string($this->getDBConnection(), $value);
 			$curCleanValue = $value;
-
-			$curCleanValue = addcslashes($curCleanValue, '%_');
 
 			$retArray[$key] = $curCleanValue;
 

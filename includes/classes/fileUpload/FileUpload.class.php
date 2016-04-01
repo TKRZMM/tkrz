@@ -17,14 +17,15 @@
  *                                  '-> CoreExtends                 Child
  * ==>                                  '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
  *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
- *  -> ClassXYZ                 									AnyCreature from Outerspace
- *  -> ...         													AnyCreature from Outerspace
+ *  -> ClassXYZ                                                    AnyCreature from Outerspace
+ *  -> ...                                                            AnyCreature from Outerspace
  *
  */
 namespace fileUpload;
 
 
 use classes\core\CoreExtends;
+use classes\system\SystemLayout;
 
 
 /**
@@ -213,11 +214,8 @@ class FileUpload extends CoreExtends
 			// Verschiebe jetzt die tmp-Datei in das eigentliche Zielverzeichnis
 			if (move_uploaded_file($_FILES['file']['tmp_name'], $fullUploadPath)) {
 
-				$this->addDebugMessage($fullUploadPath);
-				$this->addDebugMessage($this->coreGlobal);
 				// Eintrag in DB Loggen
-				// TODO der Upload ... muss geloggt werden ... die DB-Tabelle ist vorhaden... Methode von früher kopierte... siehe datei ganz unten
-				//$this->logFileBaseData('','',$)
+				$this->logFileUpload($this->coreGlobal['GET']['subAction'], $this->coreGlobal['GET']['valueAction'], $newFilename, $uploadPath, $fullUploadPath);
 
 
 				// Hat alles geklappt ... Info-Ausgabe
@@ -251,6 +249,60 @@ class FileUpload extends CoreExtends
 		return true;
 
 	}    // END private function moveUploadedFileFullHandling()
+
+
+
+
+
+
+
+
+
+
+	// Logt den Datei-Upload
+	private function logFileUpload($subAction, $valueAction, $newFilename, $uploadPath, $fullUploadPath)
+	{
+
+		$hMyLayout = new SystemLayout();
+
+		// Typ ID ermitteln
+		$getSourceTypeData = $hMyLayout->getActiveSourceTypeDataByX('fileUploadDirName', $subAction);
+		$sourceTypeID = $getSourceTypeData['sourceTypeID'];
+
+		// System ID ermitteln
+		$getSourceSystemData = $hMyLayout->getActiveSourceSystemDataByX('sourceSystemName', $valueAction);
+		$sourceSystemID = $getSourceSystemData['sourceSystemID'];
+
+
+		// DownloadLink erstellen
+		$pre_search = preg_replace('/\//', '\/', $_SESSION['Cfg']['Default']['WebsiteSettings']['MainDownloadPath']);
+		$search = '/(' . $pre_search . ')(.*)/';
+		preg_match($search, $uploadPath, $matches);
+		$downloadLink = $_SESSION['Cfg']['Default']['WebsiteSettings']['MainDownloadPath'] . $matches[2] . '/' . $newFilename;
+
+
+		// Parameter - Liste für die Query
+		$paramArray = array('sourceTypeID'   => $sourceTypeID,
+							'sourceSystemID' => $sourceSystemID,
+							'userID'         => $_SESSION['Login']['userID'],
+							'file_name'      => $_FILES['file']['name'],
+							'file_tmp_name'  => $_FILES['file']['tmp_name'],
+							'newFilename'    => $newFilename,
+							'uploadPath'     => $uploadPath,
+							'fullUploadPath' => $fullUploadPath,
+							'file_size'      => $_FILES['file']['size'],
+							'downloadLink'   => $downloadLink
+		);
+
+		// Query holen
+		$query = $this->getQuery('getlogFileUpload', $paramArray);
+
+		// Query ausführen
+		$this->query($query);
+
+		return true;
+
+	}    // END private function logFileUpload(...)
 
 
 
@@ -360,57 +412,6 @@ class FileUpload extends CoreExtends
 		return true;
 
 	}    // END private function checkCreatePath(...)
-
-
-
-
-
-
-	// File - Upload in DB schreiben
-	private function logFileBaseData($uploaddir, $uploadfile, $IDs, $IDt){
-
-		$hCore = $this->hCore;
-
-		$targetFileName = basename($uploadfile);
-
-		$varSet = $uploadfile;
-		$searchMatch = '/(.*?)(uploads\/)(.*)/';
-
-		preg_match_all($searchMatch, $varSet, $match);
-
-		$downloadLink = 'uploads/' . $match[3][0];
-
-		$query = "INSERT INTO fileUpload (
-									sourceSystemID,
-									sourceTypeID,
-									userID,
-									uploadDateTime,
-									fileOriginName,
-									fileTmpName,
-									fileTargetName,
-									fileTargetPath,
-									fileTargetFullPath,
-									fileSize,
-									downloadLink
-								  ) VALUES (
-									'".$IDs."',
-									'".$IDt."',
-								  	'".$_SESSION['Login']['User']['userID']."',
-								  	now(),
-								  	'".$_FILES['fileToUpload']['name']."',
-								  	'".$_FILES['fileToUpload']['tmp_name']."',
-								  	'".$targetFileName."',
-								  	'".$uploaddir."',
-								  	'".$uploadfile."',
-								  	'".$_FILES['fileToUpload']['size']."',
-								  	'".$downloadLink."')";
-
-		// Resultat der Konvertierungs - Typen
-		$this->gCoreDB->query($query);
-
-		return true;
-
-	}   // END private function logFileBaseData(...){
 
 
 }   // END class FileUpload

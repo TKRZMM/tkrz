@@ -17,8 +17,8 @@
  *                                  '-> CoreExtends                 Child
  *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
  *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
- *  -> ClassXYZ                 									AnyCreature from Outerspace
- *  -> ...         													AnyCreature from Outerspace
+ *  -> ClassXYZ                                                    AnyCreature from Outerspace
+ *  -> ...                                                            AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -238,6 +238,46 @@ abstract class CoreMySQLi extends CoreQuery
 		return true;
 
 	}   // END public function free_result(...)
+
+
+
+
+
+
+
+
+
+
+	// Liefere Feldnamen einer angegebenen/gesuchten Tabelle
+	public function dbGetFieldnamesByTablename($getTablename)
+	{
+
+		$returnArray = array();
+
+		$myQuery = "SHOW COLUMNS FROM " . $getTablename;
+
+		// Führe Query aus
+		$result = $this->query($myQuery);
+
+		if ($this->num_rows($result) >= 1) {
+
+			while ($row = $result->fetch_object()) {
+
+				$returnArray[] = $row->Field;
+
+			}
+
+			$this->free_result($result);
+
+			return $returnArray;
+
+		}
+
+		$this->free_result($result);
+
+		return $returnArray;
+
+	}    // END public function dbGetFieldnamesByTablename(...)
 
 
 }   // END abstract class CoreMySQLi extends CoreObject
