@@ -17,8 +17,8 @@
  *                                  '-> CoreExtends                 Child
  *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
  *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
- *     -> ClassXYZ                 									AnyCreature from Outerspace
- *     -> ...         												AnyCreature from Outerspace
+ *     -> ClassXYZ                                                    AnyCreature from Outerspace
+ *     -> ...                                                        AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -194,6 +194,41 @@ abstract class CoreBase
 			return $arg;
 
 	}    // END function checkAddslashes(...)
+
+
+
+
+
+
+
+
+
+
+	// Methode bereitet Datei-Groesse lesbarer auf
+	function formatSizeUnits($bytes)
+	{
+
+		if ($bytes >= 1073741824)
+			$bytes = number_format($bytes / 1073741824, 2) . ' GB';
+
+		elseif ($bytes >= 1048576)
+			$bytes = number_format($bytes / 1048576, 2) . ' MB';
+
+		elseif ($bytes >= 1024)
+			$bytes = number_format($bytes / 1024, 2) . ' KB';
+
+		elseif ($bytes > 1)
+			$bytes = $bytes . ' bytes';
+
+		elseif ($bytes == 1)
+			$bytes = $bytes . ' byte';
+
+		else
+			$bytes = '0 bytes';
+
+		return $bytes;
+
+	}   // END function formatSizeUnits(...)
 
 
 }   // END class CoreBase

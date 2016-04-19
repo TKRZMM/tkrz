@@ -133,6 +133,18 @@ table.formBackground {
     padding-left: 30px;
     border-collapse: separate;
 }
+table.formBackgroundInnerCollapse {
+    padding: 10px;
+    border-collapse: collapse;
+}
+table.formBackgroundInnerCollapse {
+    /* für IE */
+    background: #ced8dd;
+    border-color: #8a9da8;
+    padding-left: 30px;
+    border-collapse: collapse;
+}
+
 
 td.debugLinkList {
     padding: 5px;
@@ -226,7 +238,7 @@ td.debugLinkList {
 /* Div Ausrichtung */
 .center {
     margin: auto;
-    width: 25%;
+    /*width: 25%;*/
     padding: 0px;
 }
 

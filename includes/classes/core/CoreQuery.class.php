@@ -159,7 +159,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getActiveSourceTypeDataByX':
 				// Liefert die Daten aus "source_type" anhand des gesuchten Parameter
 
-				$getQuery = "SELECT * FROM `source_type` WHERE active = 'yes' AND ".$paramArray['WHERE']." = '".$paramArray['SEARCH']."' ORDER BY ".$paramArray['WHERE']." LIMIT 1";
+				$getQuery = "SELECT * FROM `source_type` WHERE active = 'yes' AND " . $paramArray['WHERE'] . " = '" . $paramArray['SEARCH'] . "' ORDER BY " . $paramArray['WHERE'] . " LIMIT 1";
 				break;
 
 
@@ -167,7 +167,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getActiveSourceSystemDataByX':
 				// Liefert die Daten aus "source_system" anhand des gesuchten Parameter
 
-				$getQuery = "SELECT * FROM `source_system` WHERE active = 'yes' AND  ".$paramArray['WHERE']." = '".$paramArray['SEARCH']."' ORDER BY ".$paramArray['WHERE']." LIMIT 1";
+				$getQuery = "SELECT * FROM `source_system` WHERE active = 'yes' AND  " . $paramArray['WHERE'] . " = '" . $paramArray['SEARCH'] . "' ORDER BY " . $paramArray['WHERE'] . " LIMIT 1";
 				break;
 
 
@@ -175,7 +175,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getActiveSourceXDataByX':
 				// Liefert die Daten aus Tabelle X anhand des gesuchten Parameter
 
-				$getQuery = "SELECT * FROM `".$paramArray['FROM']."` WHERE active = 'yes' AND  ".$paramArray['WHERE']." = '".$paramArray['SEARCH']."' ORDER BY ".$paramArray['WHERE']." LIMIT 1";
+				$getQuery = "SELECT * FROM `" . $paramArray['FROM'] . "` WHERE active = 'yes' AND  " . $paramArray['WHERE'] . " = '" . $paramArray['SEARCH'] . "' ORDER BY " . $paramArray['WHERE'] . " LIMIT 1";
 				break;
 
 
@@ -196,19 +196,56 @@ abstract class CoreQuery extends CoreDebug
 									fileSize,
 									downloadLink
 								  ) VALUES (
-									'".$paramArray['sourceTypeID']."',
-									'".$paramArray['sourceSystemID']."',
-								  	'".$paramArray['userID']."',
+									'" . $paramArray['sourceTypeID'] . "',
+									'" . $paramArray['sourceSystemID'] . "',
+								  	'" . $paramArray['userID'] . "',
 								  	now(),
-								  	'".$paramArray['file_name']."',
-								  	'".$paramArray['file_tmp_name']."',
-								  	'".$paramArray['newFilename']."',
-								  	'".$paramArray['uploadPath']."',
-								  	'".$paramArray['fullUploadPath']."',
-								  	'".$paramArray['file_size']."',
-								  	'".$paramArray['downloadLink']."')";
-
+								  	'" . $paramArray['file_name'] . "',
+								  	'" . $paramArray['file_tmp_name'] . "',
+								  	'" . $paramArray['newFilename'] . "',
+								  	'" . $paramArray['uploadPath'] . "',
+								  	'" . $paramArray['fullUploadPath'] . "',
+								  	'" . $paramArray['file_size'] . "',
+								  	'" . $paramArray['downloadLink'] . "')";
 				break;
+
+
+
+			case 'getFileImportList':
+				// Lade Daten die zur Auswahl stehen
+
+				$getQuery = "SELECT *
+                      		   FROM `file_Upload`
+                          LEFT JOIN `source_system` 	ON source_system.sourceSystemID	= file_upload.sourceSystemID
+                          LEFT JOIN `source_type`   	ON source_type.sourceTypeID 	= file_upload.sourceTypeID
+                          LEFT JOIN `user`          	ON user.userID                  = file_upload.userID
+                          LEFT JOIN `user_role`			ON user_role.userRoleID			= user.userRoleID
+                      		  WHERE file_upload.sourceTypeID     = '" . $paramArray['sourceTypeID'] . "'
+                        		AND file_upload.sourceSystemID   = '" . $paramArray['sourceSystemID'] . "'
+                        		AND source_type.active           = 'yes'
+                        		AND source_system.active         = 'yes'
+                      	   ORDER BY file_upload.uploadDateTime DESC
+                        ";
+				break;
+
+
+
+			case 'getInformationFromFileUploadByFileUploadID':
+				// Lesen Informationen zu einer hochgeladenen Datei ein
+
+				$getQuery = "SELECT *
+                      		   FROM `file_Upload`
+                          LEFT JOIN `source_system` 	ON source_system.sourceSystemID	= file_upload.sourceSystemID
+                          LEFT JOIN `source_type`   	ON source_type.sourceTypeID 	= file_upload.sourceTypeID
+                         	  WHERE file_upload.fileUploadID     = '" . $paramArray['fileUploadID'] . "'
+                        		AND source_type.active           = 'yes'
+                        		AND source_system.active         = 'yes'
+                      	   ORDER BY file_upload.uploadDateTime
+                      	   	  LIMIT 1
+                        ";
+				break;
+
+
 
 
 			default:

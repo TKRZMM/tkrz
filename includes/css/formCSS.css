@@ -32,7 +32,8 @@ form.loginForm {
 
 
 input {
-    margin: 0 0 1em 31%;
+    margin: 0 0 0em 0%;
+    /*margin: 0 0 1em 31%;*/
     padding: .2em .5em;
     width: 60%;
     background-color: #fffbf0;
@@ -50,6 +51,7 @@ input:required:valid + label::before {
     color: green;
 }
 .login {
+    margin: 0 0 1em 31%;
     background-color: transparent;
     border-bottom: 1px solid rgb(122, 167, 170);
 }
@@ -127,7 +129,5 @@ button.sendButton {
 button.sendButton:hover {
     /*color: #ffc56d;*/
 }
-
-
 
 

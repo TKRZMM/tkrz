@@ -16,17 +16,19 @@
 
 	$callActionArray = array('home'       => array('label' => 'HOME</a>',
 												   'icon'  => $preLink . '<i class="fa fa-home fa-lg"></i>'),
-							 'fileUpload' => array('label' => 'Datei Upload',
-												   'icon'  => '<i class="fa fa-upload"></i>'
-							 )
+							 'fileUpload' => array('label' => 'Datei - Upload',
+												   'icon'  => '<i class="fa fa-upload"></i>'),
+							 'dbImport'   => array('label' => 'Datenbank - Import',
+												   'icon'  => '<i class="fa fa-sign-in fa-lg"></i>'),
+							 'dbExport'   => array('label' => 'Datenbank - Export',
+												   'icon'  => ' <i class="fa fa-sign-out fa-lg"></i>')
 	);
 
 
 	$subActionArray = array('baseData'    => array('label' => 'Stammdaten',
 												   'icon'  => '<i class="fa fa-user"></i>'),
 							'bookingData' => array('label' => 'Buchungssatz',
-												   'icon'  => '<i class="fa fa-university"></i>'
-							)
+												   'icon'  => '<i class="fa fa-university"></i>')
 	);
 
 

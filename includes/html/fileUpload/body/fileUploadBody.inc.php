@@ -15,7 +15,7 @@
 
 		<table border="0" width="100%" class="standard formBackground">
 			<tr>
-				<td colspan="2"><h2>Datei Upload</h2></td>
+				<td colspan="2"><h2>Datei - Upload</h2></td>
 			</tr>
 			<tr>
 				<td><input class="fileUpload" required type="file" name="file" size="40" maxlength="100000"></td>

@@ -8,7 +8,7 @@
 ?>
 
 
-<div class="center">
+<div class="center" style="width: 460px;">
     <main role="main">
         <h2>Login Formular</h2>
 

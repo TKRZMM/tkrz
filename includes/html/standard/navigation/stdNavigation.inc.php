@@ -107,7 +107,7 @@ if ($hNav->createNavMenueFullHandling($navArray))
 
 
 
-<br><br>
+<br>
 
 
 
@@ -123,76 +123,77 @@ if ($hNav->createNavMenueFullHandling($navArray))
         </td>
     </tr>
 
-    <tr>
-        <td class="submenueB" onmouseover="showInformation('Datenbank - Import','Stammdaten')" onmouseout="clearInformation()">
-            &nbsp;
-        </td>
-        <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','Stammdaten')" onmouseout="clearInformation()">
-            <i class="fa fa-user"></i>
-        </td>
-        <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','Stammdaten')" onmouseout="clearInformation()">
-            Stammdaten
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Import','Stammdaten','Centron')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Import','Stammdaten','Centron')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Import','Stammdaten','Centron')" onmouseout="clearInformation()">
-            Centron
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Import','Stammdaten','Dimari')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Import','Stammdaten','Dimari')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Import','Stammdaten','Dimari')" onmouseout="clearInformation()">
-            Dimari
-        </td>
-    </tr>
 
-    <tr>
-        <td colspan="4">&nbsp;</td>
-    </tr>
+    <?php
+    if ($boolGotNav){
 
-    <tr>
-        <td class="submenueB" onmouseover="showInformation('Datenbank - Import','Buchungssatz')" onmouseout="clearInformation()">
-            &nbsp;
-        </td>
-        <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','Buchungssatz')" onmouseout="clearInformation()">
-            <i class="fa fa-university"></i>
-        </td>
-        <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','Buchungssatz')" onmouseout="clearInformation()">
-            Buchungssatz
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Import','Buchungssatz','Centron')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Import','Buchungssatz','Centron')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Import','Buchungssatz','Centron')" onmouseout="clearInformation()">
-            Centron
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Import','Buchungssatz','Dimari')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Import','Buchungssatz','Dimari')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Import','Buchungssatz','Dimari')" onmouseout="clearInformation()">
-            Dimari
-        </td>
-    </tr>
+        foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
+
+            //echo "SourceTypeID : $sourceTypeID<br>";
+
+
+
+            foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
+
+                $curIconTag = $navArray['IconSourceType'][$sourceTypeID];
+                ?>
+
+                <tr>
+                    <td class="submenueB" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
+                        &nbsp;
+                    </td>
+                    <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
+                        <?php print ($curIconTag); ?>
+                    </td>
+                    <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
+                        <?php print ($sourceTypeName); ?>
+                    </td>
+                </tr>
+
+
+                <?php
+
+                foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
+
+                    $curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
+                    ?>
+                    <tr>
+                        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">&nbsp;</td>
+                        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
+                            <i class="fa fa-angle-double-right fa-lg"></i>
+                        </td>
+                        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/dbImport/<?php print ($curDir); ?>/<?php print ($sourceSystemName); ?>'" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
+                            <?php print ($sourceSystemName); ?>
+                        </td>
+                    </tr>
+                    <?php
+
+                }
+
+
+
+            }
+
+
+            ?>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+            <?php
+
+        }
+
+
+    }   // END if ($boolGotNav){
+    ?>
+
 </table>
 
 
 
 
 
-<br><br>
+<br>
 
 
 
@@ -208,68 +209,71 @@ if ($hNav->createNavMenueFullHandling($navArray))
         </td>
     </tr>
 
-    <tr>
-        <td class="submenueB" onmouseover="showInformation('Datenbank - Export','Stammdaten')" onmouseout="clearInformation()">
-            &nbsp;
-        </td>
-        <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','Stammdaten')" onmouseout="clearInformation()">
-            <i class="fa fa-user"></i>
-        </td>
-        <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','Stammdaten')" onmouseout="clearInformation()">
-            Stammdaten
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Export','Stammdaten','Centron')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Export','Stammdaten','Centron')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Export','Stammdaten','Centron')" onmouseout="clearInformation()">
-            Centron
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Export','Stammdaten','Dimari')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Export','Stammdaten','Dimari')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Export','Stammdaten','Dimari')" onmouseout="clearInformation()">
-            Dimari
-        </td>
-    </tr>
 
-    <tr>
-        <td colspan="4">&nbsp;</td>
-    </tr>
+    <?php
+    if ($boolGotNav){
 
-    <tr>
-        <td class="submenueB" onmouseover="showInformation('Datenbank - Export','Buchungssatz')" onmouseout="clearInformation()">
-            &nbsp;
-        </td>
-        <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','Buchungssatz')" onmouseout="clearInformation()">
-            <i class="fa fa-university"></i>
-        </td>
-        <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','Buchungssatz')" onmouseout="clearInformation()">
-            Buchungssatz
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Export','Buchungssatz','Centron')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Export','Buchungssatz','Centron')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Export','Buchungssatz','Centron')" onmouseout="clearInformation()">
-            Centron
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Export','Buchungssatz','Dimari')" onmouseout="clearInformation()">&nbsp;</td>
-        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Export','Buchungssatz','Dimari')" onmouseout="clearInformation()">
-            <i class="fa fa-angle-double-right fa-lg"></i>
-        </td>
-        <td class="submenueC subMenueLink" onClick="location.href='http://www.heise.de'" onmouseover="showInformation('Datenbank - Export','Buchungssatz','Dimari')" onmouseout="clearInformation()">
-            Dimari
-        </td>
-    </tr>
+        foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
+
+            //echo "SourceTypeID : $sourceTypeID<br>";
+
+
+
+            foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
+
+                $curIconTag = $navArray['IconSourceType'][$sourceTypeID];
+                ?>
+
+                <tr>
+                    <td class="submenueB" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
+                        &nbsp;
+                    </td>
+                    <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
+                        <?php print ($curIconTag); ?>
+                    </td>
+                    <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
+                        <?php print ($sourceTypeName); ?>
+                    </td>
+                </tr>
+
+
+                <?php
+
+                foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
+
+                    $curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
+                    ?>
+                    <tr>
+                        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">&nbsp;</td>
+                        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
+                            <i class="fa fa-angle-double-right fa-lg"></i>
+                        </td>
+                        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/dbExport/<?php print ($curDir); ?>/<?php print ($sourceSystemName); ?>'" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
+                            <?php print ($sourceSystemName); ?>
+                        </td>
+                    </tr>
+                    <?php
+
+                }
+
+
+
+            }
+
+
+            ?>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+            <?php
+
+        }
+
+
+    }   // END if ($boolGotNav){
+    ?>
+
 </table>
+
+
 
