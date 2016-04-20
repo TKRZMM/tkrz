@@ -91,7 +91,7 @@ class FileImportCentron extends CoreExtends
 		foreach($Data as $index => $row) {
 
 			// Centron Buchungsdaten?
-			if (($this->coreGlobal['curSourceTypeID'] == '2') && ($this->coreGlobal['curSourceSystemID'] == '2'))
+			if ($this->coreGlobal['curSourceTypeID'] == '2')
 				$eachValueArray = str_getcsv($row[0], "\t");
 
 			else
