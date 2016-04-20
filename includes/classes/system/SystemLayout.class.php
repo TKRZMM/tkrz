@@ -148,6 +148,7 @@ class SystemLayout extends CoreExtends
 	// Liefert gesuchte Daten aus der DB Tabelle x
 	private function getActiveSourceDataByX($getTableName, $getType, $getSearchVal)
 	{
+
 		$returnArray = array();
 
 		// Feldnamen der Tabelle dynamisch einlesen

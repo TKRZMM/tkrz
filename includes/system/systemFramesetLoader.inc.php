@@ -13,8 +13,7 @@ include 'includes/html/basic/head/bscHead.inc.php';
 
 // Lade: Frameset - Template
 $curFrameset = 'includes/html/framesets/' . $hCore->getFrameset();
-include ($curFrameset);
-
+include($curFrameset);
 
 
 

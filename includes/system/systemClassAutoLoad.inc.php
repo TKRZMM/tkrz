@@ -44,11 +44,6 @@ function mySimpleout($getCaseNum, $addArg = '')
 
 
 
-
-
-
-
-
 // Ersetze Slashe vor-zurück
 function revertSlashes($getContent)
 {
@@ -62,32 +57,16 @@ function revertSlashes($getContent)
 
 
 
-
-
-
-
-
 // Prüft ob "classes" mit im Pfad ist und gibt true oder false zurück
 function checkForClassesDir($class)
 {
-	if (!preg_match('/classes\/(.+)/',$class, $mathes))
+
+	if (!preg_match('/classes\/(.+)/', $class, $mathes))
 		return false;
 
 	return true;
 
-}	// END function checkForClassesDir(...)
-
-
-
-
-
-
-
-
-
-
-
-
+}    // END function checkForClassesDir(...)
 
 
 
@@ -106,7 +85,7 @@ spl_autoload_register(
 			$fullPath = 'includes/' . $class;
 
 
-		if (file_exists($fullPath)){
+		if (file_exists($fullPath)) {
 			include $fullPath;
 		}
 		else {

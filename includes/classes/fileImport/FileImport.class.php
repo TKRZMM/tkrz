@@ -144,7 +144,7 @@ class FileImport extends CoreExtends
 		$this->coreGlobal['curDownloadLink'] = $row->downloadLink;      // Link zur gewählten Datei
 		$this->coreGlobal['curSourceTypeID'] = $row->sourceTypeID;      // IDt = ID Type    (Stammdaten, Buchungssatz)
 		$this->coreGlobal['curSourceSystemID'] = $row->sourceSystemID;  // IDs = ID System  (Diamri, Centron usw)
-		$this->coreGlobal['curFilePath'] = $row->fileTargetFullPath;	// Pfad zum öffnen der Datei
+		$this->coreGlobal['curFilePath'] = $row->fileTargetFullPath;    // Pfad zum öffnen der Datei
 
 		$this->free_result($result);
 

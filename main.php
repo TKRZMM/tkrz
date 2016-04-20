@@ -10,12 +10,8 @@ session_start();
 
 
 
-
 // Lade: Klassen - Autoloader
 require_once 'includes/system/systemClassAutoLoad.inc.php';
-
-
-
 
 
 
@@ -24,14 +20,6 @@ $hAction = new classes\system\SystemAction();
 
 
 
-
-// $hCore->addDebugMessage('Add aus index.php');
-//$hCore->simpleout('Hallo Markus');
-
-
-
-
-// TODO Dynmisches Laden der Frameset - Datei geregelt über die Action
 // Lade: Frameset - Setting
 require_once 'includes/system/systemFramesetLoader.inc.php';
 

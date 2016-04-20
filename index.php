@@ -3,9 +3,9 @@
 
 
 <head>
-    <!-- HTML meta refresh URL redirection -->
-    <meta http-equiv="refresh" content="0; url=http://localhost/tkrz/home">
-    <title>Odin - Development</title>
+	<!-- HTML meta refresh URL redirection -->
+	<meta http-equiv="refresh" content="0; url=http://localhost/tkrz/home">
+	<title>Odin - Development</title>
 </head>
 
 

@@ -17,8 +17,8 @@
  *                                  '-> CoreExtends                 Child
  *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
  *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
- *  -> ClassXYZ                 									AnyCreature from Outerspace
- *  -> ...         													AnyCreature from Outerspace
+ *  -> ClassXYZ                                                    AnyCreature from Outerspace
+ *  -> ...                                                            AnyCreature from Outerspace
  *
  */
 namespace classes\core;

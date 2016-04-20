@@ -519,7 +519,7 @@ class FileImportCentron extends CoreExtends
 			$MwSt = trim($bookingSet[6]);
 			$Kostenstelle = trim($bookingSet[7]);
 
-			if (strlen($RechnungsNr) < 1){
+			if (strlen($RechnungsNr) < 1) {
 				$this->addMessage('Fehlende Rechnungsnummer', 'Fehlende Rechnungsnummer bei Kunden-Nr.: ' . $KundenNummer, 'Warnung', 'Datenbank-Import');
 				continue;
 			}

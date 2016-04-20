@@ -17,8 +17,8 @@
  *                                  '-> CoreExtends                 Child
  * ==>                                  '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
  *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
- *  -> ClassXYZ                 									AnyCreature from Outerspace
- *  -> ...         													AnyCreature from Outerspace
+ *  -> ClassXYZ                                                    AnyCreature from Outerspace
+ *  -> ...                                                            AnyCreature from Outerspace
  *
  */
 namespace classes\system;
@@ -141,9 +141,8 @@ class SystemAction extends CoreExtends
 
 
 
-
 		// Datei Import?
-		elseif ($this->checkCallActionByAnyMethod('dbImport')){
+		elseif ($this->checkCallActionByAnyMethod('dbImport')) {
 
 			// Lade FileUpload - Klasse
 			$objFileImport = new FileImport();
@@ -154,13 +153,12 @@ class SystemAction extends CoreExtends
 			// Keine weiteren Prüfungen in der Action an dieser Stelle
 			return true;
 
-		}	// END // Datei Import?
-
+		}    // END // Datei Import?
 
 
 
 		// Daten / Datei Export?
-		elseif ($this->checkCallActionByAnyMethod('dbExport')){
+		elseif ($this->checkCallActionByAnyMethod('dbExport')) {
 
 			// Lade FileExport - Klasse
 			$objFileExport = new FileExport();
@@ -171,7 +169,7 @@ class SystemAction extends CoreExtends
 			// Keine weiteren Prüfungen in der Action an dieser Stelle
 			return true;
 
-		}	// END // Datei Import?
+		}    // END // Datei Import?
 
 
 
