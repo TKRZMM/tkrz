@@ -79,7 +79,7 @@ if (isset($hCore->coreMessages['headline'])) {
 						<table style="padding-left: 50px" border="0" width="100%">
 							<tr>
 								<td width="90px" class="textRight">
-									Headline &nbsp;
+									&nbsp;
 								</td>
 
 								<td class="bgMessageStandard borderGreenShadow" align="left">
@@ -96,7 +96,7 @@ if (isset($hCore->coreMessages['headline'])) {
 						<table style="padding-left: 150px" border="0" width="100%">
 							<tr>
 								<td width="90px" class="textRight textTop">
-									Information &nbsp;
+									&nbsp;
 								</td>
 
 								<td class="bgMessageStandard borderGreenShadow" align="left">

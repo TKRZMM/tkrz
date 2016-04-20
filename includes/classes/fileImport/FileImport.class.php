@@ -236,7 +236,7 @@ class FileImport extends CoreExtends
 		$this->coreGlobal['Load']['FramesetBody'] = 'fileImport/body/fileImportBodySetFrame.inc.php';
 
 		// Setze zu ladendes Include in der Body Frameset
-		$this->coreGlobal['Load']['IncludeBody'] = 'fileImportGetUserDateSelectionBody.inc.php';
+		$this->coreGlobal['Load']['IncludeBody'] = 'fileImportGetUserDataSelectionBody.inc.php';
 
 		return true;
 

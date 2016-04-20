@@ -212,11 +212,6 @@ class FileImportCentron extends CoreExtends
 			}
 
 
-			//HARDCODE Kundennummern die übersprungen werden können und wegen fehlerafter Ursprungsdaten nicht verwendet werden
-			if (($curKundenNummer == '10148') || ($curKundenNummer == '10371') || ($curKundenNummer == '10131'))
-				continue;
-
-
 			// Strassenstring für Hausnummer und Hausnummer-Zusatz zerlegen
 			if (!isset($kunde[$setRowStrasseHnr])) {
 				$strassenname = '';
@@ -379,7 +374,7 @@ class FileImportCentron extends CoreExtends
 
 
 
-			$dynInsertQuery = "(
+			$dynInsertQuery = "INSERT INTO centron_basedata (
                                 `userID`,
                                 `Personenkonto`,
                                 `Name1`,
@@ -424,7 +419,8 @@ class FileImportCentron extends CoreExtends
                                 )
                                 ";
 
-			$dynUpdateQuery = "`userID`                 = '" . $_SESSION['Login']['userID'] . "',
+			$dynUpdateQuery = " ON DUPLICATE KEY UPDATE
+								`userID`                 = '" . $_SESSION['Login']['userID'] . "',
 							   `updateCounter`			= updateCounter + 1,
                                `Name1`                  = '" . $name1 . "',
                                `Name2`                  = '" . $name2 . "',
@@ -453,7 +449,8 @@ class FileImportCentron extends CoreExtends
 
 
 			// DB Eintrag erstellen oder Updaten (Query erstellen)!
-			$query = "INSERT INTO centron_basedata " . $paramArray['dynInsertQuery'] . " ON DUPLICATE KEY UPDATE " . $paramArray['dynUpdateQuery'];
+			//$query = "INSERT INTO centron_basedata " . $paramArray['dynInsertQuery'] . " ON DUPLICATE KEY UPDATE " . $paramArray['dynUpdateQuery'];
+			$query = $paramArray['dynInsertQuery'] . $paramArray['dynUpdateQuery'];
 
 			// Query ausführen
 			$this->query($query);

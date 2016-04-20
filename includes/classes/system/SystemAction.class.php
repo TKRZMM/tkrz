@@ -27,6 +27,7 @@ namespace classes\system;
 use classes\core\CoreExtends;
 use fileUpload\FileUpload;
 use fileImport\FileImport;
+use fileExport\FileExport;
 
 
 class SystemAction extends CoreExtends
@@ -149,6 +150,23 @@ class SystemAction extends CoreExtends
 
 			// Übergebe an Initial-Methode der FileImport - Klasse
 			$objFileImport->initialFileImport();
+
+			// Keine weiteren Prüfungen in der Action an dieser Stelle
+			return true;
+
+		}	// END // Datei Import?
+
+
+
+
+		// Daten / Datei Export?
+		elseif ($this->checkCallActionByAnyMethod('dbExport')){
+
+			// Lade FileExport - Klasse
+			$objFileExport = new FileExport();
+
+			// Übergebe an Initial-Methode der FileExport - Klasse
+			$objFileExport->initialFileExport();
 
 			// Keine weiteren Prüfungen in der Action an dieser Stelle
 			return true;
