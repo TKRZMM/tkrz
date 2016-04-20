@@ -420,6 +420,16 @@ class FileImportCentron extends CoreExtends
 
 
 
+		// Belegten Speicher in der global wieder freigeben
+		unset($this->coreGlobal['ImportValue']);
+		unset($this->coreGlobal['curDownloadLink']);
+		unset($this->coreGlobal['curSourceTypeID']);
+		unset($this->coreGlobal['curSourceSystemID']);
+		unset($this->coreGlobal['curDownloadLink']);
+		unset($this->coreGlobal['curFilePath']);
+
+
+
 		// Informationen ausgeben
 		if ($cntKunden > 0)
 			$this->addMessage('Datenbank - Import erfolgreich!', $cntKunden . ' Datensätze wurden erfolreich in die Datenbank übernommen.', 'Erfolg', 'Datenbank - Import');
