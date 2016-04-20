@@ -44,12 +44,20 @@ class FileImportCentron extends CoreExtends
 
 
 
+
+
+
+
+
+
+
 	// Initial Methode für den Import der Stammdaten!!!
-	// Achtung!!!
-	// Mehtoden-Name wird bei Aufruf dynamisch zusammengesetzt:
-	// 'fileImport' . {fileUploadDirName} <- Aus DB-Tabelle source_typ
 	function fileImportbaseData()
 	{
+
+		// Achtung!!!
+		// Mehtoden-Name wird bei Aufruf dynamisch zusammengesetzt:
+		// 'fileImport' . {fileUploadDirName} <- Aus DB-Tabelle source_typ
 
 		// Lese CSV - bzw. Import-Datei ein
 		$this->readImportFile();
@@ -57,6 +65,34 @@ class FileImportCentron extends CoreExtends
 
 		// Stammdaten in Datenbank schreiben
 		$this->insertIntoDBBaseData();
+
+		return true;
+
+	}    // END function fileImportbaseData()
+
+
+
+
+
+
+
+
+
+
+	// Initial Methode für den Import der Buchungsdaten!!!
+	function fileImportbookingData()
+	{
+
+		// Achtung!!!
+		// Mehtoden-Name wird bei Aufruf dynamisch zusammengesetzt:
+		// 'fileImport' . {fileUploadDirName} <- Aus DB-Tabelle source_typ
+
+		// Lese CSV - bzw. Import-Datei ein
+		$this->readImportFile();
+
+
+		// Stammdaten in Datenbank schreiben
+		$this->insertIntoDBBookingData();
 
 		return true;
 
@@ -153,7 +189,7 @@ class FileImportCentron extends CoreExtends
 
 
 		// Tabelle leeren!
-		$this->query('TRUNCATE TABLE `basedata_centron`');
+		$this->query('TRUNCATE TABLE `centron_basedata`');
 
 		// Jede Zeile / Kunde durchgehen und entsprechend in die DB speichern
 		foreach($zeilen as $kunde) {
@@ -410,14 +446,24 @@ class FileImportCentron extends CoreExtends
                                `Email`                  = '" . $Email . "'
             ";
 
+
+			// Parameter für getQuery setzen
+			$paramArray = array('dynInsertQuery' => $dynInsertQuery,
+								'dynUpdateQuery' => $dynUpdateQuery);
+
+
 			// DB Eintrag erstellen oder Updaten (Query erstellen)!
-			$query = "INSERT INTO basedata_centron " . $dynInsertQuery . " ON DUPLICATE KEY UPDATE " . $dynUpdateQuery;
+			$query = "INSERT INTO centron_basedata " . $paramArray['dynInsertQuery'] . " ON DUPLICATE KEY UPDATE " . $paramArray['dynUpdateQuery'];
 
 			// Query ausführen
 			$this->query($query);
 
 		}   // END foreach ($zeilen as $kunde){
 
+
+		// Import Counter und Import-Datum aktuallisieren
+		$query = "UPDATE file_upload SET importCounter = importCounter+1, lastImport = now() WHERE fileUploadID = '" . $this->coreGlobal['POST']['selFileUploadID'] . "' LIMIT 1";
+		$this->query($query);
 
 
 		// Belegten Speicher in der global wieder freigeben
@@ -440,6 +486,145 @@ class FileImportCentron extends CoreExtends
 		return true;
 
 	}    // END private function insertIntoDBBaseData()
+
+
+
+
+
+
+
+
+
+
+	// Buchungsdaten in Datenbank schreiben
+	private function insertIntoDBBookingData()
+	{
+
+		$zeilen = $this->coreGlobal['ImportValue'];
+
+		// Tabelle leeren!
+		$this->query('TRUNCATE TABLE `centron_bookingdata`');
+
+		// Buchungszähler
+		$cntBuchungen = 0;
+
+		// Jede Zeile / Kunde durchgehen und entsprechend in die DB speichern
+		foreach($zeilen as $bookingSet) {
+
+			preg_match_all("/(\d+)\.(\d+)\.(\d+)/i", trim($bookingSet[0]), $splitDate);
+
+			$Datum = '20' . $splitDate[3][0] . '-' . $splitDate[2][0] . '-' . $splitDate[1][0];
+			$RechnungsNr = trim($bookingSet[1]);
+			$Buchungstext = trim($bookingSet[2]);
+			$Erloeskonto = trim($bookingSet[3]);
+			$KundenNummer = trim($bookingSet[4]);
+			$Brutto = trim($bookingSet[5]);
+			$MwSt = trim($bookingSet[6]);
+			$Kostenstelle = trim($bookingSet[7]);
+
+			if (strlen($RechnungsNr) < 1){
+				$this->addMessage('Fehlende Rechnungsnummer', 'Fehlende Rechnungsnummer bei Kunden-Nr.: ' . $KundenNummer, 'Warnung', 'Datenbank-Import');
+				continue;
+			}
+
+
+			// NULL - Werte abfangen
+			if (strlen($Datum) < 1)
+				$Datum = '0000-00-00';
+
+
+			if (strlen($Buchungstext) < 1)
+				$Buchungstext = '0';
+
+
+			if (strlen($Erloeskonto) < 1)
+				$Erloeskonto = '0';
+
+
+			if (strlen($KundenNummer) < 1)
+				$KundenNummer = '0';
+
+
+			if (strlen($Brutto) < 1)
+				$Brutto = '0';
+
+
+			if (strlen($MwSt) < 1)
+				$MwSt = '0';
+
+
+			if (strlen($Kostenstelle) < 1)
+				$Kostenstelle = '0';
+
+
+			// Brutto Komma in Punkt umwandeln
+			$Brutto = str_replace(",", ".", $Brutto);
+			$Brutto = round($Brutto, 2);
+			$Brutto = number_format($Brutto, 2, '.', '');
+
+
+			// Zeit jetzt
+			$curTime = date("Y-m-d H:i:s");
+
+
+			// DB Einträge erstellen
+			$query = "INSERT INTO centron_bookingdata (
+                                                      `importDate`,
+                                                      `userID`,
+                                                      `Datum`,
+                                                      `RechnungsNr`,
+                                                      `Buchungstext`,
+                                                      `Erloeskonto`,
+                                                      `KundenNummer`,
+                                                      `Brutto`,
+                                                      `MwSt`,
+                                                      `Kostenstelle`
+                                                      ) VALUES (
+                                                      '" . $curTime . "',
+                                                      '" . $_SESSION['Login']['userID'] . "',
+                                                      '" . $Datum . "',
+                                                      '" . $RechnungsNr . "',
+                                                      '" . $Buchungstext . "',
+                                                      '" . $Erloeskonto . "',
+                                                      '" . $KundenNummer . "',
+                                                      '" . $Brutto . "',
+                                                      '" . $MwSt . "',
+                                                      '" . $Kostenstelle . "'
+                                                      )";
+
+			// Query ausführen
+			$this->query($query);
+
+			// Buchungszähler
+			$cntBuchungen++;
+
+		}   // END foreach ($zeilen as $bookingSet){
+
+
+		// Import Counter und Import-Datum aktuallisieren
+		$query = "UPDATE file_upload SET importCounter = importCounter+1, lastImport = now() WHERE fileUploadID = '" . $this->coreGlobal['POST']['selFileUploadID'] . "' LIMIT 1";
+		$this->query($query);
+
+		// Belegten Speicher in der global wieder freigeben
+		unset($this->coreGlobal['ImportValue']);
+		unset($this->coreGlobal['curDownloadLink']);
+		unset($this->coreGlobal['curSourceTypeID']);
+		unset($this->coreGlobal['curSourceSystemID']);
+		unset($this->coreGlobal['curDownloadLink']);
+		unset($this->coreGlobal['curFilePath']);
+
+
+
+		// Informationen ausgeben
+		if ($cntBuchungen > 0)
+			$this->addMessage('Datenbank - Import erfolgreich!', $cntBuchungen . ' Datensätze wurden erfolreich in die Datenbank übernommen.', 'Erfolg', 'Datenbank - Import');
+		else
+			$this->addMessage('Datenbank - Import durchgeführt!', 'Es wurden keine Datensätze in die Datenbank übernommen.', 'Erfolg', 'Datenbank - Import');
+
+
+		return true;
+
+	}    // END private function insertIntoDBBookingData()
 
 
 }   // END class FileImportCentron

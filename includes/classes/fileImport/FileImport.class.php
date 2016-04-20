@@ -90,7 +90,6 @@ class FileImport extends CoreExtends
 			$callMethod = 'fileImport' . $getMethodPart;
 
 			// Rufe Klasse auf
-			// TODO muss ich coreClobal übergeben?
 			$hFileImport = new $callClass();
 
 			// Rufe Methode der Klasse auf

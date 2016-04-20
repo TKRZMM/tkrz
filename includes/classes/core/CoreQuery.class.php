@@ -247,7 +247,6 @@ abstract class CoreQuery extends CoreDebug
 
 
 
-
 			default:
 				break;
 		}

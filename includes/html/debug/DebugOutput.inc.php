@@ -135,6 +135,7 @@
 if ((isset($hCore->coreGlobal['messagesDebug'])) && (count($hCore->coreGlobal['messagesDebug']) > 0)) {
 	print ('<script>reSize(\'Footer\');</script>'); // Debug Ausgabe vergrössern
 	print ('<script>showOnOffDebugSelections(\'messagesDebug\');</script>');    // Feld debugMessages aktivieren
-} elseif ((isset($hCore->coreGlobal)) && (count($hCore->coreGlobal) > 0)) {
+}
+elseif ((isset($hCore->coreGlobal)) && (count($hCore->coreGlobal) > 0)) {
 	print ('<script>showOnOffDebugSelections(\'debugCoreGlobal\');</script>');  // Feld coreGlobal aktieren
 }
