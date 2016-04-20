@@ -200,6 +200,9 @@ td.debugLinkList {
 .bgMessageDone{
     background-color: rgb(179, 231, 124);
 }
+.bgMessageWarning{
+    background-color: rgb(231, 159, 82);
+}
 
 
 /* AUSRICHTUNGEN */

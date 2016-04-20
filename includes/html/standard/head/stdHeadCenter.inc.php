@@ -22,10 +22,19 @@ if (isset($hCore->coreMessages['headline'])) {
 		elseif ($curTypeIndx == 'erfolg')
 			$curClass = 'bgMessageDone';
 
+		elseif ($curTypeIndx == 'warnung')
+			$curClass = 'bgMessageWarning';
+
 
 		?>
 
 		<div style="padding-top: 5px; padding-left: 8%">
+
+			<?php
+			if ($index > 0)
+				print ('<br>');
+			?>
+
 			<table border="0" width="90%" class="standard infoMessage">
 				<tr>
 					<td>
@@ -122,14 +131,12 @@ if (isset($hCore->coreMessages['headline'])) {
 				?>
 			</table>
 
-			<?php
-			if ($index > 0)
-				print ('<br>');
-			?>
-
 		</div>
 
 		<?php
 	}
+
+	print ('<br>');
+
 }
 ?>

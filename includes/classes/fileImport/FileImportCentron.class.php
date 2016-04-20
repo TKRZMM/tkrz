@@ -45,7 +45,6 @@ class FileImportCentron extends CoreExtends
 
 
 	// Initial Methode für den Import der Stammdaten!!!
-	//
 	// Achtung!!!
 	// Mehtoden-Name wird bei Aufruf dynamisch zusammengesetzt:
 	// 'fileImport' . {fileUploadDirName} <- Aus DB-Tabelle source_typ
@@ -83,23 +82,24 @@ class FileImportCentron extends CoreExtends
 		$myData = array();
 
 		// Array aufbereiten
-		foreach($preData as $newLine) {
+		foreach($preData as $newLine)
 			$myNewData[][0] = $newLine;
-		}
+
 		$Data = $myNewData;
 
 
 		foreach($Data as $index => $row) {
 
 			// Centron Buchungsdaten?
-			if (($this->coreGlobal['curSourceTypeID'] == '2') && ($this->coreGlobal['curSourceSystemID'] == '2')) {
+			if (($this->coreGlobal['curSourceTypeID'] == '2') && ($this->coreGlobal['curSourceSystemID'] == '2'))
 				$eachValueArray = str_getcsv($row[0], "\t");
-			}
-			else {
+
+			else
 				$eachValueArray = str_getcsv($row[0], ";");
-			}
+
 
 			$myData[$index] = $eachValueArray;
+
 		}
 
 		// Speichere csv - Daten zur weiteren Verarbeitung in der globalen - Klassen - Variable
@@ -133,56 +133,59 @@ class FileImportCentron extends CoreExtends
 		$setRowOrt = 4;
 		$setRowTelefon = 5;
 		$setRowEmail = 6;
-		$setRowZahlungstyp = 7;
+		// $setRowZahlungstyp = 7;
 		$setIBAN = 8;
 		$setSWIFT = 9;
 		$setLandCode = 10;
-		$setLandName = 11;
+		// $setLandName = 11;
 		$setBKLZ = 12;
 		$setBankNr = 13;
 
 		$zeilen = $this->coreGlobal['ImportValue'];
-		$downloadLink = $this->coreGlobal['curDownloadLink'];
-		$IDt = $this->coreGlobal['curSourceTypeID'];
-		$IDs = $this->coreGlobal['curSourceSystemID'];
+		// $downloadLink = $this->coreGlobal['curDownloadLink'];
+		// $IDt = $this->coreGlobal['curSourceTypeID'];
+		// $IDs = $this->coreGlobal['curSourceSystemID'];
 
 
-		$cnt_kunden = 0;
+		$cntKunden = 0;
 		$errorArray = array();
+		$warningArray = array();
 
 
 		// Tabelle leeren!
 		$this->query('TRUNCATE TABLE `basedata_centron`');
 
+		// Jede Zeile / Kunde durchgehen und entsprechend in die DB speichern
 		foreach($zeilen as $kunde) {
-			$daten['errorArray']['Kd.-Nr.'] = array();
 
 			// Headline in Rohdatei? Wenn ja, überspringe ich die erste Zeile
-			if (($skipHeadline) && ($cnt_kunden == 0)) {
+			if (($skipHeadline) && ($cntKunden == 0)) {
 				$skipHeadline = false;
 				continue;
 			}
 
 
-			//TODO WORKAROUND für 3 kundennumern... keine Anschriftdaten!
-			$tmpKdNr = trim($kunde[$setRowKDNummer]);
-			if (($tmpKdNr == '10148') || ($tmpKdNr == '10371') || ($tmpKdNr == '10131')) {
+			// Aktuelle Kundennummer!
+			$curKundenNummer = trim($kunde[$setRowKDNummer]);
 
+
+			// Haben wir eine Kundennummer?
+			if (strlen($curKundenNummer) < 1) {
+				$this->addMessage('Fehlende Kunden-Nr.', 'Fehlende Kundennummer, hier in " die vorliegenden Daten: "' . $curKundenNummer . '""', 'Warnung', 'Datenbank-Import');
 				continue;
 			}
 
-			if (trim($kunde[$setRowKDNummer]) == "") {
+
+			//HARDCODE Kundennummern die übersprungen werden können und wegen fehlerafter Ursprungsdaten nicht verwendet werden
+			if (($curKundenNummer == '10148') || ($curKundenNummer == '10371') || ($curKundenNummer == '10131'))
 				continue;
-			}
 
 
-
-			// Strassenstring auseinandernehmen
+			// Strassenstring für Hausnummer und Hausnummer-Zusatz zerlegen
 			if (!isset($kunde[$setRowStrasseHnr])) {
 				$strassenname = '';
 				$hausnummer = '';
 				$hausnummerzusatz = '';
-				$daten['errorArray']['Kd.-Nr.'] = $kunde[$setRowKDNummer];
 			}
 			else {
 				$strassenname = trim($kunde[$setRowStrasseHnr]);
@@ -197,60 +200,63 @@ class FileImportCentron extends CoreExtends
 			}
 
 
-
-			// TODO ELEGANTER Datensatz bei Doppel abfangen
+			// Straßenname sollte jetzt bekannt sein
 			if (strlen($strassenname) < 2) {
+				$errorArray[$curKundenNummer]['Strasse'] = 'Fehlender Straßenname';
+				$this->addMessage('Fehlender Straßenname', 'Fehlender Straßenname bei Kunden-Nr.: ' . $curKundenNummer, 'Warnung', 'Datenbank-Import');
 				continue;
 			}
 
-			// Escapen für DB - Insert z.B. bei: Up'n Nien Esch
+
+			// Escapen für DB - Insert z.B. bei Name: Up'n Nien Esch
 			$strassenname = addslashes($strassenname);
 
 
-			$cnt_kunden++;
+			// Eintrag - Zähler erhöhen
+			$cntKunden++;
 
 
 			if (!isset($kunde[$setRowPLZ])) {
 				$PLZ = '';
-				$daten['errorArray']['Kd.-Nr.'] = $kunde[$setRowKDNummer];
+				$warningArray[$curKundenNummer]['PLZ'] = 'Fehlende PLZ';
 			}
-			else {
+			else
 				$PLZ = trim($kunde[$setRowPLZ]);
-			}
+
 
 
 			if (!isset($kunde[$setRowOrt])) {
 				$Ort = '';
-				$daten['errorArray']['Kd.-Nr.'] = $kunde[$setRowKDNummer];
+				$warningArray[$curKundenNummer]['PLZ'] = 'Fehlender Ortsname';
 			}
-			else {
+			else
 				$Ort = trim($kunde[$setRowOrt]);
-			}
+
 
 
 			if (!isset($kunde[$setRowTelefon])) {
 				$Telefon = '';
-				$daten['errorArray']['Kd.-Nr.'] = $kunde[$setRowKDNummer];
+				$warningArray[$curKundenNummer]['Telefon'] = 'Fehlende Telefonnummer';
 			}
-			else {
+			else
 				$Telefon = trim($kunde[$setRowTelefon]);
-			}
+
 
 
 			if (!isset($kunde[$setRowEmail])) {
 				$Email = '';
-				$daten['errorArray']['Kd.-Nr.'] = $kunde[$setRowKDNummer];
+				$warningArray[$curKundenNummer]['Email'] = 'Fehlende Email';
 			}
-			else {
+			else
 				$Email = trim($kunde[$setRowEmail]);
-			}
 
-			// Calar neu
+
 
 			if (!isset($kunde[$setIBAN]))
 				$IBAN = '';
 			else
 				$IBAN = trim($kunde[$setIBAN]);
+
 
 
 			if (!isset($kunde[$setLandCode]))
@@ -259,16 +265,19 @@ class FileImportCentron extends CoreExtends
 				$Laendercode = trim($kunde[$setLandCode]);
 
 
+
 			if (!isset($kunde[$setBankNr]))
 				$Kontonummer = '';
 			else
 				$Kontonummer = trim($kunde[$setBankNr]);
 
 
+
 			if (!isset($kunde[$setBKLZ]))
 				$BLZ = '';
 			else
 				$BLZ = trim($kunde[$setBKLZ]);
+
 
 
 			if (!isset($kunde[$setSWIFT]))
@@ -278,13 +287,13 @@ class FileImportCentron extends CoreExtends
 
 
 
-			// Anschriftsname
 			$anschrifts_name1 = trim($kunde[$setRowName1]);
 			$anschrifts_name2 = "";
 			if (strlen($anschrifts_name1) > 35) {
 				$anschrifts_name2 = substr($anschrifts_name1, 35);
 				$anschrifts_name1 = substr($anschrifts_name1, 0, 35);
 			}
+
 
 
 			$name1 = trim($kunde[$setRowName1]);
@@ -294,11 +303,15 @@ class FileImportCentron extends CoreExtends
 				$name1 = substr($name1, 0, 30);
 			}
 
+
+
 			$search = '/,$/i';
 			if (preg_match_all($search, $name1, $result)) {
 				$newValue = '';
 				$name1 = preg_replace($search, $newValue, $name1);
 			}
+
+
 
 			$search = '/,$/i';
 			if (preg_match_all($search, $name2, $result)) {
@@ -307,27 +320,26 @@ class FileImportCentron extends CoreExtends
 			}
 
 
-			if (count($daten['errorArray']['Kd.-Nr.']) > 0) {
-				$errorArray[] = $daten['errorArray'];
-			}
 
+			// Personenkonto sprich Kundennummer zuweisen
+			$personenkonto = $curKundenNummer;
 
-			$personenkonto = trim($kunde[$setRowKDNummer]);    // Personenkonto sprich Kundennummer
 
 
 			// Welches System soll genutzt werden (das Alte nur mit SZ oder das Neue mit SZ und BL als Zahlart)
 			if ($_SESSION['Cfg']['Default']['Centron']['ZahlungsartOldNew'] == 'new') {
 
 				// Zahlungsart Lastschrift oder Überweisung?
+				// Wenn eine BIC vorliegt... gehen wir von Lastschrift aus... festgelegt durch:
+				// L. Koschin am  12.04.2016
 				if (strlen($BIC) > 0)
 					$zahlungsart = $_SESSION['Cfg']['Default']['Centron']['ZahlungsartBL'];
 				else
 					$zahlungsart = $_SESSION['Cfg']['Default']['Centron']['Zahlungsart'];
 
 			}
-			else {
+			else
 				$zahlungsart = $_SESSION['Cfg']['Default']['Centron']['Zahlungsart'];
-			}
 
 
 
@@ -377,6 +389,7 @@ class FileImportCentron extends CoreExtends
                                 ";
 
 			$dynUpdateQuery = "`userID`                 = '" . $_SESSION['Login']['userID'] . "',
+							   `updateCounter`			= updateCounter + 1,
                                `Name1`                  = '" . $name1 . "',
                                `Name2`                  = '" . $name2 . "',
                                `Sammelkonto`            = '" . $_SESSION['Cfg']['Default']['Centron']['Sammelkonto'] . "',
@@ -397,15 +410,22 @@ class FileImportCentron extends CoreExtends
                                `Email`                  = '" . $Email . "'
             ";
 
-
-			//TODO Eintrag nur wenn kein Fehler passiert ist... das fange ich hier nicht ab!
 			// DB Eintrag erstellen oder Updaten (Query erstellen)!
 			$query = "INSERT INTO basedata_centron " . $dynInsertQuery . " ON DUPLICATE KEY UPDATE " . $dynUpdateQuery;
 
-			// DB Eintrag erstellen oder Updaten!
+			// Query ausführen
 			$this->query($query);
 
 		}   // END foreach ($zeilen as $kunde){
+
+
+
+		// Informationen ausgeben
+		if ($cntKunden > 0)
+			$this->addMessage('Datenbank - Import erfolgreich!', $cntKunden . ' Datensätze wurden erfolreich in die Datenbank übernommen.', 'Erfolg', 'Datenbank - Import');
+		else
+			$this->addMessage('Datenbank - Import durchgeführt!', 'Es wurden keine Datensätze in die Datenbank übernommen.', 'Erfolg', 'Datenbank - Import');
+
 
 		return true;
 
