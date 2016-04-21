@@ -7,6 +7,7 @@
  */
 
 
+
 // Navigation einlesen
 $boolGotNav = false;    // Flag zur Erkennung gültig geladener Navigations-Punkte
 
@@ -15,265 +16,211 @@ $navArray = array();    // InitialisierungNavigations - Array
 // Erzeuge jetzt das Navigations-Objekt
 $hNav = new classes\system\SystemLayout();
 if ($hNav->createNavMenueFullHandling($navArray))
-    $boolGotNav = true; // Setze Flag auf ... habe Daten
+	$boolGotNav = true; // Setze Flag auf ... habe Daten
 
 
 // $hNav->addDebugMessage($navArray);
 
 
+/*
+<div id="infoField" class="infoOnHoverMenue"></div>
 
+
+
+*/
 ?>
-<i class="fa fa-list fa-lg"></i>&nbsp;&nbsp; Navigation
-<br><br>
 
 
-<table border="0" width="100%" class="standard">
-    <tr>
-        <td width="20px" align="center" class="bottomLineGreen submenueA" onmouseover="showInformation('Datei - Upload')" onmouseout="clearInformation()">
-            <i class="fa fa-upload"></i>
-        </td>
-        <td colspan="3" class="bottomLineGreen submenueA" onmouseover="showInformation('Datei - Upload')" onmouseout="clearInformation()">
-            Datei - Upload
-        </td>
-    </tr>
+<div id="DivNavigationBarClicked" class="DivNavigationBar">
 
 
-    <?php
-    if ($boolGotNav){
+	<?php
+	$curCallAction = 'home';
 
-        foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
+	if ( ($hCore->coreGlobal['GET']['callAction'] == $curCallAction) || ( (!isset($hCore->coreGlobal['GET']['callAction'])) && (!isset($hCore->coreGlobal['POST']['callAction'])) ) )
+		$curActive = ' dropdown-active';
+	else
+		$curActive = '';
+	?>
+	<div class="dropdown">
+		<button class="dropbtn <?php print ($curActive); ?>" onclick="self.location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/home'"><i class="fa fa-home fa-lg"></i>&nbsp;&nbsp;Home</button>
+	</div>
 
-            //echo "SourceTypeID : $sourceTypeID<br>";
 
+	<?php
+	// Setze Werte für den aktuellen Nav-Block
+	$curHeadline = 'Datei Upload';
+	$curCallAction = 'fileUpload';
 
+	if ($hCore->coreGlobal['GET']['callAction'] == $curCallAction)
+		$curActive = ' dropdown-active';
+	else
+		$curActive = '';
+	?>
+	<div class="dropdown">
+		<button class="dropbtn <?php print ($curActive); ?>"><i class="fa fa-upload"></i>&nbsp;&nbsp;<?php print ($curHeadline);?></button>
+		<div class="dropdown-content">
+			<?php
+			if ($boolGotNav) {
 
-            foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
+				$boolIsFirstRow = true;	// Bool für Headline -Ddurchlauf (Abstand - top der ersten Headline ist geringer)
 
-                $curIconTag = $navArray['IconSourceType'][$sourceTypeID];
-                ?>
+				// Haupt - Array - Durchlauf
+				foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
 
-                <tr>
-                    <td class="submenueB" onmouseover="showInformation('Datei - Upload','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        &nbsp;
-                    </td>
-                    <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datei - Upload','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        <?php print ($curIconTag); ?>
-                    </td>
-                    <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datei - Upload','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        <?php print ($sourceTypeName); ?>
-                    </td>
-                </tr>
 
+					// Durchlauf Headline (Stammdaten / Buchungssatz)
+					foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
 
-                <?php
+						$curIconTag = $navArray['IconSourceType'][$sourceTypeID];
 
-                foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
+						// Bool Headline - Durchlauf (Abstand - top der ersten Headline ist geringer)
+						if ($boolIsFirstRow)
+							$curClass = 'dopddown-headline-first';
+						else
+							$curClass = 'dopddown-headline';
 
-                    $curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
-                    ?>
-                    <tr>
-                        <td colspan="2" class="submenueC" onmouseover="showInformation('Datei - Upload','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">&nbsp;</td>
-                        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datei - Upload','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
-                            <i class="fa fa-angle-double-right fa-lg"></i>
-                        </td>
-                        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/fileUpload/<?php print ($curDir); ?>/<?php print ($sourceSystemName); ?>'" onmouseover="showInformation('Datei - Upload','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
-                            <?php print ($sourceSystemName); ?>
-                        </td>
-                    </tr>
-                    <?php
+						$boolIsFirstRow = false;
 
-                }
+						print ('<div class="' . $curClass . '">' . $curIconTag . '&nbsp;&nbsp;&nbsp;' . $sourceTypeName .'</div>');
 
+						// Durchlauf Systeme
+						foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
 
+							$curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
 
-            }
+							print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/' . $curDir . '/' . $sourceSystemName . '">' . $sourceSystemName . '</a>');
 
+						}	// END // Durchlauf Systeme
 
-            ?>
-            <tr>
-                <td colspan="4">&nbsp;</td>
-            </tr>
-            <?php
+					}	// END // Durchlauf Headline (Stammdaten / Buchungssatz)
 
-        }
+				}	// END // Haupt - Array - Durchlauf
 
+			}
+			?>
+		</div>
+	</div>
 
-    }   // END if ($boolGotNav){
-    ?>
 
-</table>
 
 
 
+	<?php
+	$curHeadline = 'Datenbank Import';
+	$curCallAction = 'dbImport';
 
+	if ($hCore->coreGlobal['GET']['callAction'] == $curCallAction)
+		$curActive = ' dropdown-active';
+	else
+		$curActive = '';
+	?>
+	<div class="dropdown">
+		<button class="dropbtn <?php print ($curActive); ?>"><i class="fa fa-upload"></i>&nbsp;&nbsp;<?php print ($curHeadline);?></button>
+		<div class="dropdown-content">
+			<?php
+			if ($boolGotNav) {
 
-<br>
+				$boolIsFirstRow = true;	// Bool für Headline -Ddurchlauf (Abstand - top der ersten Headline ist geringer)
 
+				// Haupt - Array - Durchlauf
+				foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
 
 
+					// Durchlauf Headline (Stammdaten / Buchungssatz)
+					foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
 
+						$curIconTag = $navArray['IconSourceType'][$sourceTypeID];
 
-<table border="0" width="100%" class="standard">
-    <tr>
-        <td width="20px" align="center" class="bottomLineGreen submenueA" onmouseover="showInformation('Datenbank - Import')" onmouseout="clearInformation()">
-            <i class="fa fa-sign-in fa-lg"></i>
-        </td>
-        <td colspan="3" class="bottomLineGreen submenueA" onmouseover="showInformation('Datenbank - Import')" onmouseout="clearInformation()">
-            Datenbank - Import
-        </td>
-    </tr>
+						// Bool Headline - Durchlauf (Abstand - top der ersten Headline ist geringer)
+						if ($boolIsFirstRow)
+							$curClass = 'dopddown-headline-first';
+						else
+							$curClass = 'dopddown-headline';
 
+						$boolIsFirstRow = false;
 
-    <?php
-    if ($boolGotNav){
+						print ('<div class="' . $curClass . '">' . $curIconTag . '&nbsp;&nbsp;&nbsp;' . $sourceTypeName .'</div>');
 
-        foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
+						// Durchlauf Systeme
+						foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
 
-            //echo "SourceTypeID : $sourceTypeID<br>";
+							$curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
 
+							print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/' . $curDir . '/' . $sourceSystemName . '">' . $sourceSystemName . '</a>');
 
+						}	// END // Durchlauf Systeme
 
-            foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
+					}	// END // Durchlauf Headline (Stammdaten / Buchungssatz)
 
-                $curIconTag = $navArray['IconSourceType'][$sourceTypeID];
-                ?>
+				}	// END // Haupt - Array - Durchlauf
 
-                <tr>
-                    <td class="submenueB" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        &nbsp;
-                    </td>
-                    <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        <?php print ($curIconTag); ?>
-                    </td>
-                    <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        <?php print ($sourceTypeName); ?>
-                    </td>
-                </tr>
+			}
+			?>
+		</div>
+	</div>
 
 
-                <?php
 
-                foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
 
-                    $curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
-                    ?>
-                    <tr>
-                        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">&nbsp;</td>
-                        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
-                            <i class="fa fa-angle-double-right fa-lg"></i>
-                        </td>
-                        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/dbImport/<?php print ($curDir); ?>/<?php print ($sourceSystemName); ?>'" onmouseover="showInformation('Datenbank - Import','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
-                            <?php print ($sourceSystemName); ?>
-                        </td>
-                    </tr>
-                    <?php
 
-                }
+	<?php
+	$curHeadline = 'Datenbank Export';
+	$curCallAction = 'dbExport';
 
+	if ($hCore->coreGlobal['GET']['callAction'] == $curCallAction)
+		$curActive = ' dropdown-active';
+	else
+		$curActive = '';
+	?>
+	<div class="dropdown">
+		<button class="dropbtn <?php print ($curActive); ?>"><i class="fa fa-upload"></i>&nbsp;&nbsp;<?php print ($curHeadline);?></button>
+		<div class="dropdown-content">
+			<?php
+			if ($boolGotNav) {
 
+				$boolIsFirstRow = true;	// Bool für Headline -Ddurchlauf (Abstand - top der ersten Headline ist geringer)
 
-            }
+				// Haupt - Array - Durchlauf
+				foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
 
 
-            ?>
-            <tr>
-                <td colspan="4">&nbsp;</td>
-            </tr>
-            <?php
+					// Durchlauf Headline (Stammdaten / Buchungssatz)
+					foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
 
-        }
+						$curIconTag = $navArray['IconSourceType'][$sourceTypeID];
 
+						// Bool Headline - Durchlauf (Abstand - top der ersten Headline ist geringer)
+						if ($boolIsFirstRow)
+							$curClass = 'dopddown-headline-first';
+						else
+							$curClass = 'dopddown-headline';
 
-    }   // END if ($boolGotNav){
-    ?>
+						$boolIsFirstRow = false;
 
-</table>
+						print ('<div class="' . $curClass . '">' . $curIconTag . '&nbsp;&nbsp;&nbsp;' . $sourceTypeName .'</div>');
 
+						// Durchlauf Systeme
+						foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
 
+							$curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
 
+							print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/' . $curDir . '/' . $sourceSystemName . '">' . $sourceSystemName . '</a>');
 
+						}	// END // Durchlauf Systeme
 
-<br>
+					}	// END // Durchlauf Headline (Stammdaten / Buchungssatz)
 
+				}	// END // Haupt - Array - Durchlauf
 
+			}
+			?>
+		</div>
+	</div>
 
 
+	<?php
 
-<table border="0" width="100%" class="standard">
-    <tr>
-        <td width="20px" align="center" class="bottomLineGreen submenueA" onmouseover="showInformation('Datenbank - Export')" onmouseout="clearInformation()">
-            <i class="fa fa-sign-out fa-lg"></i>
-        </td>
-        <td colspan="3" class="bottomLineGreen submenueA" onmouseover="showInformation('Datenbank - Export')" onmouseout="clearInformation()">
-            Datenbank - Export
-        </td>
-    </tr>
-
-
-    <?php
-    if ($boolGotNav){
-
-        foreach($navArray['NavMenue'] as $sourceTypeID => $systemTypeArray) {
-
-            //echo "SourceTypeID : $sourceTypeID<br>";
-
-
-
-            foreach($systemTypeArray as $sourceTypeName => $sourceSystemArray) {
-
-                $curIconTag = $navArray['IconSourceType'][$sourceTypeID];
-                ?>
-
-                <tr>
-                    <td class="submenueB" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        &nbsp;
-                    </td>
-                    <td width="20px" align="center" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        <?php print ($curIconTag); ?>
-                    </td>
-                    <td colspan="2" class="bottomLineGreen submenueB" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>')" onmouseout="clearInformation()">
-                        <?php print ($sourceTypeName); ?>
-                    </td>
-                </tr>
-
-
-                <?php
-
-                foreach($sourceSystemArray as $sourceSystemID => $sourceSystemName) {
-
-                    $curDir = $navArray['NameSourceTypeFileUploadDir'][$sourceTypeID];
-                    ?>
-                    <tr>
-                        <td colspan="2" class="submenueC" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">&nbsp;</td>
-                        <td width="20px" align="center" class="submenueC" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
-                            <i class="fa fa-angle-double-right fa-lg"></i>
-                        </td>
-                        <td class="submenueC subMenueLink" onClick="location.href='<?php print ($_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort']); ?>/dbExport/<?php print ($curDir); ?>/<?php print ($sourceSystemName); ?>'" onmouseover="showInformation('Datenbank - Export','<?php print ($sourceTypeName); ?>','<?php print ($sourceSystemName); ?>')" onmouseout="clearInformation()">
-                            <?php print ($sourceSystemName); ?>
-                        </td>
-                    </tr>
-                    <?php
-
-                }
-
-
-
-            }
-
-
-            ?>
-            <tr>
-                <td colspan="4">&nbsp;</td>
-            </tr>
-            <?php
-
-        }
-
-
-    }   // END if ($boolGotNav){
-    ?>
-
-</table>
-
-
+	?>
+</div>
 

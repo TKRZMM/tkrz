@@ -9,7 +9,7 @@
 ?>
 <br>
 
-<div style="position: absolute; left: 280px; right: 300px;">
+<div class="BodyContentOuterDiv">
 
 	<form method="post" action="" enctype="multipart/form-data">
 
@@ -19,7 +19,8 @@
 
 					<table width="100%" border="0" class="standard formBackgroundInnerCollapse">
 						<tr>
-							<td colspan="8"><h2>Auswahl Datensatz</h2></td>
+							<td colspan="7"><h2>Datensatz Auswahl</h2></td>
+							<td><button type="reset" class="sendButton">Reset</button> <button type="submit" class="sendButton">Senden</button></td>
 
 						</tr>
 						<tr>
@@ -60,12 +61,6 @@
 
 						//$hCore->free_result($hCore->coreGlobal['dbResult']);
 						?>
-						<tr>
-							<td colspan="8">
-								<button type="reset" class="sendButton">Reset</button> <button type="submit" class="sendButton">Senden</button>
-							</td>
-						</tr>
-
 
 					</table>
 

@@ -5,16 +5,17 @@
  * Date: 19.02.2016
  * Time: 11:59
  */
-
 ?>
-<div class="DivPageCallIndformationContent">
+<div id="infoField" class="infoOnHoverMenue"></div>
 
-    <?php
+
+<div id="infoFieldClicked" class="infoOnHoverMenueClicked">
+	<?php
 	$preLink = '<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/home">';
 
 
-	$callActionArray = array('home'       => array('label' => 'Home',
-												   'icon'  => '<i class="fa fa-home fa-lg"></i>'),
+	$callActionArray = array('home'       => array('label' => 'HOME</a>',
+												   'icon'  => $preLink . '<i class="fa fa-home fa-lg"></i>'),
 							 'fileUpload' => array('label' => 'Datei - Upload',
 												   'icon'  => '<i class="fa fa-upload"></i>'),
 							 'dbImport'   => array('label' => 'Datenbank - Import',
@@ -31,32 +32,43 @@
 	);
 
 
-    // Home ausgeben
-    if ((strlen($myCallAction = $hCore->getActionAsString('callAction')) < 1) || ($hCore->getActionAsString('callAction') == 'home')) {
-        print ($callActionArray['home']['icon']);
-        print ('&nbsp;&nbsp;');
-        print ($callActionArray['home']['label']);
-    }
+	// callAction ausgeben?
+	if ((strlen($myCallAction = $hCore->getActionAsString('callAction')) > 0) && ($hCore->getActionAsString('callAction') != 'home')) {
+
+		// Home zusätzlich ausgeben
+		print ($callActionArray['home']['icon']);
+		print ('&nbsp;&nbsp;&nbsp;');
+		print ($callActionArray['home']['label']);
+		print ('&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;');
+
+		// callAction ausgeben!
+		print ($callActionArray[$myCallAction]['icon']);
+		print ('&nbsp;&nbsp;&nbsp;');
+		print ($callActionArray[$myCallAction]['label']);
+	}
+
 
 
 	// subAction ausgeben? ... z.B. baseData ... bookingData
 	if (strlen($mySubAction = $hCore->getActionAsString('subAction')) > 0) {
 
+		print ('&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;');
 		print ($subActionArray[$mySubAction]['icon']);
-		print ('&nbsp;&nbsp;');
+		print ('&nbsp;&nbsp;&nbsp;');
 		print ($subActionArray[$mySubAction]['label']);
 
 	}
 
 
+
 	// valueActon ausgeben? ... z.B. Centron
 	if (strlen($myValueAction = $hCore->getActionAsString('valueAction')) > 0) {
 
-		print ('&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;');
+		print ('&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i>&nbsp;&nbsp;&nbsp;');
 		print ($myValueAction);
 
 	}
-    ?>
 
+	?>
 </div>
 

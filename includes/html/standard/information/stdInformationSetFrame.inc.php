@@ -6,6 +6,8 @@
  * Time: 11:59
  */
 
-print ('<div id="containerStepInformation" class="container StepInformation">');
+print ('<div id="containerPageCallInformation" class="container DivPageCallInformation">');
 include 'stdInformation.inc.php';
 print ('</div>');
+
+
