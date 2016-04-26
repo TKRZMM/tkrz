@@ -2,259 +2,311 @@
 
 /* Body Default - Color-Set */
 body {
-    color: #000000;
-    font-family: "Arial", sans-serif;
-    font-size: 12px;
-    background-color: #FFFFFF;
-    margin:0;
-    padding:0;
-    height:100%;
+	color: #000000;
+	font-family: "Arial", sans-serif;
+	font-size: 12px;
+	background-color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
-
-
-
-
 
 /* Body Default - Height-Set */
 html {
-    margin:0;
-    padding:0;
-    height:100%;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
-
-
-
-
 
 /* Image Logo (oben links) */
 IMG.displayed {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    width: 213px;
-    height: 85px;
-    border-bottom: 1px solid rgba(0, 0, 0, 1);
-    padding-bottom: 3px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	width: 213px;
+	height: 85px;
+	border-bottom: 1px solid rgba(0, 0, 0, 1);
+	padding-bottom: 3px;
 }
-
-
-
-
 
 /* Default Link - Color-Set*/
 a:link {
-    text-decoration: none;
-    color: #000000;
+	text-decoration: none;
+	color: #000000;
 }
+
 a:visited {
-    text-decoration: none;
-    color: #000000;
+	text-decoration: none;
+	color: #000000;
 }
+
 a:hover {
-    text-decoration: none;
-    color: #000000;
-    box-shadow: 4px 5px 4px grey;
+	text-decoration: none;
+	color: #000000;
+	box-shadow: 4px 5px 4px grey;
 }
+
 a:active {
-    text-decoration: none;
-    color: #000000;
-    box-shadow: 4px 5px 4px grey;
+	text-decoration: none;
+	color: #000000;
+	box-shadow: 4px 5px 4px grey;
 }
+
 .noLinkEffekt:hover {
-    text-decoration: none;
-    box-shadow: none;
-    border: none;
+	text-decoration: none;
+	box-shadow: none;
+	border: none;
 }
 
 /* Standard Link - Color-Set */
 a.std:link, a.std:visited, a.std:hover, a.std:active {
-    color: #000000;
-    text-decoration: none;
+	color: #000000;
+	text-decoration: none;
 }
+
 a.std:hover {
-    background-color: rgba(204, 252, 255, 1);
-    box-shadow: 4px 5px 4px grey;
+	background-color: rgba(204, 252, 255, 1);
+	box-shadow: 4px 5px 4px grey;
 }
+
 a.std:active {
-    color: darkgreen;
+	color: darkgreen;
 }
-
-
-
-
-
 
 /* Table */
 table.standard {
-    border-collapse: collapse;
-    font-family: "Arial", sans-serif;
-    font-size: 12px;
-    background-color: #FFFFFF;
+	border-collapse: collapse;
+	font-family: "Arial", sans-serif;
+	font-size: 12px;
+	background-color: #FFFFFF;
 }
+
 table.logedinUser {
-    padding-top: 12px;
+	padding-top: 12px;
 }
+
 table.debugInformation {
-    background-color: #c7c7c7;
-    width: 100%;
+	background-color: #C7C7C7;
+	width: 100%;
 }
+
 table.debugLinkList {
-    background-color: rgb(233, 233, 233);
-    width: 100%;
-    padding: 10px;
+	background-color: rgb(233, 233, 233);
+	width: 100%;
+	padding: 10px;
 
 }
+
 table.debugContentSelection {
-    background-image: linear-gradient(90deg, rgba(186, 243, 250, 0.67), white);
-    text-align: left;
-    white-space:nowrap;
-}
-table.infoMessage {
-    border-radius: 0.5em 0.5em 0.5em;
-    border: 1px solid;
-    padding: 10px;
-}
-table.infoMessage {
-    /* für IE */
-    background: #ced8dd;
-    border-color: #8a9da8;
-    padding-left: 30px;
-    border-collapse: separate;
-}
-table.formBackground {
-    border-radius: 0.5em 0.5em 0.5em;
-    border: 1px solid;
-    padding: 10px;
-}
-table.formBackground {
-    /* für IE */
-    background: #ced8dd;
-    border-color: #8a9da8;
-    padding-left: 30px;
-    border-collapse: separate;
-}
-table.formBackgroundInnerCollapse {
-    padding: 10px;
-    border-collapse: collapse;
-}
-table.formBackgroundInnerCollapse {
-    /* für IE */
-    background: #ced8dd;
-    border-color: #8a9da8;
-    padding-left: 30px;
-    border-collapse: collapse;
+	background-image: linear-gradient(90deg, rgba(186, 243, 250, 0.67), white);
+	text-align: left;
+	white-space: nowrap;
 }
 
+table.infoMessage {
+	border-radius: 0.5em 0.5em 0.5em;
+	border: 1px solid;
+	padding: 10px;
+}
+
+table.infoMessage {
+	/* für IE */
+	background: #CED8DD;
+	border-color: #8A9DA8;
+	padding-left: 30px;
+	border-collapse: separate;
+}
+
+table.formBackground {
+	border-radius: 0.5em 0.5em 0.5em;
+	border: 1px solid;
+	padding: 10px;
+}
+
+table.formBackground {
+	/* für IE */
+	background: #CED8DD;
+	border-color: #8A9DA8;
+	padding-left: 30px;
+	border-collapse: separate;
+}
+
+table.formBackgroundInnerCollapse {
+	padding: 10px;
+	border-collapse: collapse;
+}
+
+table.formBackgroundInnerCollapse {
+	/* für IE */
+	background: #CED8DD;
+	border-color: #8A9DA8;
+	padding-left: 30px;
+	border-collapse: collapse;
+}
 
 td.debugLinkList {
-    padding: 5px;
-    text-align: left;
+	padding: 5px;
+	text-align: left;
 }
-
-
-
+tr.hoverTr:hover {
+	background-color: #83AABA;
+}
 
 /* Border Steuerung für Tabellen */
-.rightLine{
-    border-right: 1px solid black;
-}
-.topLine{
-    border-top: 1px solid black;
-}
-.leftLine{
-    border-left: 1px solid black;
-}
-.allLine{
-    border: 1px solid black;
-}
-.bottomLine{
-    border-bottom: 1px solid black;
-}
-.bottomLineGreen{
-    border-bottom: 1px solid rgb(122, 167, 170);
-}
-.topLineGreen{
-    border-top: 1px solid rgb(122, 167, 170);
-}
-.leftLineGreen{
-    border-left: 1px solid rgb(122, 167, 170);
-}
-.rightLineGreen{
-    border-right: 1px solid rgb(122, 167, 170);
-}
-.borderGreen{
-    border: 1px solid rgb(122, 167, 170);
-}
-.borderGreenShadow {
-    border-right: 1px solid rgb(122, 167, 170);
-    border-bottom: 1px solid rgb(122, 167, 170);
+.rightLine {
+	border-right: 1px solid black;
 }
 
+.topLine {
+	border-top: 1px solid black;
+}
+
+.leftLine {
+	border-left: 1px solid black;
+}
+
+.allLine {
+	border: 1px solid black;
+}
+
+.bottomLine {
+	border-bottom: 1px solid black;
+}
+
+.bottomLineGreen {
+	border-bottom: 1px solid rgb(122, 167, 170);
+}
+
+.topLineGreen {
+	border-top: 1px solid rgb(122, 167, 170);
+}
+
+.leftLineGreen {
+	border-left: 1px solid rgb(122, 167, 170);
+}
+
+.rightLineGreen {
+	border-right: 1px solid rgb(122, 167, 170);
+}
+
+.borderGreen {
+	border: 1px solid rgb(122, 167, 170);
+}
+
+.borderGreenShadow {
+	border-right: 1px solid rgb(122, 167, 170);
+	border-bottom: 1px solid rgb(122, 167, 170);
+}
 
 .bgMessageStandard {
-    background-color: rgb(216, 226, 231);
-}
-.bgMessageError{
-    background-color: rgb(231, 90, 83);
-}
-.bgMessageDone{
-    background-color: rgb(179, 231, 124);
-}
-.bgMessageWarning{
-    background-color: rgb(231, 159, 82);
+	background-color: rgb(216, 226, 231);
 }
 
+.bgMessageError {
+	background-color: rgb(231, 90, 83);
+}
+
+.bgMessageDone {
+	background-color: rgb(179, 231, 124);
+}
+
+.bgMessageWarning {
+	background-color: rgb(231, 159, 82);
+}
 
 /* AUSRICHTUNGEN */
 
 /* Text Ausrichtung */
-.textCenter{
-    text-align: center;
-}
-.textLeft{
-    text-align: left;
-}
-.textRight{
-    text-align: right;
-}
-.textTop{
-    vertical-align: text-top;
-}
-.textBottom{
-    vertical-align: text-bottom;
+.textCenter {
+	text-align: center;
 }
 
+.textLeft {
+	text-align: left;
+}
 
+.textRight {
+	text-align: right;
+}
+
+.textTop {
+	vertical-align: text-top;
+}
+
+.textBottom {
+	vertical-align: text-bottom;
+}
 
 /* Tabellen Ausrichtung */
-.alignCenter{
-    text-align: center;
-}
-.alignLeft{
-    text-align: left;
-}
-.alignRight{
-    text-align: right;
+.alignCenter {
+	text-align: center;
 }
 
+.alignLeft {
+	text-align: left;
+}
+
+.alignRight {
+	text-align: right;
+}
 
 /* Div Ausrichtung */
 .center {
-    margin: auto;
-    /*width: 25%;*/
-    padding: 0px;
+	margin: auto;
+	/*width: 25%;*/
+	padding: 0px;
 }
-
 
 /* Paddings und Abstände */
 .rPaddingSix {
-    padding-right: 6px;
+	padding-right: 6px;
 }
+
 .lPaddingSix {
-    padding-right: 6px;
+	padding-right: 6px;
 }
 
+.nobr {
+	white-space: nowrap;
+}
 
-.nobr	{ white-space:nowrap; }
+.paddingOne {
+	padding: 1px;
+}
 
+.paddingTwo {
+	padding: 2px;
+}
+
+.paddingThree {
+	padding: 3px;
+}
+
+.paddingFour {
+	padding: 4px;
+}
+
+.paddingFive {
+	padding: 5px;
+}
+
+.paddingSix {
+	padding: 6px;
+}
+
+.paddingSeven {
+	padding: 7px;
+}
+
+.paddingEight {
+	padding: 8px;
+}
+
+.paddingNine {
+	padding: 9px;
+}
+
+.paddingTen {
+	padding: 10px;
+}

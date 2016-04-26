@@ -46,15 +46,15 @@
 							$importCounter = $row->importCounter;
 
 							?>
-							<tr>
-								<td class="bottomLineGreen textCenter"><input type="radio" required name="selFileUploadID" value="<?php print ($row->fileUploadID); ?>"></td>
-								<td class="bottomLineGreen"><?php print ($row->fileOriginName); // Dateiname ?></td>
-								<td class="bottomLineGreen"><?php print ($row->uploadDateTime); // Upload Datum ?></td>
-								<td class="bottomLineGreen"><?php print ($lastImport); // Letzter Import am ?></td>
-								<td class="bottomLineGreen"><?php print ($importCounter); // Import Zähler ?></td>
-								<td class="bottomLineGreen"><?php print ($hCore->formatSizeUnits($row->fileSize)); // Datei Größe ?></td>
-								<td class="bottomLineGreen"><?php print ($row->userName); // Upload Benutzer?> (<?php print ($row->userRoleName); // Upload Benutzer Rollen-Name?>)</td>
-								<td class="bottomLineGreen"><a href="<?php print ( $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $row->downloadLink); // Datei Download ?>" target="_blank">Download</a></td>
+							<tr class="hoverTr" onclick="selUserSelectionByID('<?php print ($row->fileUploadID); ?>');">
+								<td class="bottomLineGreen textCenter paddingFour"><input type="radio" required name="selFileUploadID" value="<?php print ($row->fileUploadID); ?>" id="selFileUploadID_<?php print ($row->fileUploadID); ?>"></td>
+								<td class="bottomLineGreen paddingFour"><?php print ($row->fileOriginName); // Dateiname ?></td>
+								<td class="bottomLineGreen paddingFour"><?php print ($row->uploadDateTime); // Upload Datum ?></td>
+								<td class="bottomLineGreen paddingFour"><?php print ($lastImport); // Letzter Import am ?></td>
+								<td class="bottomLineGreen paddingFour"><?php print ($importCounter); // Import Zähler ?></td>
+								<td class="bottomLineGreen paddingFour"><?php print ($hCore->formatSizeUnits($row->fileSize)); // Datei Größe ?></td>
+								<td class="bottomLineGreen paddingFour"><?php print ($row->userName); // Upload Benutzer?> (<?php print ($row->userRoleName); // Upload Benutzer Rollen-Name?>)</td>
+								<td class="bottomLineGreen paddingFour"><a href="<?php print ( $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $row->downloadLink); // Datei Download ?>" target="_blank">Download</a></td>
 							</tr>
 							<?php
 						}
