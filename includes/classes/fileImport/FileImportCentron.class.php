@@ -127,8 +127,11 @@ class FileImportCentron extends CoreExtends
 		foreach($Data as $index => $row) {
 
 			// Centron Buchungsdaten?
-			if ($this->coreGlobal['curSourceTypeID'] == '2')
-				$eachValueArray = str_getcsv($row[0], "\t");
+			// TODO ... Die Buchungsdatei auf Tab oder Semikolon prüfen... aktuell müsste ich manuell hin/her wechseln.
+			if ($this->coreGlobal['curSourceTypeID'] == '2'){
+				// $eachValueArray = str_getcsv($row[0], "\t");
+				$eachValueArray = str_getcsv($row[0], ";");
+			}
 
 			else
 				$eachValueArray = str_getcsv($row[0], ";");
@@ -157,6 +160,20 @@ class FileImportCentron extends CoreExtends
 	// Stammdaten in Datenbank schreiben
 	private function insertIntoDBBaseData()
 	{
+
+		// Lastschriftmandate einlesen
+		$query = "SELECT * FROM centron_mand_ref WHERE activeStatus = 'yes' ORDER BY personenkonto";
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+
+		if ($num_rows >= '1') {
+			$mandRefArray = array();
+			while ($row = $result->fetch_object()) {
+
+				$mandRefArray[$row->personenkonto] = $row->mandatsnummer;
+			}
+		}
+		$this->free_result($result);
 
 		// Die erste Reihe in der .csv - Datei ist eine "Ueberschrift"?
 		$skipHeadline = false;
@@ -204,6 +221,10 @@ class FileImportCentron extends CoreExtends
 			// Aktuelle Kundennummer!
 			$curKundenNummer = trim($kunde[$setRowKDNummer]);
 
+//			$tmpKdNr = trim($kunde[$setRowKDNummer]);
+//			if (($tmpKdNr == '10148') || ($tmpKdNr == '10371') || ($tmpKdNr == '10131'))
+//				continue;
+
 
 			// Haben wir eine Kundennummer?
 			if (strlen($curKundenNummer) < 1) {
@@ -228,6 +249,13 @@ class FileImportCentron extends CoreExtends
 					$hausnummer = trim($result[2][0]);
 					$hausnummerzusatz = trim($result[3][0]);
 				}
+			}
+
+
+			// Mandatsreferenznummer
+			$curMandRef = '';
+			if (isset($mandRefArray[$curKundenNummer])) {
+				$curMandRef = $mandRefArray[$curKundenNummer];
 			}
 
 
@@ -386,6 +414,7 @@ class FileImportCentron extends CoreExtends
                                 `Kontonummer`,
                                 `IBAN`,
                                 `Zahlungsart`,
+                                `Mandatsreferenznummer`,
                                 `Anschrift_Name1`,
                                 `Anschrift_Name2`,
                                 `Anschrift_PLZ`,
@@ -407,6 +436,7 @@ class FileImportCentron extends CoreExtends
                                 '" . $Kontonummer . "',
                                 '" . $IBAN . "',
                                 '" . $zahlungsart . "',
+                                '" . $curMandRef . "',
                                 '" . $anschrifts_name1 . "',
                                 '" . $anschrifts_name2 . "',
                                 '" . $PLZ . "',
@@ -431,6 +461,7 @@ class FileImportCentron extends CoreExtends
                                `Kontonummer`            = '" . $Kontonummer . "',
                                `IBAN`                   = '" . $IBAN . "',
                                `Zahlungsart`            = '" . $zahlungsart . "',
+                               `Mandatsreferenznummer`  = '" . $curMandRef . "',
                                `Anschrift_Name1`        = '" . $anschrifts_name1 . "',
                                `Anschrift_Name2`        = '" . $anschrifts_name2 . "',
                                `Anschrift_PLZ`          = '" . $PLZ . "',
@@ -458,8 +489,13 @@ class FileImportCentron extends CoreExtends
 		}   // END foreach ($zeilen as $kunde){
 
 
+		// Alle anderen Datensätze als nicht aktiv in DB markieren
+		$query = "UPDATE file_upload SET enumIsCurrentInDB = 'no' WHERE sourceTypeID = '".$this->coreGlobal['curSourceTypeID']."' AND fileUploadID != '" . $this->coreGlobal['POST']['selFileUploadID'] . "'";
+		$this->query($query);
+
+
 		// Import Counter und Import-Datum aktuallisieren
-		$query = "UPDATE file_upload SET importCounter = importCounter+1, lastImport = now() WHERE fileUploadID = '" . $this->coreGlobal['POST']['selFileUploadID'] . "' LIMIT 1";
+		$query = "UPDATE file_upload SET importCounter = importCounter+1, lastImport = now(), enumIsCurrentInDB = 'yes' WHERE fileUploadID = '" . $this->coreGlobal['POST']['selFileUploadID'] . "' LIMIT 1";
 		$this->query($query);
 
 
@@ -598,8 +634,12 @@ class FileImportCentron extends CoreExtends
 		}   // END foreach ($zeilen as $bookingSet){
 
 
+		// Alle anderen Datensätze als nicht aktiv in DB markieren
+		$query = "UPDATE file_upload SET enumIsCurrentInDB = 'no' WHERE sourceTypeID = '".$this->coreGlobal['curSourceTypeID']."' AND fileUploadID != '" . $this->coreGlobal['POST']['selFileUploadID'] . "'";
+		$this->query($query);
+
 		// Import Counter und Import-Datum aktuallisieren
-		$query = "UPDATE file_upload SET importCounter = importCounter+1, lastImport = now() WHERE fileUploadID = '" . $this->coreGlobal['POST']['selFileUploadID'] . "' LIMIT 1";
+		$query = "UPDATE file_upload SET importCounter = importCounter+1, lastImport = now(), enumIsCurrentInDB = 'yes' WHERE fileUploadID = '" . $this->coreGlobal['POST']['selFileUploadID'] . "' LIMIT 1";
 		$this->query($query);
 
 		// Belegten Speicher in der global wieder freigeben

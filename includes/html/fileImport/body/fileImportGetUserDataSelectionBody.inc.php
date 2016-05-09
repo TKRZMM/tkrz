@@ -19,12 +19,13 @@
 
 					<table width="100%" border="0" class="standard formBackgroundInnerCollapse">
 						<tr>
-							<td colspan="7"><h2>Datensatz Auswahl</h2></td>
+							<td colspan="8"><h2>Datensatz Auswahl</h2></td>
 							<td><button type="reset" class="sendButton">Reset</button> <button type="submit" class="sendButton">Senden</button></td>
 
 						</tr>
 						<tr>
 							<td class="bottomLineGreen textCenter"><h4>Auswahl</h4></td>
+							<td class="bottomLineGreen textCenter"><h4>Aktuell in DB</h4></td>
 							<td class="bottomLineGreen"><h4>Dateiname</h4></td>
 							<td class="bottomLineGreen"><h4>Upload Datum</h4></td>
 							<td class="bottomLineGreen"><h4>Letztes Import Datum</h4></td>
@@ -45,9 +46,14 @@
 
 							$importCounter = $row->importCounter;
 
+							$curInDB = '';
+							if ($row->enumIsCurrentInDB == 'yes')
+								$curInDB = '<b>&#10003;</b>';
+
 							?>
 							<tr class="hoverTr" onclick="selUserSelectionByID('<?php print ($row->fileUploadID); ?>');">
 								<td class="bottomLineGreen textCenter paddingFour"><input type="radio" required name="selFileUploadID" value="<?php print ($row->fileUploadID); ?>" id="selFileUploadID_<?php print ($row->fileUploadID); ?>"></td>
+								<td class="bottomLineGreen textCenter paddingFour"><?php print ($curInDB); // Aktuell in DB ?></td>
 								<td class="bottomLineGreen paddingFour"><?php print ($row->fileOriginName); // Dateiname ?></td>
 								<td class="bottomLineGreen paddingFour"><?php print ($row->uploadDateTime); // Upload Datum ?></td>
 								<td class="bottomLineGreen paddingFour"><?php print ($lastImport); // Letzter Import am ?></td>

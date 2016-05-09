@@ -45,6 +45,10 @@ class FileExport extends CoreExtends
 
 
 
+
+
+
+
 	/**
 	 * Initial Methode zur Abhandlung von "Datei - Export".
 	 *
@@ -68,37 +72,27 @@ class FileExport extends CoreExtends
 			// Seite 1 ... User Auswahl benötigt ... Auswahl der zu exportierenden Daten ausgeben
 			$this->createPageOneFileExport();
 		}
-		/*
-		 else {
-
-			// Daten identifizieren (Typ und System)
-			// Hole mir einen Teil des aufzurufenden Klassen-Namens
-			// Hole mir einen Teil der aufzurufenden Methode
-			$boolGotClassAndMethode = $this->getClassAndMethodByFileUploadID($this->coreGlobal['POST']['selFileUploadID'], $getClassPart, $getMethodPart);
-
-			// Sicherheitsabbruch wenn die vorherige Datenbeschaffung nicht erfolgreich war
-			if (!$boolGotClassAndMethode)
-				return false;
-
+		else {
 
 			// Aufzurufender Klassen-Name (MIT Namespace!!!):
-			$callClass = 'fileImport\FileImport' . $getClassPart;
+			$callClass = 'fileExport\FileExport' . $this->coreGlobal['GET']['valueAction'];
 
 			// Aufzurunfende Methode:
-			$callMethod = 'fileImport' . $getMethodPart;
+			$callMethod = 'fileExport' . $this->coreGlobal['GET']['subAction'];
 
 			// Rufe Klasse auf
-			$hFileImport = new $callClass();
+			$hFileExport = new $callClass();
 
 			// Rufe Methode der Klasse auf
-			$hFileImport->$callMethod();
-
+			$hFileExport->$callMethod();
 		}
-		 */
 
 		return true;
 
-	}	// END public function initialFileExport()
+	}    // END public function initialFileExport()
+
+
+
 
 
 
@@ -112,7 +106,7 @@ class FileExport extends CoreExtends
 
 		if ((isset($this->coreGlobal['POST']['callAction'])) && ($this->coreGlobal['POST']['callAction'] == 'dbExport')) {
 
-			if ((isset($this->coreGlobal['POST']['selFileExportID'])) && ($this->coreGlobal['POST']['selFileExportID'] > 0)) {
+			if ((isset($this->coreGlobal['POST']['dbExportConfirmed'])) && ($this->coreGlobal['POST']['dbExportConfirmed'] == 'true')) {
 
 				// Daten wurdn ausgewählt ... Start Export
 				return true;
@@ -137,6 +131,7 @@ class FileExport extends CoreExtends
 	// Seite 1 ... User Auswahl benötigt ... Auswahl der zu importierenden Daten ausgeben
 	private function createPageOneFileExport()
 	{
+
 		// subAction & valueAction zuwesien
 		$subAction = $this->coreGlobal['GET']['subAction'];
 		$valueAction = $this->coreGlobal['GET']['valueAction'];
@@ -152,44 +147,34 @@ class FileExport extends CoreExtends
 		$sourceSystemID = $getSourceSystemData['sourceSystemID'];
 
 
-		// Parameter für getQuery setzen
+		// Parameter setzen
 		$paramArray = array('sourceTypeID'   => $sourceTypeID,
 							'sourceSystemID' => $sourceSystemID);
 
 
-
-
-
-		// TODO ... hier muss ich wohl an die Centron-Klasse übergeben ... will dynamischen Aufruf erreichen
-
-
-
-/*
-		// Query holen
-		$query = $this->getQuery('getFileExportList', $paramArray);
-
-		// Query ausführen
-		$result = $this->query($query);
-
-		if ($this->num_rows($result) < 1) {
-
-			// Message für Fehler aufgetreten
-			$this->addMessage('Keine Import Daten vorhanden!', 'Für das gewählte System und zur gewählten Import-Art sind keine gütligen Daten vorhanden.', 'Info', 'Datenbank - Import');
-
-			$this->free_result($result);
-
-			return false;
+		// Informations-Daten einlesen
+		// Stammdaten oder Buchungsdaten
+		if ($sourceTypeID == '1') {    // Stammdaten
+			$this->coreGlobal['informationArray'] = $this->getDatasetInformationForBaseData($paramArray);    // if ! Fehler abfangen
+			$IncludeFramesetBody = 'fileExport/body/fileExportBodySetFrame.inc.php';
+			$IncludeBody = 'fileExportGetUserDataSelectionBaseDataBody.inc.php';
+		}
+		elseif ($sourceTypeID == '2') {    // Buchungsdaten
+			$this->coreGlobal['informationArray'] = $this->getDatasetInformationForBookingData($paramArray);    // if ! Fehler abfangen
+			$IncludeFramesetBody = 'fileExport/body/fileExportBodySetFrame.inc.php';
+			$IncludeBody = 'fileExportGetUserDataSelectionBookingDataBody.inc.php';
+		}
+		else {
+			$IncludeFramesetBody = 'standard/body/stdBodySetFrame.inc.php';
+			$IncludeBody = 'stdBody.inc.php';
 		}
 
-		// Resultat coreGlobal zuweisen damit es in der HTML-Datei verarbeitet werden kann.
-		$this->coreGlobal['dbResult'] = $result;
 
-*/
 		// Setze zu ladendes Body Frameset
-		$this->coreGlobal['Load']['FramesetBody'] = 'fileExport/body/fileExportBodySetFrame.inc.php';
+		$this->coreGlobal['Load']['FramesetBody'] = $IncludeFramesetBody;
 
 		// Setze zu ladendes Include in der Body Frameset
-		$this->coreGlobal['Load']['IncludeBody'] = 'fileExportGetUserDataSelectionBody.inc.php';
+		$this->coreGlobal['Load']['IncludeBody'] = $IncludeBody;
 
 		return true;
 
@@ -204,59 +189,405 @@ class FileExport extends CoreExtends
 
 
 
-
-
-/*
-
-	// Daten identifizieren (Typ und System) und Klassenname (Teil) und Methode (Teil) auf Pointer zurückgeben
-	private function getClassAndMethodByFileUploadID($getFileUploadID, & $getClassPart, & $getMethodPart)
+	// Informationsdaten für Benutzer-Stammdaten-Auswahl einlesen
+	private function getDatasetInformationForBaseData($getParamArray)
 	{
 
-		// Parameter für getQuery setzen
-		$paramArray = array('fileUploadID' => $getFileUploadID);
+		$informationArray = array();
 
-		// Query holen
-		$query = $this->getQuery('getInformationFromFileUploadByFileUploadID', $paramArray);
-
-		// Query ausführen
+		// Datensätze ermitteln
+		// Aktuellen Tabellen(Pre-Teil)-Namen holen
+		$paramArray['FROM'] = 'source_system';
+		$paramArray['WHERE'] = 'sourceSystemID';
+		$paramArray['SEARCH'] = $getParamArray['sourceSystemID'];
+		$query = $this->getQuery('getActiveSourceXDataByX', $paramArray);
 		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			return false;
 
-		if ($this->num_rows($result) < 1) {
+		$row = $result->fetch_object();
+		$preDBTableName = $row->sourceSystemDBName;
+		$this->free_result($result);
 
-			// Message für Fehler aufgetreten
-			$this->addMessage('Keine oder fehlerhafte Import-Daten!', 'Die gewählten Daten für den Import sind nicht vorhanden oder ungültig.', 'Info', 'Datenbank - Import');
 
-			$this->free_result($result);
+		// Aktuellen Tabellen(Post-Teil)-Namen holen
+		unset($paramArray);
+		$paramArray['FROM'] = 'source_type';
+		$paramArray['WHERE'] = 'sourceTypeID';
+		$paramArray['SEARCH'] = $getParamArray['sourceTypeID'];
+		$query = $this->getQuery('getActiveSourceXDataByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			return false;
+
+		$row = $result->fetch_object();
+		$postDBTableName = $row->dbPostName;
+		$this->free_result($result);
+
+
+		// Jetzt Summe der Datensätze ermitteln
+		unset($paramArray);
+		$paramArray['FROM'] = $preDBTableName . '_' . $postDBTableName;
+		$query = $this->getQuery('getSumFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			$numDatasets = 0;
+		else {
+			$row = $result->fetch_object();
+			$numDatasets = $row->SUM;
+		}
+		$this->free_result($result);
+		$informationArray['numDatasets'] = $numDatasets;
+
+
+		// Mandatsreferenzen
+		$query = $this->getQuery('getSumMandateFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			$numMandate = 0;
+		else {
+			$row = $result->fetch_object();
+			$numMandate = $row->SUM;
+		}
+		$this->free_result($result);
+		$informationArray['numMandate'] = $numMandate;
+
+
+
+		// Neuster Datensatz
+		$query = $this->getQuery('getNewestLastUpdateFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			$lastDataset = '-';
+		else {
+			$row = $result->fetch_object();
+			$lastDataset = $row->lastUpdate;
+		}
+		$this->free_result($result);
+		$informationArray['lastDataset'] = $lastDataset;
+
+
+
+		// Ältester Datensatz
+		$query = $this->getQuery('getOldestLastUpdateFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			$oldestDataset = '-';
+		else {
+			$row = $result->fetch_object();
+			$oldestDataset = $row->lastUpdate;
+		}
+		$this->free_result($result);
+		$informationArray['oldestDataset'] = $oldestDataset;
+
+
+
+		// Sammelkonten
+		$query = $this->getQuery('getSammelkontenFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if (!$num_rows >= '1') {
+			$Sammelkonten[] = '';
+		}
+		else {
+			while ($row = $result->fetch_object()) {
+				$Sammelkonten[] = $row->Sammelkonto;
+			}
+		}
+		$this->free_result($result);
+		$informationArray['Sammelkonten'] = $Sammelkonten;
+
+
+
+		// Zahlungsarten
+		$query = $this->getQuery('getZahlungsartenFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if (!$num_rows >= '1') {
+			$Zahlungsarten[] = '';
+		}
+		else {
+			while ($row = $result->fetch_object()) {
+				$Zahlungsarten[] = $row->Zahlungsart;
+			}
+		}
+		$this->free_result($result);
+		$informationArray['Zahlungsarten'] = $Zahlungsarten;
+
+
+
+		// Upload Benutzer
+		$query = $this->getQuery('getUploadUserFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			$uploadUserName = '-';
+		else {
+			$row = $result->fetch_object();
+			$uploadUserName = $row->userName;
+		}
+		$this->free_result($result);
+		$informationArray['uploadUserName'] = $uploadUserName;
+
+
+		return $informationArray;
+
+	}    // END private function getDatasetInformationForBaseData(...)
+
+
+
+
+
+
+
+
+
+
+	// Informationsdaten für Benutzer-Buchungsdaten-Auswahl einlesen
+	private function getDatasetInformationForBookingData($getParamArray)
+	{
+
+		$informationArray = array();
+
+		// Datensätze ermitteln
+		// Aktuellen Tabellen(Pre-Teil)-Namen holen
+		$paramArray['FROM'] = 'source_system';
+		$paramArray['WHERE'] = 'sourceSystemID';
+		$paramArray['SEARCH'] = $getParamArray['sourceSystemID'];
+		$query = $this->getQuery('getActiveSourceXDataByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			return false;
+
+		$row = $result->fetch_object();
+		$preDBTableName = $row->sourceSystemDBName;
+		$this->free_result($result);
+
+
+		// Aktuellen Tabellen(Post-Teil)-Namen holen
+		unset($paramArray);
+		$paramArray['FROM'] = 'source_type';
+		$paramArray['WHERE'] = 'sourceTypeID';
+		$paramArray['SEARCH'] = $getParamArray['sourceTypeID'];
+		$query = $this->getQuery('getActiveSourceXDataByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			return false;
+
+		$row = $result->fetch_object();
+		$postDBTableName = $row->dbPostName;
+		$this->free_result($result);
+
+
+		// Jetzt Summe der Datensätze ermitteln
+		unset($paramArray);
+		$paramArray['FROM'] = $preDBTableName . '_' . $postDBTableName;
+		$query = $this->getQuery('getSumFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			$numDatasets = 0;
+		else {
+			$row = $result->fetch_object();
+			$numDatasets = $row->SUM;
+		}
+		$this->free_result($result);
+		$informationArray['numDatasets'] = $numDatasets;
+
+
+		// ImportDatum
+		$paramArray['GROUP'] = 'importDate';
+		$query = $this->getQuery('getXGroupByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if (!$num_rows >= '1') {
+			$ImportDatumArray[] = '';
+		}
+		else {
+			while ($row = $result->fetch_object()) {
+				$ImportDatumArray[] = $row->importDate;
+			}
+		}
+		$this->free_result($result);
+		$informationArray['ImportDatumArray'] = $ImportDatumArray;
+
+
+
+		// Rechnungsdatum
+		$paramArray['GROUP'] = 'Datum';
+		$query = $this->getQuery('getXGroupByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if (!$num_rows >= '1') {
+			$RDatumArray[] = '';
+		}
+		else {
+			while ($row = $result->fetch_object()) {
+				$RDatumArray[] = $row->Datum;
+			}
+		}
+		$this->free_result($result);
+		$informationArray['RDatumArray'] = $RDatumArray;
+
+
+
+		// Erloeskonto
+		$paramArray['GROUP'] = 'Erloeskonto';
+		$query = $this->getQuery('getXGroupByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if (!$num_rows >= '1') {
+			$Erloeskonten[] = '';
+		}
+		else {
+			while ($row = $result->fetch_object()) {
+				$Erloeskonten[] = $row->Erloeskonto;
+			}
+		}
+		$this->free_result($result);
+		$informationArray['Erloeskonten'] = $Erloeskonten;
+
+
+
+		// Kostenstelle
+		$paramArray['GROUP'] = 'Kostenstelle';
+		$query = $this->getQuery('getXGroupByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if (!$num_rows >= '1') {
+			$Kostenstellen[] = '';
+		}
+		else {
+			while ($row = $result->fetch_object()) {
+				$Kostenstellen[] = $row->Kostenstelle;
+			}
+		}
+		$this->free_result($result);
+		$informationArray['Kostenstellen'] = $Kostenstellen;
+
+
+		// MwST
+		$paramArray['GROUP'] = 'MwSt';
+		$query = $this->getQuery('getXGroupByX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if (!$num_rows >= '1') {
+			$MwSts[] = '';
+		}
+		else {
+			while ($row = $result->fetch_object()) {
+				$MwSts[] = $row->MwSt;
+			}
+		}
+		$this->free_result($result);
+		$informationArray['MwSts'] = $MwSts;
+
+
+
+		// Upload Benutzer
+		$query = $this->getQuery('getUploadUserFromTableX', $paramArray);
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+		if ($num_rows != 1)
+			$uploadUserName = '-';
+		else {
+			$row = $result->fetch_object();
+			$uploadUserName = $row->userName;
+		}
+		$this->free_result($result);
+		$informationArray['uploadUserName'] = $uploadUserName;
+
+
+		return $informationArray;
+
+	}    // END private function getDatasetInformationForBaseData(...)
+
+
+
+
+	function checkUploadDir($category, $systemName)
+	{
+
+		$mainUploadPath = $_SESSION['Cfg']['Default']['WebsiteSettings']['MainUploadPath'];
+
+		// Prüfung ob Haupt-Upload-Verzeichnis existiert
+		if (!is_dir($mainUploadPath)) {
+
+			// Fehler brauche mindestens den Main - Upload Pfade. ... Gebe Information an User weiter
+			$explain = 'Der Haupt-Upload Pfad konnte nicht geöffnet werden, bitte wenden Sie sich an den zuständingen Administrator.<br>Gesuchter Pfad: ' . $mainUploadPath;
+			$this->addMessage('Fehler bei Datei Upload!', 'Die gewünschte Datei konnte nicht auf den Server hochgeladen werden.', 'Fehler', 'File Upload', $explain);
 
 			return false;
 		}
 
 
-		$row = $result->fetch_object();
+		// Prüfung Kategorie-Verzeichnis vorhanden?
+		$curPath = $mainUploadPath . '/' . $category;
+		If (!$this->checkCreatePath($curPath))
+			return false;
 
-		$getClassPart = $row->sourceSystemName;
-		$getMethodPart = $row->fileUploadDirName;
+
+		// Prüfung System-Verzeichnis vorhanden?
+		$curPath = $curPath . '/' . $systemName;
+		If (!$this->checkCreatePath($curPath))
+			return false;
 
 
-		// Speichere einige Informationen damit die Datei gleich eingelesen werden kann
-		$this->coreGlobal['curDownloadLink'] = $row->downloadLink;      // Link zur gewählten Datei
-		$this->coreGlobal['curSourceTypeID'] = $row->sourceTypeID;      // IDt = ID Type    (Stammdaten, Buchungssatz)
-		$this->coreGlobal['curSourceSystemID'] = $row->sourceSystemID;  // IDs = ID System  (Diamri, Centron usw)
-		$this->coreGlobal['curFilePath'] = $row->fileTargetFullPath;	// Pfad zum öffnen der Datei
+		// Prüfung auf Jahres-Verzeichnis vorhanden?
+		$curPath = $curPath . '/' . date('Y');
+		If (!$this->checkCreatePath($curPath))
+			return false;
 
-		$this->free_result($result);
+
+		// Prüfung auf Monats-Verzeichnis vorhanden?
+		$curPath = $curPath . '/' . date('m');
+		If (!$this->checkCreatePath($curPath))
+			return false;
+
+
+		// Prüfung auf Tages-Verzeichnis vorhanden?
+		$curPath = $curPath . '/' . date('d');
+		If (!$this->checkCreatePath($curPath))
+			return false;
+
+
+		return $curPath;
+
+	}    // END private function checkUploadDir(...)
+
+
+
+
+
+	// Methode prüft ob ein angegebenes Verzeichnis vorhanden ist und legt diese bei Bedarf an.
+	function checkCreatePath($getPath)
+	{
+
+		if (!is_dir($getPath)) {
+
+			if (!mkdir($getPath)) {
+
+				// Fehler beim Versuch einen Ordner zu erstellen ... Gebe Information an User weiter
+				$explain = 'Das Verzeichnis konnte nicht erstellt werden, bitte wenden Sie sich an den zuständingen Administrator.<br>Versuch auf Verzeichnis: ' . $getPath;
+				$this->addMessage('Fehler bei Verzeichnis-Überprüfung!', 'Das gewünschte Verzeichnis ist nicht vorhanden und konnte nicht erzeugt werden.', 'Fehler', 'Directory Check', $explain);
+
+				return false;
+			}
+
+			return true;
+
+		}
 
 		return true;
 
-	}    // END private function getClassAndMethodByFileUploadID(...)
-
-*/
-
-
-
-
-
-
-
+	}    // END private function checkCreatePath(...)
 
 }   // END class FileExport extends CoreExtends

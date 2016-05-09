@@ -28,6 +28,9 @@ if ($hNav->createNavMenueFullHandling($navArray))
 
 
 */
+// PHP Fehler - Abfangen wenn Index nicht gesetzt ist
+if (!isset($hCore->coreGlobal['GET']['callAction']))
+	$hCore->coreGlobal['GET']['callAction'] = 'Home';
 ?>
 
 

@@ -44,6 +44,36 @@ abstract class CoreQuery extends CoreDebug
 
 
 
+// Sonderzeichen der Eingabe vor der DB - Nutzung säubern
+	function getCleanDBInput($paramArray)
+	{
+
+		$retArray = array();
+
+		foreach($paramArray as $key => $value) {
+
+			// TODO Sicherheit ... brauch ich msqli_real_escape_string für Eingaben?
+			// Habe an dieser STelle die Methode getDBConnection() nicht!
+			// $curCleanValue = mysqli_real_escape_string($this->getDBConnection(), $value);
+			$curCleanValue = $value;
+
+			$retArray[$key] = $curCleanValue;
+
+		}
+
+		return $retArray;
+
+	}   // END function getCleanDBInput($paramArray)
+
+
+
+
+
+
+
+
+
+
 	// Gibt die gewnüschte Query zurück
 	public function getQuery($queryName, $paramArray = array())
 	{
@@ -247,6 +277,75 @@ abstract class CoreQuery extends CoreDebug
 
 
 
+			case 'getSumFromTableX':
+				// Liest die Summe der Einträge aus der Tabelle X
+
+				$getQuery = "SELECT COUNT(*) AS SUM FROM ".$paramArray['FROM']." WHERE 1";
+				break;
+
+
+
+			case 'getSumMandateFromTableX':
+				// Liest die Summe der Einträge aus der Tabelle X die eine Mandatsrefrennummer haben
+
+				$getQuery = "SELECT COUNT(*) AS SUM FROM ".$paramArray['FROM']." WHERE Mandatsreferenznummer != ''";
+				break;
+
+
+
+			case 'getNewestLastUpdateFromTableX':
+				// Ermittelt das neueste Update aus der Tabelle X
+
+				$getQuery = "SELECT lastUpdate FROM ".$paramArray['FROM']." WHERE 1 ORDER BY lastUpdate DESC LIMIT 1";
+				break;
+
+
+
+			case 'getOldestLastUpdateFromTableX':
+				// Ermittelt das älteste Update aus der Tabelle X
+
+				$getQuery = "SELECT lastUpdate FROM ".$paramArray['FROM']." WHERE 1 ORDER BY lastUpdate ASC LIMIT 1";
+				break;
+
+
+
+			case 'getSammelkontenFromTableX':
+				// Ermittelt alle Sammelkonten von Tabelle X
+
+				$getQuery = "SELECT Sammelkonto FROM ".$paramArray['FROM']." WHERE 1 GROUP BY Sammelkonto";
+				break;
+
+
+
+			case 'getZahlungsartenFromTableX':
+				// Ermittelt alle Zahlungsarten von Tabelle X
+
+				$getQuery = "SELECT Zahlungsart FROM ".$paramArray['FROM']." WHERE 1 GROUP BY Zahlungsart";
+				break;
+
+
+
+			case 'getUploadUserFromTableX':
+				// Ermittelt den Upload-Benutzer zu einem Datensatz in der Tabelle X
+
+				$getQuery = "SELECT userName FROM user u, ".$paramArray['FROM']." as b WHERE u.userID = b.userID GROUP BY u.userID";
+				break;
+
+
+			case 'getMwSTFromTableX':
+				// Ermittelt alle MwST von Tabelle X
+
+				$getQuery = "SELECT MwSt FROM ".$paramArray['FROM']." WHERE 1 GROUP BY MwSt";
+				break;
+
+
+			case 'getXGroupByX':
+				// Ermittelt alle Werte zu X Gruppiert bei X
+
+				$getQuery = "SELECT ".$paramArray['GROUP']." FROM ".$paramArray['FROM']." WHERE 1 GROUP BY ".$paramArray['GROUP']." ORDER BY ".$paramArray['GROUP']." ";
+				break;
+
+
 			default:
 				break;
 		}
@@ -255,34 +354,5 @@ abstract class CoreQuery extends CoreDebug
 
 	}   // END public function getQuery(...)
 
-
-
-
-
-
-
-
-
-
-	// Sonderzeichen der Eingabe vor der DB - Nutzung säubern
-	function getCleanDBInput($paramArray)
-	{
-
-		$retArray = array();
-
-		foreach($paramArray as $key => $value) {
-
-			// TODO Sicherheit ... brauch ich msqli_real_escape_string für Eingaben?
-			// Habe an dieser STelle die Methode getDBConnection() nicht!
-			// $curCleanValue = mysqli_real_escape_string($this->getDBConnection(), $value);
-			$curCleanValue = $value;
-
-			$retArray[$key] = $curCleanValue;
-
-		}
-
-		return $retArray;
-
-	}   // END function getCleanDBInput($paramArray)
 
 }   // END abstract class CoreQuery extends CoreDebug

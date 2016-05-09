@@ -231,4 +231,8 @@ abstract class CoreBase
 	}   // END function formatSizeUnits(...)
 
 
+
+
+
+
 }   // END class CoreBase
