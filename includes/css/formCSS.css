@@ -67,7 +67,37 @@ input:required:valid + label::before {
     border-bottom: 1px solid #e7c157;
     background-color: transparent;
 }
-
+.calender {
+    margin: 0 0 1em 0%;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(122, 167, 170);
+    width: 180px;
+}
+.calender:focus {
+    border-bottom: 1px solid #e7c157;
+    background-color: transparent;
+}
+.stdinput {
+    margin: 0 2em 1em 0%;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(122, 167, 170);
+    width: 180px;
+}
+.stdinput:focus {
+    border-bottom: 1px solid #e7c157;
+    background-color: transparent;
+}
+.selectInput {
+    margin: 0 0 1em 0%;
+    background-color: #CDD7DC;
+    border-bottom: 1px solid rgb(122, 167, 170);
+    width: 200px;
+    border-radius: 0;
+}
+.selectInput:focus {
+    border-bottom: 1px solid #e7c157;
+    background-color: transparent;
+}
 
 
 label {

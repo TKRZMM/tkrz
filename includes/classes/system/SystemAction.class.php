@@ -28,6 +28,7 @@ use classes\core\CoreExtends;
 use fileUpload\FileUpload;
 use fileImport\FileImport;
 use fileExport\FileExport;
+use adminMandat\AdminMandat;
 
 
 class SystemAction extends CoreExtends
@@ -165,6 +166,22 @@ class SystemAction extends CoreExtends
 
 			// Übergebe an Initial-Methode der FileExport - Klasse
 			$objFileExport->initialFileExport();
+
+			// Keine weiteren Prüfungen in der Action an dieser Stelle
+			return true;
+
+		}    // END // Datei Import?
+
+
+
+		// Mandatverwaltung / Neuer Eintrag?
+		elseif ($this->checkCallActionByAnyMethod('adminMandat')) {
+
+			// Lade Mandatverwaltungs - Klasse
+			$objMandat = new AdminMandat();
+
+			// Übergebe an Initial-Methode der Mandatverwaltungs - Klasse
+			$objMandat->initialAdminMandat();
 
 			// Keine weiteren Prüfungen in der Action an dieser Stelle
 			return true;

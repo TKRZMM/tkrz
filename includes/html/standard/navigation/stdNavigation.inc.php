@@ -50,6 +50,8 @@ if (!isset($hCore->coreGlobal['GET']['callAction']))
 	</div>
 
 
+
+
 	<?php
 	// Setze Werte für den aktuellen Nav-Block
 	$curHeadline = 'Datei Upload';
@@ -104,7 +106,6 @@ if (!isset($hCore->coreGlobal['GET']['callAction']))
 			?>
 		</div>
 	</div>
-
 
 
 
@@ -166,7 +167,6 @@ if (!isset($hCore->coreGlobal['GET']['callAction']))
 
 
 
-
 	<?php
 	$curHeadline = 'Datenbank Export';
 	$curCallAction = 'dbExport';
@@ -222,8 +222,25 @@ if (!isset($hCore->coreGlobal['GET']['callAction']))
 	</div>
 
 
-	<?php
 
+
+	<?php
+	$curHeadline = 'SEPA Mandatsverwaltung';
+	$curCallAction = 'adminMandat';
+
+	if ($hCore->coreGlobal['GET']['callAction'] == $curCallAction)
+		$curActive = ' dropdown-active';
+	else
+		$curActive = '';
 	?>
+	<div class="dropdown">
+		<button class="dropbtn <?php print ($curActive); ?>"><i class="fa fa-university"></i>&nbsp;&nbsp;<?php print ($curHeadline);?></button>
+		<div class="dropdown-content">
+			<div class="dopddown-headline-first"><i class="fa fa-credit-card"></i>&nbsp;&nbsp;&nbsp; Centron</div>
+			<?php print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/searchEdit/Centron"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp; Suchen / Bearbeiten</a>'); ?>
+			<?php print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/newMandat/Centron"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp; Neuer Eintrag</a>'); ?>
+		</div>
+	</div>
+
 </div>
 
