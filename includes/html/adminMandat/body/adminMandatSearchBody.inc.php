@@ -42,22 +42,23 @@ foreach ($checVars as $varName){
 
 					<table width="100%" border="0" class="standard formBackgroundInnerCollapse">
 						<tr>
-							<td colspan="4"><h2>Datensatz Eingabe</h2></td>
+							<td colspan="4"><h2>Datensatz Suche</h2></td>
 							<td>
 								<button type="reset" class="sendButton">Reset</button>
-								<button type="submit" class="sendButton">Senden</button>
+								<button type="submit" class="sendButton">Suchen</button>
 							</td>
 						</tr>
 						<tr>
-							<td>&#10038; Centron Kunden-Nr.:<br><input type="text" name="customerID" class="stdinput" value="<?php print ($gotVar['customerID']); ?>"  pattern=".{1,20}" required title="Benötigt zwischen 1 und 20 Zeichen!" maxlength="20" autocomplete="off" autofocus></td>
-							<td>&#10038; SEPA Mandats-Nr.:<br><input type="text" name="mandatNumber" class="stdinput" value="<?php print ($gotVar['mandatNumber']); ?>"  pattern=".{1,20}" required title="Benötigt zwischen 1 und 20 Zeichen!" maxlength="20" autocomplete="off"></td>
+							<td>Centron Kunden-Nr.:<br><input type="text" name="customerID" class="stdinput" value="<?php print ($gotVar['customerID']); ?>" autocomplete="off" autofocus></td>
+							<td>SEPA Mandats-Nr.:<br><input type="text" name="mandatNumber" class="stdinput" value="<?php print ($gotVar['mandatNumber']); ?>" autocomplete="off"></td>
 						</tr>
 						<tr><td colspan="5">&nbsp;</td></tr>
 						<tr><td colspan="5">&nbsp;</td></tr>
 						<tr>
 							<td>Lastschriftart<br>
 								<select name="lsArt" size="1" class="selectInput">
-									<option value="Basis" <?php if ( ($gotVar['lsArt'] == 'Basis') || ($gotVar['lsArt'] == '') ){ print ('selected'); } ?>>Basis</option>
+									<option value="" <?php if ($gotVar['lsArt'] == ''){ print ('selected'); } ?>>-</option>
+									<option value="Basis" <?php if ($gotVar['lsArt'] == 'Basis'){ print ('selected'); } ?>>Basis</option>
 									<option value="B2B" <?php if ($gotVar['lsArt'] == 'B2B'){ print ('selected'); } ?>>B2B</option>
 									<option value="Unbekannt" <?php if ($gotVar['lsArt'] == 'Unbekannt'){ print ('selected'); } ?>>Unbekannt</option>
 								</select>
@@ -66,7 +67,8 @@ foreach ($checVars as $varName){
 
 							<td>Typ<br>
 								<select name="lsType" size="1" class="selectInput">
-									<option value="Widerkehrend" <?php if ( ($gotVar['lsType'] == 'Widerkehrend') || ($gotVar['lsType'] == '') ){ print ('selected'); } ?>>Widerkehrend</option>
+									<option value="" <?php if ($gotVar['lsType'] == ''){ print ('selected'); } ?>>-</option>
+									<option value="Widerkehrend" <?php if ($gotVar['lsType'] == 'Widerkehrend'){ print ('selected'); } ?>>Widerkehrend</option>
 									<option value="Einmalig" <?php if ($gotVar['lsType'] == 'Einmalig'){ print ('selected'); } ?>>Einmalig</option>
 									<option value="Unbekannt" <?php if ($gotVar['lsType'] == 'Unbekannt'){ print ('selected'); } ?>>Unbekannt</option>
 								</select>
@@ -74,7 +76,8 @@ foreach ($checVars as $varName){
 
 							<td>Status<br>
 								<select name="lsStatus" size="1" class="selectInput">
-									<option value="Aktiv" <?php if ( ($gotVar['lsStatus'] == 'Aktiv') || ($gotVar['lsStatus'] == '') ){ print ('selected'); } ?>>Aktiv</option>
+									<option value="" <?php if ($gotVar['lsStatus'] == ''){ print ('selected'); } ?>>-</option>
+									<option value="Inaktiv" <?php if ($gotVar['lsStatus'] == 'Aktiv'){ print ('selected'); } ?>>Aktiv</option>
 									<option value="Inaktiv" <?php if ($gotVar['lsStatus'] == 'Inaktiv'){ print ('selected'); } ?>>Inaktiv</option>
 									<option value="Widerrufen" <?php if ($gotVar['lsStatus'] == 'Widerrufen'){ print ('selected'); } ?>>Widerrufen</option>
 									<option value="Unbekannt" <?php if ($gotVar['lsStatus'] == 'Unbekannt'){ print ('selected'); } ?>>Unbekannt</option>
@@ -96,10 +99,6 @@ foreach ($checVars as $varName){
 							<td>IBAN<br><input type="text" name="IBAN" class="stdinput" value="<?php print ($gotVar['IBAN']); ?>" autocomplete="off"></td>
 							<td>BIC<br><input type="text" name="BIC" class="stdinput" value="<?php print ($gotVar['BIC']); ?>" autocomplete="off"></td>
 							<td colspan="3">&nbsp;</td>
-						</tr>
-						<tr><td colspan="5">&nbsp;</td></tr>
-						<tr>
-							<td colspan="5" class="textRight">&#10038; Eingabe - Pflicht</td>
 						</tr>
 
 					</table>

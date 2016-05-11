@@ -48,39 +48,233 @@ class AdminMandat extends CoreExtends
 
 
 
+	// Initial Methode der Klasse die aus der SystemAction - Klasse aufgerufen wird
 	public function initialAdminMandat()
 	{
 
-		// Todo Steuerung "Neuer Eintrag" ... "Suchen / Bearbeiten"
-
-		// Default leiten wird auf Seite 1 der Benutzer-Eingaben
+		// Per Default leiten wird auf Seite 1 der Benutzer-Eingaben
 		$goToPage = 1;
 
-		// Neuer Eintrag Daten vom User wurden übermittelt?
+
+		// Klasse nur ausführen wenn wir im Menue der SEPA Verwaltung sind
 		if ((isset($this->coreGlobal['POST']['callAction'])) && ($this->coreGlobal['POST']['callAction'] == 'adminMandat')) {
 
-			// Unvollständige Daten übergeben? ... Dann wieder auf Seite 1 (Dateneingabe) leiten
-			if (!$this->handelNewMandatData())
-				$goToPage = 1;
-			else {
-				$this->addMessage('Mandat erfolgreich angelegt!', 'Die neuen Mandats-Daten wurden erfolreich übernommen und werden bei künftigen Exports verwendet.', 'Erfolg', 'Neuer Eintrag');
-
-				// Speicher freigeben
-				unset($this->coreGlobal['POST']);
-				unset($_POST);
-
-				// Wieder auf Seite 1 leiten damit weitere Mandate eingetragen werden können
-				$goToPage = 1;
-			}
+			// Sub-Action Unterscheidung
 
 
+			// Neues Mandat anlegen?
+			if ((isset($this->coreGlobal['GET']['subAction'])) && ($this->coreGlobal['GET']['subAction'] == 'newMandat'))
+				$goToPage = $this->initialHandelNewMandatData();
+
+
+			// Suchen Bearbeiten?
+			if ((isset($this->coreGlobal['GET']['subAction'])) && ($this->coreGlobal['GET']['subAction'] == 'searchEdit'))
+				$goToPage = $this->initialHandelSearchEditData();
+
+
+			// Neuer Eintrag Seite 1 (User - Eingabe erwartet)
+			$this->createPage($this->coreGlobal['GET']['subAction'], $goToPage);
+
+			return true;
 		}
+
 
 		// Neuer Eintrag Seite 1 (User - Eingabe erwartet)
 		$this->createPage($this->coreGlobal['GET']['subAction'], $goToPage);
 
+		return false;
 
 	}    // END public function initialAdminMandat()
+
+
+
+
+
+
+
+
+
+
+	// Initial Methode für Suchen / Bearbeiten
+	private function initialHandelSearchEditData()
+	{
+
+		$goToPage = 1;
+
+		if (!$this->handelSearchData())
+			$goToPage = 1;
+
+
+		/*
+		// Unvollständige Daten übergeben? ... Dann wieder auf Seite 1 (Dateneingabe) leiten
+		if (!$this->handelNewMandatData())
+			$goToPage = 1;
+		else {
+			$this->addMessage('Mandat erfolgreich angelegt!', 'Die neuen Mandats-Daten wurden erfolreich übernommen und werden bei künftigen Exports verwendet.', 'Erfolg', 'Neuer Eintrag');
+
+			// Speicher freigeben
+			unset($this->coreGlobal['POST']);
+			unset($_POST);
+
+			// Wieder auf Seite 1 leiten damit weitere Mandate eingetragen werden können
+			$goToPage = 1;
+		}
+		*/
+
+		return $goToPage;
+
+	}    // END private function initialHandelNewMandatData()
+
+
+
+
+
+
+
+
+
+
+	// Verarbeitet die vom Benutzer übergebenen neuen Mandat-Daten
+	private function handelSearchData()
+	{
+
+
+
+		// Leerzeichen aus den Eingaben entfernen lassen
+		$this->myCleanSpaceInString($this->coreGlobal['GET']['subAction']);
+
+
+		// SuchQuery - erstellen
+		if (!$getSearchQuery = $this->createQueryForSearchMandat())
+			return false;
+
+
+		// Suche jetzt ausführen lassen
+		if (!$this->doDBSearch($getSearchQuery))
+			return false;
+
+//		// Prüfen ob schon Datensatz vorhanden ist
+//		if ($this->checkForDoubleEntryOnNewMandat())
+//			return false;
+//
+//
+//		// Alles ok ... lasse jetzt die Daten als neuen Eintrag in die DB schreiben
+//		if (!$this->writeNewMandatToDB())
+//			return false;
+
+		// return true;
+		return false;
+
+	}    // END private function handelNewMandatData()
+
+
+
+
+
+
+
+
+
+
+	// Methode führt Such-Query aus
+	private function doDBSearch($query)
+	{
+		$result = $this->query($query);
+		$num_rows = $this->num_rows($result);
+
+		if ($num_rows >= '1') {
+			while ($row = $result->fetch_object()) {
+
+				// $mandRefArray[$row->personenkonto] = $row->mandatsnummer;
+				// TODO Daten gefunden... zwischenspeichern... Edit-Seite ausgeben usw.
+			}
+			$this->free_result($result);
+		}
+		else {
+			$this->free_result($result);
+
+			$this->addMessage('Keine Daten gefunden!','Zu den gesuchten Angaben sind keine Daten gespeichert.','Info','Suchen / Bearbeiten');
+
+			return false;
+		}
+
+		return true;
+
+	}    // END private function doDBSearch($query)
+
+
+
+
+
+
+
+
+
+
+	// Methode erstellt die MySQL - Suchquery anhand der gesetzten Such-Felder
+	private function createQueryForSearchMandat()
+	{
+
+		$add = '';
+
+		// Format: xyz = array('HMTLInputNamen' => 'DatenbankFeldNamen')
+		$htmlToDBName = array('customerID'     => 'personenkonto',
+							  'mandatNumber'   => 'mandatsnummer',
+							  'lsArt'          => 'lsArt',
+							  'lsType'         => 'lsType',
+							  'lsStatus'       => 'lsStatus',
+							  'dateOfExpire'   => 'dateOfExpire',
+							  'createdOn'      => 'createdOn',
+							  'gotMandatOn'    => 'gotMandatOn',
+							  'dateOfFirstUse' => 'dateOfFirstUse',
+							  'recalledOn'     => 'recalledOn',
+							  'IBAN'           => 'IBAN',
+							  'BIC'            => 'BIC'
+		);
+
+		// Durchlauf der möglichen Variable ... wenn gesetzt werden sie in die Query integriert.
+		foreach($htmlToDBName as $htmlName => $fieldName) {
+			if ((isset($this->coreGlobal['POST'][$htmlName])) && (strlen($this->coreGlobal['POST'][$htmlName]) > 0))
+				$add .= " AND (" . $fieldName . " = '" . $this->formatDateForMySQLWithNoSlash($this->coreGlobal['POST'][$htmlName]) . "') ";
+		}
+
+		// Erstelle Query
+		$query = "SELECT * FROM `centron_mand_ref` WHERE 1 " . $add . "ORDER BY personenkonto";
+
+		return $query;
+
+	}    // END	private function createQueryForSearchMandat()
+
+
+
+
+
+
+
+
+
+
+	// Initial Methode für Neuer Eintrag
+	private function initialHandelNewMandatData()
+	{
+
+		// Unvollständige Daten übergeben? ... Dann wieder auf Seite 1 (Dateneingabe) leiten
+		if (!$this->handelNewMandatData())
+			$goToPage = 1;
+		else {
+			$this->addMessage('Mandat erfolgreich angelegt!', 'Die neuen Mandats-Daten wurden erfolreich übernommen und werden bei künftigen Exports verwendet.', 'Erfolg', 'Neuer Eintrag');
+
+			// Speicher freigeben
+			unset($this->coreGlobal['POST']);
+			unset($_POST);
+
+			// Wieder auf Seite 1 leiten damit weitere Mandate eingetragen werden können
+			$goToPage = 1;
+		}
+
+		return $goToPage;
+
+	}    // END private function initialHandelNewMandatData()
 
 
 
@@ -230,7 +424,7 @@ class AdminMandat extends CoreExtends
 	{
 
 		// Formular: Neuer Eintrag
-		if ($getSubAction == 'newMandat') {
+		if (($getSubAction == 'searchEdit') || ($getSubAction == 'newMandat')) {
 			// customerID ggf. Leerzeichen entfernen ... Methode ist in der CoreBase-Klasse
 			$this->coreGlobal['POST']['customerID'] = $this->cleanSpaceInString($this->coreGlobal['POST']['customerID']);
 
@@ -242,9 +436,12 @@ class AdminMandat extends CoreExtends
 
 			// BIC ggf. Leerzeichen entfernen ... Methode ist in der CoreBase-Klasse
 			$this->coreGlobal['POST']['BIC'] = $this->cleanSpaceInString($this->coreGlobal['POST']['BIC']);
+
+			return true;
+
 		}
 
-		return true;
+		return false;
 
 	}    // END private function myCleanSpaceInString()
 
@@ -295,18 +492,35 @@ class AdminMandat extends CoreExtends
 	private function createPage($getSubAction, $getPageNumber = 0)
 	{
 
+		// Auswahl: Suchen / Bearbeiten
+		if ($getSubAction == 'searchEdit') {
+			// Seiten - Unterscheidung
+			switch ($getPageNumber) {
+				case 1:
+					// User-Eingabe erwartet
+					$this->coreGlobal['Load']['FramesetBody'] = 'adminMandat/body/adminMandatBodySetFrame.inc.php';        // Setze zu ladendes Body Frameset
+					$this->coreGlobal['Load']['IncludeBody'] = 'adminMandatSearchBody.inc.php';                    // Setze zu ladendes Include in der Body Frameset
+					break;
+
+				default:
+					break;
+			}
+
+			return true;
+		}
+
+
+
 		// Auswahl: Neuer Eintrag (Mandat anlegen)
 		if ($getSubAction == 'newMandat') {
 
 			// Seiten - Unterscheidung
 			switch ($getPageNumber) {
-				case 0:
 				case 1:
 					// User-Eingabe erwartet
 					$this->coreGlobal['Load']['FramesetBody'] = 'adminMandat/body/adminMandatBodySetFrame.inc.php';        // Setze zu ladendes Body Frameset
 					$this->coreGlobal['Load']['IncludeBody'] = 'adminMandatGetNewEntryBody.inc.php';                    // Setze zu ladendes Include in der Body Frameset
 					break;
-
 
 				default:
 					break;
@@ -320,203 +534,6 @@ class AdminMandat extends CoreExtends
 	}    // END private function createPage($getPageNumber=0)
 
 
-
-	//////////////////////////////////////////////////////////////////////////////////////////
-
-
-	/**
-	 * Initial Methode zur Abhandlung von "Datei - Import".
-	 *
-	 * ... Setze das Body-Frameset auf das File-Import-Frameset
-	 *        ... Das Frameset beinhaltet die erste html-Form (Auswahl der zu importierenden Daten)
-	 *
-	 * ... Übergebe bzw. der Auswahl an die Import-Methode.
-	 *        ... Das Form-Frameset wird dann resettet
-	 *
-	 * Aufruf aus Klasse: SystemAction.class.php
-	 */
-	public function initialFileImport()
-	{
-
-		// Wurden Daten für den Import ausgewählt?
-		$boolGotImportSelection = $this->checkDataSelection();
-
-		// Keine Daten für den Import ausgewählt... Zeige Seite 1 (Datenauswahl)
-		if (!$boolGotImportSelection) {
-
-			// Seite 1 ... User Auswahl benötigt ... Auswahl der zu importierenden Daten ausgeben
-			$this->createPageOneFileImport();
-		}
-		else {
-
-			// Daten identifizieren (Typ und System)
-			// Hole mir einen Teil des aufzurufenden Klassen-Namens
-			// Hole mir einen Teil der aufzurufenden Methode
-			$boolGotClassAndMethode = $this->getClassAndMethodByFileUploadID($this->coreGlobal['POST']['selFileUploadID'], $getClassPart, $getMethodPart);
-
-			// Sicherheitsabbruch wenn die vorherige Datenbeschaffung nicht erfolgreich war
-			if (!$boolGotClassAndMethode)
-				return false;
-
-
-			// Aufzurufender Klassen-Name (MIT Namespace!!!):
-			$callClass = 'fileImport\FileImport' . $getClassPart;
-
-			// Aufzurunfende Methode:
-			$callMethod = 'fileImport' . $getMethodPart;
-
-			// Rufe Klasse auf
-			$hFileImport = new $callClass();
-
-			// Rufe Methode der Klasse auf
-			$hFileImport->$callMethod();
-
-		}
-
-		return true;
-
-	}    // END public function initialFileImport()
-
-
-
-
-
-
-
-
-
-
-	// Daten identifizieren (Typ und System) und Klassenname (Teil) und Methode (Teil) auf Pointer zurückgeben
-	private function getClassAndMethodByFileUploadID($getFileUploadID, & $getClassPart, & $getMethodPart)
-	{
-
-		// Parameter für getQuery setzen
-		$paramArray = array('fileUploadID' => $getFileUploadID);
-
-		// Query holen
-		$query = $this->getQuery('getInformationFromFileUploadByFileUploadID', $paramArray);
-
-		// Query ausführen
-		$result = $this->query($query);
-
-		if ($this->num_rows($result) < 1) {
-
-			// Message für Fehler aufgetreten
-			$this->addMessage('Keine oder fehlerhafte Import-Daten!', 'Die gewählten Daten für den Import sind nicht vorhanden oder ungültig.', 'Info', 'Datenbank - Import');
-
-			$this->free_result($result);
-
-			return false;
-		}
-
-
-		$row = $result->fetch_object();
-
-		$getClassPart = $row->sourceSystemName;
-		$getMethodPart = $row->fileUploadDirName;
-
-
-		// Speichere einige Informationen damit die Datei gleich eingelesen werden kann
-		$this->coreGlobal['curDownloadLink'] = $row->downloadLink;      // Link zur gewählten Datei
-		$this->coreGlobal['curSourceTypeID'] = $row->sourceTypeID;      // IDt = ID Type    (Stammdaten, Buchungssatz)
-		$this->coreGlobal['curSourceSystemID'] = $row->sourceSystemID;  // IDs = ID System  (Diamri, Centron usw)
-		$this->coreGlobal['curFilePath'] = $row->fileTargetFullPath;    // Pfad zum öffnen der Datei
-
-		$this->free_result($result);
-
-		return true;
-
-	}    // END private function getClassAndMethodByFileUploadID(...)
-
-
-
-
-
-
-
-
-
-
-	// Wurden Daten für den Import ausgewählt? ... Wenn nicht... dann zeige Datenauswahl
-	private function checkDataSelection()
-	{
-
-		if ((isset($this->coreGlobal['POST']['callAction'])) && ($this->coreGlobal['POST']['callAction'] == 'dbImport')) {
-
-			if ((isset($this->coreGlobal['POST']['selFileUploadID'])) && ($this->coreGlobal['POST']['selFileUploadID'] > 0)) {
-
-				// Daten wurdn ausgewählt ... Start import
-				return true;
-
-			}
-
-		}
-
-		return false;
-
-	}    // END private function checkDataSelectionFullHandling()
-
-
-
-
-
-
-
-
-
-
-	// Seite 1 ... User Auswahl benötigt ... Auswahl der zu importierenden Daten ausgeben
-	private function createPageOneFileImport()
-	{
-
-		// subAction & valueAction zuwesien
-		$subAction = $this->coreGlobal['GET']['subAction'];
-		$valueAction = $this->coreGlobal['GET']['valueAction'];
-
-		$hMyLayout = new SystemLayout();
-
-		// Typ ID ermitteln
-		$getSourceTypeData = $hMyLayout->getActiveSourceTypeDataByX('fileUploadDirName', $subAction);
-		$sourceTypeID = $getSourceTypeData['sourceTypeID'];
-
-		// System ID ermitteln
-		$getSourceSystemData = $hMyLayout->getActiveSourceSystemDataByX('sourceSystemName', $valueAction);
-		$sourceSystemID = $getSourceSystemData['sourceSystemID'];
-
-
-		// Parameter für getQuery setzen
-		$paramArray = array('sourceTypeID'   => $sourceTypeID,
-							'sourceSystemID' => $sourceSystemID);
-
-		// Query holen
-		$query = $this->getQuery('getFileImportList', $paramArray);
-
-		// Query ausführen
-		$result = $this->query($query);
-
-		if ($this->num_rows($result) < 1) {
-
-			// Message für Fehler aufgetreten
-			$this->addMessage('Keine Import Daten vorhanden!', 'Für das gewählte System und zur gewählten Import-Art sind keine gütligen Daten vorhanden.', 'Info', 'Datenbank - Import');
-
-			$this->free_result($result);
-
-			return false;
-		}
-
-		// Resultat coreGlobal zuweisen damit es in der HTML-Datei verarbeitet werden kann.
-		$this->coreGlobal['dbResult'] = $result;
-
-
-		// Setze zu ladendes Body Frameset
-		$this->coreGlobal['Load']['FramesetBody'] = 'fileImport/body/fileImportBodySetFrame.inc.php';
-
-		// Setze zu ladendes Include in der Body Frameset
-		$this->coreGlobal['Load']['IncludeBody'] = 'fileImportGetUserDataSelectionBody.inc.php';
-
-		return true;
-
-	}    // END private function createPageOneFileImport()
 
 
 }   // END class FileImport extends CoreExtends
