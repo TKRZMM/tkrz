@@ -53,8 +53,32 @@ class AdminMandat extends CoreExtends
 
 		// Todo Steuerung "Neuer Eintrag" ... "Suchen / Bearbeiten"
 
+		// Default leiten wird auf Seite 1 der Benutzer-Eingaben
+		$goToPage = 1;
+
+		// Neuer Eintrag Daten vom User wurden übermittelt?
+		if ((isset($this->coreGlobal['POST']['callAction'])) && ($this->coreGlobal['POST']['callAction'] == 'adminMandat')) {
+
+			// Unvollständige Daten übergeben? ... Dann wieder auf Seite 1 (Dateneingabe) leiten
+			if (!$this->handelNewMandatData())
+				$goToPage = 1;
+			else {
+				$this->addMessage('Mandat erfolgreich angelegt!', 'Die neuen Mandats-Daten wurden erfolreich übernommen und werden bei künftigen Exports verwendet.', 'Erfolg', 'Neuer Eintrag');
+
+				// Speicher freigeben
+				unset($this->coreGlobal['POST']);
+				unset($_POST);
+
+				// Wieder auf Seite 1 leiten damit weitere Mandate eingetragen werden können
+				$goToPage = 1;
+			}
+
+
+		}
+
 		// Neuer Eintrag Seite 1 (User - Eingabe erwartet)
-		$this->createPage($this->coreGlobal['GET']['subAction'], 1);
+		$this->createPage($this->coreGlobal['GET']['subAction'], $goToPage);
+
 
 	}    // END public function initialAdminMandat()
 
@@ -67,6 +91,207 @@ class AdminMandat extends CoreExtends
 
 
 
+	// Verarbeitet die vom Benutzer übergebenen neuen Mandat-Daten
+	private function handelNewMandatData()
+	{
+
+		// Leerzeichen aus den Eingaben entfernen lassen
+		$this->myCleanSpaceInString($this->coreGlobal['GET']['subAction']);
+
+
+		// Rquire - Eingaben abfangen
+		if (!$this->checkRequireEntrysForNewMandat())
+			return false;
+
+
+		// Prüfen ob schon Datensatz vorhanden ist
+		if ($this->checkForDoubleEntryOnNewMandat())
+			return false;
+
+
+		// Alles ok ... lasse jetzt die Daten als neuen Eintrag in die DB schreiben
+		if (!$this->writeNewMandatToDB())
+			return false;
+
+		return true;
+
+	}    // END private function handelNewMandatData()
+
+
+
+
+
+
+
+
+
+
+	private function writeNewMandatToDB()
+	{
+
+		// TODO Überlegung ob ich über den SEPA - Status auch den Status des Mandat-Eintrages steuer... das ist für den Export wichtig!
+		// $activeStatus = 'no';
+		// if ($this->coreGlobal['POST']['lsStatus'] == 'Aktiv')
+		// $activeStatus = 'yes';
+
+		$activeStatus = 'yes';
+
+		$query = "INSERT INTO centron_mand_ref (`userID`,
+												`personenkonto`,
+												`mandatsnummer`,
+												`activeStatus`,
+												`lsArt`,
+												`lsType`,
+												`lsStatus`,
+												`dateOfExpire`,
+												`createdOn`,
+												`gotMandatOn`,
+												`dateOfFirstUse`,
+												`recalledOn`,
+												`IBAN`,
+												`BIC`
+											) VALUES (
+											'" . $_SESSION['Login']['userID'] . "',
+											'" . $this->coreGlobal['POST']['customerID'] . "',
+											'" . $this->coreGlobal['POST']['mandatNumber'] . "',
+											'" . $activeStatus . "',
+											'" . $this->coreGlobal['POST']['lsArt'] . "',
+											'" . $this->coreGlobal['POST']['lsType'] . "',
+											'" . $this->coreGlobal['POST']['lsStatus'] . "',
+											'" . $this->formatDateForMySQLWithNoSlash($this->coreGlobal['POST']['dateOfExpire']) . "',
+											'" . $this->formatDateForMySQLWithNoSlash($this->coreGlobal['POST']['createdOn']) . "',
+											'" . $this->formatDateForMySQLWithNoSlash($this->coreGlobal['POST']['gotMandatOn']) . "',
+											'" . $this->formatDateForMySQLWithNoSlash($this->coreGlobal['POST']['dateOfFirstUse']) . "',
+											'" . $this->formatDateForMySQLWithNoSlash($this->coreGlobal['POST']['recalledOn']) . "',
+											'" . $this->coreGlobal['POST']['IBAN'] . "',
+											'" . $this->coreGlobal['POST']['BIC'] . "'
+											) ";
+
+
+		$this->query($query);
+
+		return true;
+
+	}    // END private function writeNewMandatToDB()
+
+
+
+
+
+
+
+
+
+
+	// Prüft ob eine Mandats-Nummer oder eine Centron - Kunden-Nummer schon in der Datenbank (Mand-Ref) vorhanden ist.
+	private function checkForDoubleEntryOnNewMandat()
+	{
+
+		// Parameter für getQuery setzen
+		$paramArray = array('customerID'   => $this->coreGlobal['POST']['customerID'],
+							'mandatNumber' => $this->coreGlobal['POST']['mandatNumber']);
+
+		// Query holen
+		$query = $this->getQuery('getMandatCheck', $paramArray);
+
+		// Query ausführen
+		$result = $this->query($query);
+
+		if ($this->num_rows($result) == 1) {
+
+			$row = $result->fetch_object();
+			$selCentronMandRefIF = $row->centron_mand_refID;
+
+			// Message für Fehler aufgetreten
+			$this->addMessage('Mandat und/oder Kunde bereits vorhanden!', 'Die vorhanden Daten können unter folgendem Link eingesehen und bearbeitet werden.', 'Fehler', 'Neuer Eintrag', 'Link und ID:' . $selCentronMandRefIF);
+
+			$this->free_result($result);
+
+			return true;
+		}
+
+		$this->free_result($result);
+
+		return false;
+
+	}    // END	private function checkForDoubleEntryOnNewMandat()
+
+
+
+
+
+
+
+
+
+
+	// Methode lässt Leerzeichen für die Formulare entfernen
+	private function myCleanSpaceInString($getSubAction)
+	{
+
+		// Formular: Neuer Eintrag
+		if ($getSubAction == 'newMandat') {
+			// customerID ggf. Leerzeichen entfernen ... Methode ist in der CoreBase-Klasse
+			$this->coreGlobal['POST']['customerID'] = $this->cleanSpaceInString($this->coreGlobal['POST']['customerID']);
+
+			// mandatNumber ggf. Leerzeichen entfernen ... Methode ist in der CoreBase-Klasse
+			$this->coreGlobal['POST']['mandatNumber'] = $this->cleanSpaceInString($this->coreGlobal['POST']['mandatNumber']);
+
+			// IBAN ggf. Leerzeichen entfernen ... Methode ist in der CoreBase-Klasse
+			$this->coreGlobal['POST']['IBAN'] = $this->cleanSpaceInString($this->coreGlobal['POST']['IBAN']);
+
+			// BIC ggf. Leerzeichen entfernen ... Methode ist in der CoreBase-Klasse
+			$this->coreGlobal['POST']['BIC'] = $this->cleanSpaceInString($this->coreGlobal['POST']['BIC']);
+		}
+
+		return true;
+
+	}    // END private function myCleanSpaceInString()
+
+
+
+
+
+
+
+
+
+
+	// Prüft (true/false) ob die benötitgen Eingaben für ein neues Mandat gegeben sind.
+	private function checkRequireEntrysForNewMandat()
+	{
+
+		$boolGotError = false;
+
+		// customerID  min. 1 max 20 prüfen ... Methode ist in der CoreBase-Klasse
+		if (!$this->checkMinMaxByString(1, 20, $this->coreGlobal['POST']['customerID'])) {
+			$this->addMessage('Dateneingabe unültig', 'Fehlende oder falsche Dateneingabe bei "Centron Kunden-Nr.".', 'Fehler', 'Neuer Eintrag', 'Das Feld ist ein Pflicht-Feld und muss entsprechend ausgefüllt werden.');
+			$boolGotError = true;
+		}
+
+		// mandatNumber min. 1 max 20 prüfen ... Methode ist in der CoreBase-Klasse
+		if (!$this->checkMinMaxByString(1, 20, $this->coreGlobal['POST']['mandatNumber'])) {
+			$this->addMessage('Dateneingabe unültig', 'Fehlende oder falsche Dateneingabe bei "SEPA Mandats-Nr.".', 'Fehler', 'Neuer Eintrag', 'Das Feld ist ein Pflicht-Feld und muss entsprechend ausgefüllt werden.');
+			$boolGotError = true;
+		}
+
+		if ($boolGotError)
+			return false;
+
+		return true;
+
+	}    // END private function checkRequireEntrysForNewMandat()
+
+
+
+
+
+
+
+
+
+
+	// Lässt die angeforderte Webseite erzeugen
 	private function createPage($getSubAction, $getPageNumber = 0)
 	{
 

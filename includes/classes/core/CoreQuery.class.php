@@ -280,7 +280,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getSumFromTableX':
 				// Liest die Summe der Einträge aus der Tabelle X
 
-				$getQuery = "SELECT COUNT(*) AS SUM FROM ".$paramArray['FROM']." WHERE 1";
+				$getQuery = "SELECT COUNT(*) AS SUM FROM " . $paramArray['FROM'] . " WHERE 1";
 				break;
 
 
@@ -288,7 +288,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getSumMandateFromTableX':
 				// Liest die Summe der Einträge aus der Tabelle X die eine Mandatsrefrennummer haben
 
-				$getQuery = "SELECT COUNT(*) AS SUM FROM ".$paramArray['FROM']." WHERE Mandatsreferenznummer != ''";
+				$getQuery = "SELECT COUNT(*) AS SUM FROM " . $paramArray['FROM'] . " WHERE Mandatsreferenznummer != ''";
 				break;
 
 
@@ -296,7 +296,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getNewestLastUpdateFromTableX':
 				// Ermittelt das neueste Update aus der Tabelle X
 
-				$getQuery = "SELECT lastUpdate FROM ".$paramArray['FROM']." WHERE 1 ORDER BY lastUpdate DESC LIMIT 1";
+				$getQuery = "SELECT lastUpdate FROM " . $paramArray['FROM'] . " WHERE 1 ORDER BY lastUpdate DESC LIMIT 1";
 				break;
 
 
@@ -304,7 +304,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getOldestLastUpdateFromTableX':
 				// Ermittelt das älteste Update aus der Tabelle X
 
-				$getQuery = "SELECT lastUpdate FROM ".$paramArray['FROM']." WHERE 1 ORDER BY lastUpdate ASC LIMIT 1";
+				$getQuery = "SELECT lastUpdate FROM " . $paramArray['FROM'] . " WHERE 1 ORDER BY lastUpdate ASC LIMIT 1";
 				break;
 
 
@@ -312,7 +312,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getSammelkontenFromTableX':
 				// Ermittelt alle Sammelkonten von Tabelle X
 
-				$getQuery = "SELECT Sammelkonto FROM ".$paramArray['FROM']." WHERE 1 GROUP BY Sammelkonto";
+				$getQuery = "SELECT Sammelkonto FROM " . $paramArray['FROM'] . " WHERE 1 GROUP BY Sammelkonto";
 				break;
 
 
@@ -320,7 +320,7 @@ abstract class CoreQuery extends CoreDebug
 			case 'getZahlungsartenFromTableX':
 				// Ermittelt alle Zahlungsarten von Tabelle X
 
-				$getQuery = "SELECT Zahlungsart FROM ".$paramArray['FROM']." WHERE 1 GROUP BY Zahlungsart";
+				$getQuery = "SELECT Zahlungsart FROM " . $paramArray['FROM'] . " WHERE 1 GROUP BY Zahlungsart";
 				break;
 
 
@@ -328,21 +328,28 @@ abstract class CoreQuery extends CoreDebug
 			case 'getUploadUserFromTableX':
 				// Ermittelt den Upload-Benutzer zu einem Datensatz in der Tabelle X
 
-				$getQuery = "SELECT userName FROM user u, ".$paramArray['FROM']." as b WHERE u.userID = b.userID GROUP BY u.userID";
+				$getQuery = "SELECT userName FROM user u, " . $paramArray['FROM'] . " AS b WHERE u.userID = b.userID GROUP BY u.userID";
 				break;
 
 
 			case 'getMwSTFromTableX':
 				// Ermittelt alle MwST von Tabelle X
 
-				$getQuery = "SELECT MwSt FROM ".$paramArray['FROM']." WHERE 1 GROUP BY MwSt";
+				$getQuery = "SELECT MwSt FROM " . $paramArray['FROM'] . " WHERE 1 GROUP BY MwSt";
 				break;
 
 
 			case 'getXGroupByX':
 				// Ermittelt alle Werte zu X Gruppiert bei X
 
-				$getQuery = "SELECT ".$paramArray['GROUP']." FROM ".$paramArray['FROM']." WHERE 1 GROUP BY ".$paramArray['GROUP']." ORDER BY ".$paramArray['GROUP']." ";
+				$getQuery = "SELECT " . $paramArray['GROUP'] . " FROM " . $paramArray['FROM'] . " WHERE 1 GROUP BY " . $paramArray['GROUP'] . " ORDER BY " . $paramArray['GROUP'] . " ";
+				break;
+
+
+			case 'getMandatCheck':
+				// Ermittelt ob schon eine Mandat-Ref Nummer bzw. Centron-Mandat-Ref - Nummer vorhanden ist.
+
+				$getQuery = "SELECT * FROM `centron_mand_ref` WHERE personenkonto = '" . $paramArray['customerID'] . "' OR mandatsnummer = '" . $paramArray['mandatNumber'] . "' LIMIT 1";
 				break;
 
 

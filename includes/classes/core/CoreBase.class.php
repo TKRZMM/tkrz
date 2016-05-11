@@ -235,4 +235,68 @@ abstract class CoreBase
 
 
 
+
+
+
+
+	// Methode prüft (übergebene) min/max Länge eines übergebenen Strings (true/false)
+	function checkMinMaxByString($min, $max, $string)
+	{
+
+		// Min - Max - Länge prüfen
+		if ((strlen($string) < $min) || (strlen($string) > $max))
+			return false;
+
+		return true;
+
+	}    // END function checkMinMaxByString($min, $max, $string)
+
+
+
+
+
+
+
+
+
+
+	// Entfernt Leerzeichen in einem String
+	function cleanSpaceInString($string)
+	{
+
+		$search = '/ /';
+
+		$string = preg_replace($search, '', $string);
+
+		return $string;
+
+	}    // END function cleanSpaceInString($string)
+
+
+
+
+
+
+
+
+
+
+	// Formatiert ein Datumsformat für MySQL
+	function formatDateForMySQLWithNoSlash($getDate)
+	{
+		// Wenn kein gültiges Datum übergeben wurde... gebe ich den eigenen Wert zurück
+		if (strlen($getDate)< 10)
+			return $getDate;
+
+		// Bekomme: MM/DD/YYYY
+		$search = '/(\d+)\/(\d+)\/(\d+)/';
+		preg_match($search, $getDate, $matches);
+
+		// Gebe zurück: YYYY-MM-DD
+		$newDate = $matches[3] . '-' . $matches[1] . '-' . $matches[2];
+
+		return $newDate;
+
+	}    // END function formatDateForMySQLWithNoSlash($getDate)
+
 }   // END class CoreBase
