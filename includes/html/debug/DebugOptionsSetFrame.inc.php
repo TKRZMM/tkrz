@@ -6,7 +6,18 @@
  * Time: 11:59
  */
 
-print ('<div id="containerDebugOptions" class="container DebugOptionsOuter"><div class="container DebugOptions">');
+$outerClass = 'DebugOptionsOuter';
+$innerClass = 'DebugOptions';
+
+// NUR Entwickler hat zusätzliche Option
+if ($_SESSION['Login']['userRoleID'] < 2){
+	$outerClass = 'DebugOptionsOuter DebugOptionsOuterDevelop';
+	$innerClass = 'DebugOptions DebugOptionsDevelop';
+}
+
+
+
+print ('<div id="containerDebugOptions" class="container '.$outerClass.'"><div class="container '.$innerClass.'">');
 include 'DebugOptions.inc.php';
 
 

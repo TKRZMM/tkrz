@@ -4,10 +4,10 @@
 .container {
     position: absolute;
     border: 1px solid rgb(122, 167, 170);
-
     padding: 5px;
     text-align: left;
 }
+
 
 
 /* Individual Div - Container-Set */
@@ -105,7 +105,8 @@
     z-index: 120;
     top: 166px;
     right: 10px;
-    width: 250px;
+    /*width: 250px;*/
+    width: 73px;
     height: 24px;
     background-color: rgba(255, 255, 255, 1);
 }
@@ -113,9 +114,16 @@
     z-index: 110;
     top: 3px;
     right: 4px;
-    width: 240px;
+    /*width: 240px;*/
+    width: 63px;
     height: 16px;
     background-color: #c7c7c7;
+}
+.DebugOptionsOuterDevelop {
+    width: 130px;
+}
+.DebugOptionsDevelop {
+    width: 120px;
 }
 .DebugButtons {
     position: absolute;
@@ -129,13 +137,13 @@
     border: 1px solid rgba(128, 128, 128, 0.75);
 }
 .DebugUpDown {
-    left: 10px;
+    right: 70px;
 }
 .DebugSettings {
     left: 70px;
 }
 .DebugLinks {
-    left: 130px;
+    right: 10px;
 }
 .DebugMove {
     left: 190px;
@@ -158,8 +166,8 @@
 .DebugLinkListOuter {
     position: relative;
     z-index: 110;
-    top: 25px;
-    right: 130px;
+    top: 30px;
+    right: 233px;
     width: 300px;
     height:auto;
     background-color: rgba(255, 255, 255, 1);

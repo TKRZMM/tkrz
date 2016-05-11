@@ -12,9 +12,10 @@ include 'includes/html/standard/head/stdHeadSetFrame.inc.php';
 
 
 
-// TODO Dynamisches Laden der Debug-Optionen
-// Lade: DebugOptionen - Datei !Kann durch die Action - Steuerung überschrieben werden
-include 'includes/html/debug/DebugOptionsSetFrame.inc.php';
+// Dynamisches Laden der Debug-Optionen
+// Lade: DebugOptionen - Datei ! ... Wenn userRoleID kleiner 6 hat der User Zugriff auf die Leiste
+if ($_SESSION['Login']['userRoleID'] < 6)
+	include 'includes/html/debug/DebugOptionsSetFrame.inc.php';
 
 
 
