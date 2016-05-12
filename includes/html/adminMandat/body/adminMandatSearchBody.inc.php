@@ -16,9 +16,11 @@ $checVars = array('customerID',
 				  'createdOn',
 				  'gotMandatOn',
 				  'dateOfFirstUse',
+				  'useUntil',
 				  'recalledOn',
 				  'IBAN',
-				  'BIC'
+				  'BIC',
+				  'likeSearchEnable'
 				  );
 
 $gotVar = array();
@@ -35,6 +37,10 @@ foreach ($checVars as $varName){
 <div class="BodyContentOuterDiv">
 
 	<form method="post" action="" enctype="multipart/form-data">
+		<div class="buttonBox">
+			<button type="submit" class="sendButton">Suchen</button>
+			<button type="reset" class="sendButton">Reset</button><br>
+		</div>
 
 		<table border="0" width="100%" class="standard formBackground">
 			<tr>
@@ -43,17 +49,13 @@ foreach ($checVars as $varName){
 					<table width="100%" border="0" class="standard formBackgroundInnerCollapse">
 						<tr>
 							<td colspan="4"><h2>Datensatz Suche</h2></td>
-							<td>
-								<button type="reset" class="sendButton">Reset</button>
-								<button type="submit" class="sendButton">Suchen</button>
-							</td>
 						</tr>
 						<tr>
 							<td>Centron Kunden-Nr.:<br><input type="text" name="customerID" class="stdinput" value="<?php print ($gotVar['customerID']); ?>" autocomplete="off" autofocus></td>
 							<td>SEPA Mandats-Nr.:<br><input type="text" name="mandatNumber" class="stdinput" value="<?php print ($gotVar['mandatNumber']); ?>" autocomplete="off"></td>
 						</tr>
-						<tr><td colspan="5">&nbsp;</td></tr>
-						<tr><td colspan="5">&nbsp;</td></tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
 						<tr>
 							<td>Lastschriftart<br>
 								<select name="lsArt" size="1" class="selectInput">
@@ -84,21 +86,30 @@ foreach ($checVars as $varName){
 								</select>
 							</td>
 						</tr>
-						<tr><td colspan="5">&nbsp;</td></tr>
-						<tr><td colspan="5">&nbsp;</td></tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
 						<tr>
 							<td>Gültig bis<br><input type="text" readonly name="dateOfExpire" class="tcal calender" value="<?php print ($gotVar['dateOfExpire']); ?>"></td>
 							<td>Angelegt am<br><input type="text" readonly name="createdOn" class="tcal calender" value="<?php print ($gotVar['createdOn']); ?>"></td>
 							<td>Mandat erhalten am<br><input type="text" readonly name="gotMandatOn" class="tcal calender" value="<?php print ($gotVar['gotMandatOn']); ?>"></td>
+						</tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
+						<tr>
 							<td>Erste Verwendung am<br><input type="text" readonly name="dateOfFirstUse" class="tcal calender" value="<?php print ($gotVar['dateOfFirstUse']); ?>"></td>
+							<td>Verwendbar bis<br><input type="text" readonly name="useUntil" class="tcal calender" value="<?php print ($gotVar['useUntil']); ?>"></td>
 							<td>Widerrufen am<br><input type="text" readonly name="recalledOn" class="tcal calender" value="<?php print ($gotVar['recalledOn']); ?>"></td>
 						</tr>
-						<tr><td colspan="5">&nbsp;</td></tr>
-						<tr><td colspan="5">&nbsp;</td></tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
+						<tr><td colspan="4">&nbsp;</td></tr>
 						<tr>
 							<td>IBAN<br><input type="text" name="IBAN" class="stdinput" value="<?php print ($gotVar['IBAN']); ?>" autocomplete="off"></td>
 							<td>BIC<br><input type="text" name="BIC" class="stdinput" value="<?php print ($gotVar['BIC']); ?>" autocomplete="off"></td>
-							<td colspan="3">&nbsp;</td>
+							<td colspan="0">&nbsp;</td>
+							<td class="textRight nobr">Teilsuche erlauben<input type="checkbox" name="likeSearchEnable" value="on" <?php if ($gotVar['likeSearchEnable'] == 'on'){ print ('checked'); } ?>></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="textRight">Format Datum: JJJJ-MM-TT</td>
 						</tr>
 
 					</table>

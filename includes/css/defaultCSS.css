@@ -310,3 +310,7 @@ tr.hoverTr:hover {
 .paddingTen {
 	padding: 10px;
 }
+
+.nobr {
+	white-space: nowrap;
+}

@@ -237,8 +237,8 @@ if (!isset($hCore->coreGlobal['GET']['callAction']))
 		<button class="dropbtn <?php print ($curActive); ?>"><i class="fa fa-university"></i>&nbsp;&nbsp;<?php print ($curHeadline);?></button>
 		<div class="dropdown-content">
 			<div class="dopddown-headline-first"><i class="fa fa-credit-card"></i>&nbsp;&nbsp;&nbsp; Centron</div>
-			<?php print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/searchEdit/Centron"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp; Suchen / Bearbeiten</a>'); ?>
 			<?php print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/newMandat/Centron"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp; Neuer Eintrag</a>'); ?>
+			<?php print ('<a href="' . $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . '/' . $curCallAction . '/searchEdit/Centron"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp; Suchen / Bearbeiten</a>'); ?>
 		</div>
 	</div>
 

@@ -67,3 +67,10 @@ function selUserSelectionByID(getID)
     // alert(getID);
 
 }
+
+
+// Datum - Eingabe leeren
+function delDateFieldByID(getID)
+{
+    document.getElementById(getID).value = "";
+}

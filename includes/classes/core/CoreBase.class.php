@@ -288,12 +288,16 @@ abstract class CoreBase
 		if (strlen($getDate)< 10)
 			return $getDate;
 
-		// Bekomme: MM/DD/YYYY
-		$search = '/(\d+)\/(\d+)\/(\d+)/';
+		// Sollte newDate nicht überschrieben werden (weil kein passendes Datumsformat) gebe ich den Eingangswert zurück
+		$newDate = $getDate;
+
+		// Bekomme: YYYY-MM-DD
+		$search = '/(\d+)\-(\d+)\-(\d+)/';
 		preg_match($search, $getDate, $matches);
 
 		// Gebe zurück: YYYY-MM-DD
-		$newDate = $matches[3] . '-' . $matches[1] . '-' . $matches[2];
+		if ( (isset($matches[1])) && (isset($matches[2])) && (isset($matches[3])) )
+			$newDate = $matches[1] . '-' . $matches[2] . '-' . $matches[3];
 
 		return $newDate;
 

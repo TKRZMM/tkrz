@@ -98,6 +98,9 @@ input:required:valid + label::before {
     border-bottom: 1px solid #e7c157;
     background-color: transparent;
 }
+.delDateField {
+    cursor: pointer;
+}
 
 
 label {
@@ -157,6 +160,27 @@ button.sendButton {
     top: 99%;
 }
 button.sendButton:hover {
+    /*color: #ffc56d;*/
+}
+button.sendButtonDelete {
+    /*position: absolute;*/
+    background-color: #AF6F67;
+    border: none;
+
+    color: white;
+    padding: 5px 10px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px 2px;
+
+    cursor: pointer;
+    border-radius: 4px;
+    right: 14px;
+    top: 99%;
+}
+button.sendButtonDelete:hover {
     /*color: #ffc56d;*/
 }
 

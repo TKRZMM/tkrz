@@ -353,6 +353,13 @@ abstract class CoreQuery extends CoreDebug
 				break;
 
 
+			case 'getMandatCheckOnUpdate':
+				// Ermittelt ob schon eine Mandat-Ref Nummer bzw. Centron-Mandat-Ref - Nummer vorhanden ist.
+
+				$getQuery = "SELECT * FROM `centron_mand_ref` WHERE (personenkonto = '" . $paramArray['customerID'] . "' OR mandatsnummer = '" . $paramArray['mandatNumber'] . "') AND centron_mand_refID != '" . $paramArray['centron_mand_refID'] . "' LIMIT 1";
+				break;
+
+
 			default:
 				break;
 		}
