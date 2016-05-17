@@ -289,7 +289,6 @@ class FileExportCentron extends CoreExtends
 		$csv .= "\r\n";
 
 
-		// Todo ... schicker machen... Dateinamen besser setzen
 		$curPath = $this->checkUploadDir($this->coreGlobal['GET']['subAction'], $this->coreGlobal['GET']['valueAction']);
 		$downloadFile = $this->coreGlobal['GET']['callAction'] . $this->coreGlobal['GET']['subAction'] . $this->coreGlobal['GET']['valueAction'];
 
@@ -299,7 +298,10 @@ class FileExportCentron extends CoreExtends
 		fwrite($fp, $csv);
 		fclose($fp);
 
-		$this->addMessage('Datenbank Erfolgreich!', 'Die Daten liegen jetzt hier bla blawurde erfolgreich hochgeladen.', 'Erfolg', 'File Upload');
+
+		$dlLink = $this->getMyDowloadLinkForStoreFile($storeFile);
+		$explain = '<a href="' . $dlLink . '">DOWNLOAD</a>';
+		$this->addMessage('Datenbank Export erfolgreich!', 'Die erstellte Datei kann unter folgendem Link heruntergeladen werden.', 'Erfolg', 'Detenbank Export', $explain);
 
 		// PHP - Speicher wieder freigeben
 		unset($this->coreGlobal['csvDaten']);
@@ -307,6 +309,30 @@ class FileExportCentron extends CoreExtends
 		return true;
 
 	}   // END public function doExportsBaseDataCentron()
+
+
+
+
+
+
+
+
+
+
+	// Liefert den Download-Link zurück
+	private function getMyDowloadLinkForStoreFile($storeFile)
+	{
+
+		$preSearch = $this->myAddslashes($_SESSION['Cfg']['Default']['WebsiteSettings']['FullWebRootPath']);
+		$search = '/' . $preSearch . '(.*)/i';
+
+		preg_match($search, $storeFile, $matches);
+
+		$dlLink = $_SESSION['Cfg']['Default']['WebsiteSettings']['InternHomeShort'] . $matches[1];
+
+		return $dlLink;
+
+	}    // END private function getMyDowloadLinkForStoreFile(...)
 
 
 
@@ -904,7 +930,6 @@ class FileExportCentron extends CoreExtends
 
 
 
-		// Todo ... schicker machen... Dateinamen besser setzen
 		$curPath = $this->checkUploadDir($this->coreGlobal['GET']['subAction'], $this->coreGlobal['GET']['valueAction']);
 		$downloadFile = $this->coreGlobal['GET']['callAction'] . $this->coreGlobal['GET']['subAction'] . $this->coreGlobal['GET']['valueAction'];
 
@@ -914,8 +939,10 @@ class FileExportCentron extends CoreExtends
 		fwrite($fp, $csv);
 		fclose($fp);
 
-		$this->addMessage('Datenbank Export erfolgreich!', 'Die Daten liegen jetzt hier bla blawurde erfolgreich hochgeladen.', 'Erfolg', 'File Export');
 
+		$dlLink = $this->getMyDowloadLinkForStoreFile($storeFile);
+		$explain = '<a href="' . $dlLink . '">DOWNLOAD</a>';
+		$this->addMessage('Datenbank Export erfolgreich!', 'Die erstellte Datei kann unter folgendem Link heruntergeladen werden.', 'Erfolg', 'Detenbank Export', $explain);
 
 		// PHP - Speicher wieder freigeben
 		unset($this->coreGlobal['CustomerData']);
