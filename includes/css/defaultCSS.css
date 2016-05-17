@@ -149,8 +149,17 @@ td.debugLinkList {
 	padding: 5px;
 	text-align: left;
 }
+
 tr.hoverTr:hover {
 	background-color: #83AABA;
+}
+
+tr.hoverTrInactive {
+	background-color: #BA6364;
+}
+
+tr.hoverTrInactive:hover {
+	background-color: #BA6546;
 }
 
 /* Border Steuerung für Tabellen */
@@ -208,7 +217,7 @@ tr.hoverTr:hover {
 }
 
 .bgMessageDone {
-	background-color: rgb(179, 231, 124);
+	background-color: rgb(66, 170, 66);
 }
 
 .bgMessageWarning {
@@ -236,6 +245,15 @@ tr.hoverTr:hover {
 
 .textBottom {
 	vertical-align: text-bottom;
+}
+
+.textVertical {
+	transform: rotate(45deg);
+	transform-origin: left top 0;
+}
+
+.hSearchResult {
+	height: 100px;
 }
 
 /* Tabellen Ausrichtung */
@@ -314,3 +332,5 @@ tr.hoverTr:hover {
 .nobr {
 	white-space: nowrap;
 }
+
+

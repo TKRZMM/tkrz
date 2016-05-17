@@ -31,7 +31,8 @@ $checVars = array('customerID',
 				  'recalledOn',
 				  'IBAN',
 				  'BIC',
-				  'lastUpdate'
+				  'lastUpdate',
+				  'activeStatus'
 				  );
 
 $gotVar = array();
@@ -53,6 +54,14 @@ foreach ($checVars as $varName){
 		if ($rowValue == '0000-00-00')
 			$rowValue = '';
 
+
+		if ($varName == 'activeStatus'){
+			$rowValue = 'Nein';
+			if ($row->activeStatus == 'yes')
+				$rowValue = 'Ja';
+		}
+
+
 		$gotVar[$varName] = $rowValue;
 	}
 }
@@ -63,10 +72,12 @@ foreach ($checVars as $varName){
 <div class="BodyContentOuterDiv">
 
 	<form method="post" action="" enctype="multipart/form-data">
-		<div class="buttonBox">
-			<button type="submit" class="sendButton">Bearbeiten</button>
-			<button type="submit" name="delMandat" value="yes" class="sendButtonDelete" onclick="return confirm('Soll das Mandat wirklich gelöscht werden?'); ">Löschen</button>
-			<button type="reset" class="sendButton">Reset</button>
+		<div  class="buttonBoxOuter">
+			<div class="buttonBox">
+				<button type="submit" class="sendButton">Bearbeiten</button>
+				<button type="submit" name="delMandat" value="yes" class="sendButtonDelete" onclick="return confirm('Soll das Mandat wirklich gelöscht werden?'); ">Löschen</button>
+				<button type="reset" class="sendButton">Reset</button>
+			</div>
 		</div>
 
 		<table border="0" width="100%" class="standard formBackground">
@@ -134,6 +145,9 @@ foreach ($checVars as $varName){
 						<tr><td colspan="5">&nbsp;</td></tr>
 						<tr>
 							<td colspan="5" class="textRight">&#10038; Eingabe - Pflicht</td>
+						</tr>
+						<tr>
+							<td colspan="5" class="textRight">Verwendung bei Export: <?php print ($gotVar['activeStatus']); ?></td>
 						</tr>
 						<tr>
 							<td colspan="5" class="textRight">Letzte Bearbeitung: <?php print ($gotVar['lastUpdate']); ?></td>

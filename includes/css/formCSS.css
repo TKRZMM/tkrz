@@ -1,187 +1,202 @@
 @CHARSET "ISO-8859-1";
 
-
 html {
-    background: transparent!important
+	background: transparent !important
 }
 
 main, svg {
-    border-radius: 0.5em 0.5em 0.5em;
-    border: 1px solid;
-    padding: 10px;
+	border-radius: 0.5em 0.5em 0.5em;
+	border: 1px solid;
+	padding: 10px;
 }
+
 main {
-    display: block;
-    /* für IE */
-    background: #ced8dd;
-    border-color: #8a9da8;
-    min-height: 190px;
-    padding-left: 50px;
+	display: block;
+	/* für IE */
+	background: #CED8DD;
+	border-color: #8A9DA8;
+	min-height: 190px;
+	padding-left: 50px;
 }
-
-
 
 form {
-    padding-top: 5px;
-    position: relative;
+	padding-top: 5px;
+	position: relative;
 }
+
 form.loginForm {
-    width: 30em;
+	width: 30em;
 }
-
-
 
 input {
-    margin: 0 0 0em 0%;
-    /*margin: 0 0 1em 31%;*/
-    padding: .2em .5em;
-    width: 60%;
-    background-color: #fffbf0;
-    border: none;
+	margin: 0 0 0em 0%;
+	/*margin: 0 0 1em 31%;*/
+	padding: .2em .5em;
+	width: 60%;
+	background-color: #FFFBF0;
+	border: none;
 }
+
 input:required + label::before {
-    position: absolute;
-    left: 300%;
-    content: "★";
-    color: #ff952c;
+	position: absolute;
+	left: 300%;
+	content: "★";
+	color: #FF952C;
 }
 
 input:required:valid + label::before {
-    content: "✔";
-    color: green;
-}
-.login {
-    margin: 0 0 1em 31%;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(122, 167, 170);
-}
-.login:focus {
-    border-bottom: 1px solid #e7c157;
-    background-color: transparent;
-}
-.fileUpload {
-    background-color: transparent;
-    border-bottom: 1px solid rgb(122, 167, 170);
-}
-.fileUpload:focus {
-    border-bottom: 1px solid #e7c157;
-    background-color: transparent;
-}
-.calender {
-    margin: 0 0 1em 0%;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(122, 167, 170);
-    width: 180px;
-}
-.calender:focus {
-    border-bottom: 1px solid #e7c157;
-    background-color: transparent;
-}
-.stdinput {
-    margin: 0 2em 1em 0%;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(122, 167, 170);
-    width: 180px;
-}
-.stdinput:focus {
-    border-bottom: 1px solid #e7c157;
-    background-color: transparent;
-}
-.selectInput {
-    margin: 0 0 1em 0%;
-    background-color: #CDD7DC;
-    border-bottom: 1px solid rgb(122, 167, 170);
-    width: 200px;
-    border-radius: 0;
-}
-.selectInput:focus {
-    border-bottom: 1px solid #e7c157;
-    background-color: transparent;
-}
-.delDateField {
-    cursor: pointer;
+	content: "✔";
+	color: green;
 }
 
+.login {
+	margin: 0 0 1em 31%;
+	background-color: transparent;
+	border-bottom: 1px solid rgb(122, 167, 170);
+}
+
+.login:focus {
+	border-bottom: 1px solid #E7C157;
+	background-color: transparent;
+}
+
+.fileUpload {
+	background-color: transparent;
+	border-bottom: 1px solid rgb(122, 167, 170);
+}
+
+.fileUpload:focus {
+	border-bottom: 1px solid #E7C157;
+	background-color: transparent;
+}
+
+.calender {
+	margin: 0 0 1em 0%;
+	background-color: transparent;
+	border-bottom: 1px solid rgb(122, 167, 170);
+	width: 180px;
+}
+
+.calender:focus {
+	border-bottom: 1px solid #E7C157;
+	background-color: transparent;
+}
+
+.stdinput {
+	margin: 0 2em 1em 0%;
+	background-color: transparent;
+	border-bottom: 1px solid rgb(122, 167, 170);
+	width: 180px;
+}
+
+.stdinput:focus {
+	border-bottom: 1px solid #E7C157;
+	background-color: transparent;
+}
+
+.selectInput {
+	margin: 0 0 1em 0%;
+	background-color: #CDD7DC;
+	border-bottom: 1px solid rgb(122, 167, 170);
+	width: 200px;
+	border-radius: 0;
+}
+
+.selectInput:focus {
+	border-bottom: 1px solid #E7C157;
+	background-color: transparent;
+}
+
+.delDateField {
+	cursor: pointer;
+}
 
 label {
-    text-align: right;
-    line-height: 2.0;
-    width: 30%;
-    position: absolute;
-    left: 0;
+	text-align: right;
+	line-height: 2.0;
+	width: 30%;
+	position: absolute;
+	left: 0;
 }
+
 label::after {
-    content: ":";
-    margin-right: 4px;
+	content: ":";
+	margin-right: 4px;
 }
-
-
 
 button {
 
 }
+
 button.loginButton {
-    position: absolute;
-    background-color: #499faf;
-    border: none;
+	position: absolute;
+	background-color: #499FAF;
+	border: none;
 
-    color: white;
-    padding: 5px 10px;
-    text-align: left;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 15px 2px;
+	color: white;
+	padding: 5px 10px;
+	text-align: left;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 15px 2px;
 
-    cursor: pointer;
-    border-radius: 4px;
-    right: 14px;
-    top: 99%;
+	cursor: pointer;
+	border-radius: 4px;
+	right: 14px;
+	top: 99%;
 }
+
 button.loginButton:hover {
-    /*color: #ffc56d;*/
+	/*color: #ffc56d;*/
 }
+
 button.sendButton {
-    /*position: absolute;*/
-    background-color: #499faf;
-    border: none;
+	/*position: absolute;*/
+	background-color: #499FAF;
+	border: none;
 
-    color: white;
-    padding: 5px 10px;
-    text-align: left;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 15px 2px;
+	color: white;
+	padding: 5px 10px;
+	text-align: left;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 15px 2px;
 
-    cursor: pointer;
-    border-radius: 4px;
-    right: 14px;
-    top: 99%;
+	cursor: pointer;
+	border-radius: 4px;
+	right: 14px;
+	top: 99%;
 }
+
 button.sendButton:hover {
-    /*color: #ffc56d;*/
+	/*color: #ffc56d;*/
+	background-color: #429242;
 }
+
 button.sendButtonDelete {
-    /*position: absolute;*/
-    background-color: #AF6F67;
-    border: none;
+	/*position: absolute;*/
+	background-color: #AF6F67;
+	border: none;
 
-    color: white;
-    padding: 5px 10px;
-    text-align: left;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 15px 2px;
+	color: white;
+	padding: 5px 10px;
+	text-align: left;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 15px 2px;
 
-    cursor: pointer;
-    border-radius: 4px;
-    right: 14px;
-    top: 99%;
+	cursor: pointer;
+	border-radius: 4px;
+	right: 14px;
+	top: 99%;
 }
+
 button.sendButtonDelete:hover {
-    /*color: #ffc56d;*/
+	/*color: #ffc56d;*/
+	background-color: #B44B40;
 }
 
 

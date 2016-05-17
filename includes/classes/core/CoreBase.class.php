@@ -184,7 +184,7 @@ abstract class CoreBase
 
 
 	// Führt addslahes an einem übergebenen String durch und liefert ihn entsprechend zurück
-	private function checkAddslashes($arg)
+	public function checkAddslashes($arg)
 	{
 
 		if (strpos(str_replace("\'", "", " $arg"), "'") != false)
@@ -192,6 +192,27 @@ abstract class CoreBase
 
 		else
 			return $arg;
+
+	}    // END function checkAddslashes(...)
+
+
+
+
+
+
+
+
+
+
+	// Führt addslahes an einem übergebenen String durch und liefert ihn entsprechend zurück
+	public function myAddslashes($arg)
+	{
+
+		$suchmuster = '/\//i';
+		$ersetzung = '\/';
+		$arg = preg_replace($suchmuster, $ersetzung, $arg);
+
+		return $arg;
 
 	}    // END function checkAddslashes(...)
 
@@ -284,8 +305,9 @@ abstract class CoreBase
 	// Formatiert ein Datumsformat für MySQL
 	function formatDateForMySQLWithNoSlash($getDate)
 	{
+
 		// Wenn kein gültiges Datum übergeben wurde... gebe ich den eigenen Wert zurück
-		if (strlen($getDate)< 10)
+		if (strlen($getDate) < 10)
 			return $getDate;
 
 		// Sollte newDate nicht überschrieben werden (weil kein passendes Datumsformat) gebe ich den Eingangswert zurück
@@ -296,7 +318,7 @@ abstract class CoreBase
 		preg_match($search, $getDate, $matches);
 
 		// Gebe zurück: YYYY-MM-DD
-		if ( (isset($matches[1])) && (isset($matches[2])) && (isset($matches[3])) )
+		if ((isset($matches[1])) && (isset($matches[2])) && (isset($matches[3])))
 			$newDate = $matches[1] . '-' . $matches[2] . '-' . $matches[3];
 
 		return $newDate;

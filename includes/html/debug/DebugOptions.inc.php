@@ -13,7 +13,8 @@ if ($_SESSION['Login']['userRoleID'] < 2)
 	print ('<div class="DebugButtons DebugUpDown" onclick="reSize(\'Footer\');"><i class="fa fa-arrows-v fa-lg"></i></div>');
 ?>
 
-<div class="DebugButtons DebugLinks" onclick="showOnOff('containerDebugLinkList')"><i class="fa fa-bars fa-lg"></i></div>
+<div class="DebugButtons DebugLinks" onclick="showOnOff('containerDebugLinkList')"><i class="fa fa-bars fa-lg"></i>
+</div>
 
 <?php
 // <div class="DebugButtons DebugSettings"><i class="fa fa-cogs fa-lg"></i></div>

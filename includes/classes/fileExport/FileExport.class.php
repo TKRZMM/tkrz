@@ -513,6 +513,12 @@ class FileExport extends CoreExtends
 
 
 
+
+
+
+
+
+
 	function checkUploadDir($category, $systemName)
 	{
 
@@ -562,6 +568,11 @@ class FileExport extends CoreExtends
 		return $curPath;
 
 	}    // END private function checkUploadDir(...)
+
+
+
+
+
 
 
 

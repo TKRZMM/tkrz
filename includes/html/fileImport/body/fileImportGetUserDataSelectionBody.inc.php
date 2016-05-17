@@ -12,6 +12,12 @@
 <div class="BodyContentOuterDiv">
 
 	<form method="post" action="" enctype="multipart/form-data">
+		<div  class="buttonBoxOuter">
+			<div class="buttonBox">
+				<button type="submit" class="sendButton">Senden</button>
+				<button type="reset" class="sendButton">Reset</button><br>
+			</div>
+		</div>
 
 		<table border="0" width="100%" class="standard formBackground">
 			<tr>
@@ -19,9 +25,7 @@
 
 					<table width="100%" border="0" class="standard formBackgroundInnerCollapse">
 						<tr>
-							<td colspan="8"><h2>Datensatz Auswahl</h2></td>
-							<td><button type="reset" class="sendButton">Reset</button> <button type="submit" class="sendButton">Senden</button></td>
-
+							<td colspan="9"><h2>Datensatz Auswahl</h2></td>
 						</tr>
 						<tr>
 							<td class="bottomLineGreen textCenter"><h4>Auswahl</h4></td>
@@ -51,7 +55,7 @@
 								$curInDB = '<b>&#10003;</b>';
 
 							?>
-							<tr class="hoverTr" onclick="selUserSelectionByID('<?php print ($row->fileUploadID); ?>');">
+							<tr class="hoverTr" onclick="selUserSelectionByID('selFileUploadID_','<?php print ($row->fileUploadID); ?>');">
 								<td class="bottomLineGreen textCenter paddingFour"><input type="radio" required name="selFileUploadID" value="<?php print ($row->fileUploadID); ?>" id="selFileUploadID_<?php print ($row->fileUploadID); ?>"></td>
 								<td class="bottomLineGreen textCenter paddingFour"><?php print ($curInDB); // Aktuell in DB ?></td>
 								<td class="bottomLineGreen paddingFour"><?php print ($row->fileOriginName); // Dateiname ?></td>

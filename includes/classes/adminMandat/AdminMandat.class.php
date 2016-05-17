@@ -228,12 +228,9 @@ class AdminMandat extends CoreExtends
 	private function writeUpdateMandatToDB()
 	{
 
-		// TODO Überlegung ob ich über den SEPA - Status auch den Status des Mandat-Eintrages steuer... das ist für den Export wichtig!
-		// $activeStatus = 'no';
-		// if ($this->coreGlobal['POST']['lsStatus'] == 'Aktiv')
-		// $activeStatus = 'yes';
-
-		$activeStatus = 'yes';
+		$activeStatus = 'no';
+		if ($this->coreGlobal['POST']['lsStatus'] == 'Aktiv')
+			$activeStatus = 'yes';
 
 		$query = "UPDATE centron_mand_ref SET 	`personenkonto` = '" . $this->coreGlobal['POST']['customerID'] . "',
 												`mandatsnummer` = '" . $this->coreGlobal['POST']['mandatNumber'] . "',
@@ -483,12 +480,9 @@ class AdminMandat extends CoreExtends
 	private function writeNewMandatToDB()
 	{
 
-		// TODO Überlegung ob ich über den SEPA - Status auch den Status des Mandat-Eintrages steuer... das ist für den Export wichtig!
-		// $activeStatus = 'no';
-		// if ($this->coreGlobal['POST']['lsStatus'] == 'Aktiv')
-		// $activeStatus = 'yes';
-
-		$activeStatus = 'yes';
+		$activeStatus = 'no';
+		if ($this->coreGlobal['POST']['lsStatus'] == 'Aktiv')
+			$activeStatus = 'yes';
 
 		$query = "INSERT INTO centron_mand_ref (`userID`,
 												`personenkonto`,

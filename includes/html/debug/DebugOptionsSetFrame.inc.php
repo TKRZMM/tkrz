@@ -10,14 +10,14 @@ $outerClass = 'DebugOptionsOuter';
 $innerClass = 'DebugOptions';
 
 // NUR Entwickler hat zusätzliche Option
-if ($_SESSION['Login']['userRoleID'] < 2){
+if ($_SESSION['Login']['userRoleID'] < 2) {
 	$outerClass = 'DebugOptionsOuter DebugOptionsOuterDevelop';
 	$innerClass = 'DebugOptions DebugOptionsDevelop';
 }
 
 
 
-print ('<div id="containerDebugOptions" class="container '.$outerClass.'"><div class="container '.$innerClass.'">');
+print ('<div id="containerDebugOptions" class="container ' . $outerClass . '"><div class="container ' . $innerClass . '">');
 include 'DebugOptions.inc.php';
 
 

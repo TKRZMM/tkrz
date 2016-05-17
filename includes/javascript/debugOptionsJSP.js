@@ -21,8 +21,8 @@ var posy = 0;
 // Initialisierung der Überwachung der Events
 function draginit()
 {
-    document.onmousemove = drag;
-    document.onmouseup = dragstop;
+	document.onmousemove = drag;
+	document.onmouseup = dragstop;
 }
 
 
@@ -30,11 +30,11 @@ function draginit()
 //Wird aufgerufen, wenn ein Objekt bewegt werden soll.
 function dragstart(elementID)
 {
-    var element;
-    element = document.getElementById(elementID);
-    dragobjekt = element;
-    dragx = posx - dragobjekt.offsetLeft;
-    dragy = posy - dragobjekt.offsetTop;
+	var element;
+	element = document.getElementById(elementID);
+	dragobjekt = element;
+	dragx = posx - dragobjekt.offsetLeft;
+	dragy = posy - dragobjekt.offsetTop;
 }
 
 
@@ -44,20 +44,20 @@ function dragstart(elementID)
 // Die Initial-Funktion wird dann mit "dragstart(this)" aufgerufen
 // Wird aufgerufen, wenn ein Objekt bewegt werden soll.
 /*
-function dragstart(element)
-{
-    dragobjekt = element;
-    dragx = posx - dragobjekt.offsetLeft;
-    dragy = posy - dragobjekt.offsetTop;
-}
-*/
+ function dragstart(element)
+ {
+ dragobjekt = element;
+ dragx = posx - dragobjekt.offsetLeft;
+ dragy = posy - dragobjekt.offsetTop;
+ }
+ */
 
 
 
 //Wird aufgerufen, wenn ein Objekt nicht mehr bewegt werden soll.
 function dragstop()
 {
-    dragobjekt=null;
+	dragobjekt = null;
 }
 
 
@@ -65,12 +65,12 @@ function dragstop()
 //Wird aufgerufen, wenn die Maus bewegt wird und bewegt bei Bedarf das Objekt.
 function drag(ereignis)
 {
-    posx = document.all ? window.event.clientX : ereignis.pageX;
-    posy = document.all ? window.event.clientY : ereignis.pageY;
-    if(dragobjekt != null) {
-        dragobjekt.style.left = (posx - dragx) + "px";
-        dragobjekt.style.top = (posy - dragy) + "px";
-    }
+	posx = document.all ? window.event.clientX : ereignis.pageX;
+	posy = document.all ? window.event.clientY : ereignis.pageY;
+	if (dragobjekt != null) {
+		dragobjekt.style.left = (posx - dragx) + "px";
+		dragobjekt.style.top = (posy - dragy) + "px";
+	}
 }
 
 
@@ -78,8 +78,8 @@ function drag(ereignis)
 // TODO Funktioniert nicht... der reagiert nicht auf unterschiedliche Werte
 function sendDebugHome(getElementID)
 {
-    var obj = document.getElementById(getElementID);
-    obj.style.width = 100 + "px";
+	var obj = document.getElementById(getElementID);
+	obj.style.width = 100 + "px";
 
 }
 

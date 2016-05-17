@@ -2,273 +2,299 @@
 
 /* Global Div - Container-Set */
 .container {
-    position: absolute;
-    border: 1px solid rgb(122, 167, 170);
-    padding: 5px;
-    text-align: left;
+	position: absolute;
+	border: 1px solid rgb(122, 167, 170);
+	padding: 5px;
+	text-align: left;
 }
-
-
 
 /* Individual Div - Container-Set */
 .Head {
-    z-index: 100;
-    top: 5px;
-    height: 140px;
+	z-index: 100;
+	top: 5px;
+	height: 140px;
 }
 
 .Head.Left {
-    width: 260px;
-    left: 5px;
+	width: 260px;
+	left: 5px;
 }
 
 .Head.Center {
-    overflow: auto;
-    left: 280px;
-    right: 300px;
-    background-color: rgba(255, 255, 255, 1);
-    text-align: center;
+	overflow: auto;
+	left: 280px;
+	right: 300px;
+	background-color: rgba(255, 255, 255, 1);
+	text-align: center;
 }
+
 .Head.CenterLogin {
-    overflow: auto;
-    left: 280px;
-    right: 5px;
-    background-color: rgba(255, 255, 255, 1);
+	overflow: auto;
+	left: 280px;
+	right: 5px;
+	background-color: rgba(255, 255, 255, 1);
 }
 
 .Head.Right {
-    width: 280px;
-    right: 5px;
-    background-color: rgba(255, 255, 255, 1);
+	width: 280px;
+	right: 5px;
+	background-color: rgba(255, 255, 255, 1);
 }
 
-.buttonBox {
-    position: fixed;
-    top: 230px;
-    right: 30px;
-    border: 0px;
+.OLD_buttonBox {
+	position: fixed;
+	top: 230px;
+	right: 30px;
+	border: 0px;
 }
+
+.buttonBoxOuter {
+	position: fixed;
+	z-index: 110;
+	top: 160px;
+	right: 5px;
+	width: 290px;
+	height: 45px;
+	background-color: rgb(81, 81, 81);
+	color: #E8E8E8;
+	border: 1px solid rgb(122, 167, 170);
+
+}
+.buttonBox {
+	position: fixed;
+	top: 152px;
+	right: 10px;
+	border: 0px;
+	/*background-color: rgb(84, 173, 255);*/
+}
+
 
 /* Individual Div - Container-Set */
 .NavigationOuter {
-    overflow: hidden;
-    /*z-index: 110;*/
-    z-index: 110;
-    top: 156px;
-    left: 5px;
-    width: 260px;
-    height: 24px;
-    background-color: rgba(255, 255, 255, 1);
-    /*background-image: linear-gradient(to bottom, #FFFFFF, transparent);*/
-    transition: height 0.5s;
+	overflow: hidden;
+	z-index: 110;
+	top: 156px;
+	left: 5px;
+	width: 260px;
+	height: 24px;
+	background-color: rgba(255, 255, 255, 1);
+	transition: height 0.5s;
 }
+
 .NavigationOuter:hover {
-    height: 680px;
+	height: 680px;
 }
+
 .Navigation {
-    z-index: 110;
-    top: 3px;
-    left: 4px;
-    width: 251px;
-    height: 16px;
-    /*background-color: rgb(168, 228, 104);*/
-    background-image: linear-gradient(to right, rgb(168, 228, 104), transparent);
+	z-index: 110;
+	top: 3px;
+	left: 4px;
+	width: 251px;
+	height: 16px;
+	background-image: linear-gradient(to right, rgb(168, 228, 104), transparent);
 }
 
 .DivPageCallInformation {
-    z-index: 110;
-    top: 160px;
-    left: 5px;
-    width: 260px;
-    height: 35px;
-    /*background-color: rgba(255, 255, 255, 1);*/
-    background-color: rgb(81, 81, 81);
-    color: #E8E8E8;
-}
-.DivPageCallIndformationContent {
-    padding: 10px 10px 10px 0px;
-    text-align: center;
-    font-size: 14px;
-    border: none;
+	z-index: 110;
+	top: 160px;
+	left: 5px;
+	width: 260px;
+	height: 35px;
+	background-color: rgb(81, 81, 81);
+	color: #E8E8E8;
 }
 
+.DivPageCallIndformationContent {
+	padding: 10px 10px 10px 0px;
+	text-align: center;
+	font-size: 14px;
+	border: none;
+}
 
 /* Individual Div - Container-Set */
 .DivNavigation {
-    z-index: 110;
-    top: 160px;
-    left: 280px;
-    right: 5px;
-    height: 35px;
-    /*background-color: rgba(255, 255, 255, 1);*/
-    background-color: rgb(81, 81, 81);
-    /*background-image: linear-gradient(90deg, rgba(186, 243, 250, 0.67), transparent);*/
+	z-index: 110;
+	top: 160px;
+	left: 280px;
+	/*right: 5px;*/
+	right: 300px;
+	height: 35px;
+	background-color: rgb(81, 81, 81);
 }
-
 
 /* Individual Div - Container-Set */
 .DebugOptionsOuter {
-    z-index: 120;
-    top: 166px;
-    right: 10px;
-    /*width: 250px;*/
-    width: 73px;
-    height: 24px;
-    background-color: rgba(255, 255, 255, 1);
+	z-index: 120;
+	top: 166px;
+	/*right: 10px;*/
+	right: 310px;
+	width: 73px;
+	height: 24px;
+	background-color: rgba(255, 255, 255, 1);
 }
+
 .DebugOptions {
-    z-index: 110;
-    top: 3px;
-    right: 4px;
-    /*width: 240px;*/
-    width: 63px;
-    height: 16px;
-    background-color: #c7c7c7;
+	z-index: 110;
+	top: 3px;
+	right: 4px;
+	width: 63px;
+	height: 16px;
+	background-color: #C7C7C7;
 }
+
 .DebugOptionsOuterDevelop {
-    width: 130px;
+	width: 130px;
 }
+
 .DebugOptionsDevelop {
-    width: 120px;
+	width: 120px;
 }
+
 .DebugButtons {
-    position: absolute;
-    width: 50px;
-    text-align: center;
-    top: 2px;
-    height: 18px;
-    padding-top: 3px;
+	position: absolute;
+	width: 50px;
+	text-align: center;
+	top: 2px;
+	height: 18px;
+	padding-top: 3px;
 }
-.DebugButtons:hover{
-    border: 1px solid rgba(128, 128, 128, 0.75);
+
+.DebugButtons:hover {
+	border: 1px solid rgba(128, 128, 128, 0.75);
 }
+
 .DebugUpDown {
-    right: 70px;
+	right: 70px;
 }
+
 .DebugSettings {
-    left: 70px;
+	left: 70px;
 }
+
 .DebugLinks {
-    right: 10px;
+	right: 10px;
 }
+
 .DebugMove {
-    left: 190px;
-}
-.DebugUpDown:hover{
-    cursor:n-resize;
-}
-.DebugSettings:hover{
-    cursor:help;
-}
-.DebugLinks:hover{
-    cursor:row-resize;
-}
-.DebugMove:hover{
-    cursor:move;
+	left: 190px;
 }
 
+.DebugUpDown:hover {
+	cursor: n-resize;
+}
 
+.DebugSettings:hover {
+	cursor: help;
+}
+
+.DebugLinks:hover {
+	cursor: row-resize;
+}
+
+.DebugMove:hover {
+	cursor: move;
+}
 
 .DebugLinkListOuter {
-    position: relative;
-    z-index: 110;
-    top: 30px;
-    right: 233px;
-    width: 300px;
-    height:auto;
-    background-color: rgba(255, 255, 255, 1);
+	position: relative;
+	z-index: 110;
+	top: 30px;
+	right: 233px;
+	width: 300px;
+	height: auto;
+	background-color: rgba(255, 255, 255, 1);
 }
+
 .DebugLinkList {
-    position: relative;
-    z-index: 110;
-    width: 289px;
-    height:auto;
-    background-color: rgb(233, 233, 233);
+	position: relative;
+	z-index: 110;
+	width: 289px;
+	height: auto;
+	background-color: rgb(233, 233, 233);
 }
-
-
-
 
 /* Individual Div - Container-Set */
 .BodyContent {
-    z-index: 100;
-    overflow: auto;
-    top: 210px;
-    left: 5px;
-    right: 5px;
-    background-color: rgb(233, 233, 233);
+	z-index: 100;
+	overflow: auto;
+	top: 210px;
+	left: 5px;
+	right: 5px;
+	background-color: rgb(233, 233, 233);
 }
 
 .BodyContentLogin {
-    background-color: #FFFFFF;
-    border: none;
-}
-.BodyContentOuterDiv {
-    position: absolute;
-    left: 280px;
-    right: 300px;
-    top: 27px;
-}
-.BodyContentOuterDivSelectDataInfo {
-    position: fixed;
-    left: 15px;
-    width: 260px;
-    top: 237px;
+	background-color: #FFFFFF;
+	border: none;
 }
 
+.BodyContentOuterDiv {
+	position: absolute;
+	left: 280px;
+	right: 300px;
+	top: 27px;
+}
+
+.BodyContentOuterDivSelectDataInfo {
+	position: fixed;
+	left: 15px;
+	width: 260px;
+	top: 237px;
+}
+
+.BodyContentOuterDivSelectDataInfoAdditional {
+	position: fixed;
+	right: 30px;
+	width: 260px;
+	top: 237px;
+}
 
 /* Individual Div - Container-Set */
 .Footer {
-    z-index: 100;
-    overflow: hidden;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
-    /*height: 16px;*/
-    background-image: linear-gradient(90deg, rgba(204, 252, 255, 1), transparent);
+	z-index: 100;
+	overflow: hidden;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	background-image: linear-gradient(90deg, rgba(204, 252, 255, 1), transparent);
 }
-
-
-
-
 
 .debugContentSelections {
-    z-index: 999;
-    position: fixed;
-    right: 5px;
-    left: 10px;
-    bottom: -45px;
-    border-right: 1px solid rgb(122, 167, 170);
+	z-index: 999;
+	position: fixed;
+	right: 5px;
+	left: 10px;
+	bottom: -45px;
+	border-right: 1px solid rgb(122, 167, 170);
 }
-
 
 .debugSelectionTab {
-    position: relative;
-    width: auto;
-    bottom: -1px;
-    height: 20px;
-    background-color: rgb(170, 228, 109);
-    border-radius: 10px 10px 2px 2px;
-    text-align: center;
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+	position: relative;
+	width: auto;
+	bottom: -1px;
+	height: 20px;
+	background-color: rgb(170, 228, 109);
+	border-radius: 10px 10px 2px 2px;
+	text-align: center;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
 
-    border-top: 1px solid rgb(122, 167, 170);
-    border-left: 1px solid rgb(122, 167, 170);
-    border-right: 1px solid rgb(122, 167, 170);
+	border-top: 1px solid rgb(122, 167, 170);
+	border-left: 1px solid rgb(122, 167, 170);
+	border-right: 1px solid rgb(122, 167, 170);
 }
 
-.debugSelectionTab:hover{
-    cursor: pointer;
+.debugSelectionTab:hover {
+	cursor: pointer;
 }
 
 .divHiddenOnLoad {
-    display: none;
+	display: none;
 }
 
 .lastDebugSelection {
-    width: 100px;
+	width: 100px;
 }
 
 

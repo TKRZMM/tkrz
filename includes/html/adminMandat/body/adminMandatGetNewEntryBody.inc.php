@@ -37,9 +37,11 @@ foreach ($checVars as $varName){
 <div class="BodyContentOuterDiv">
 
 	<form method="post" action="" enctype="multipart/form-data">
-		<div class="buttonBox">
-			<button type="submit" class="sendButton">Senden</button>
-			<button type="reset" class="sendButton">Reset</button>
+		<div  class="buttonBoxOuter">
+			<div class="buttonBox">
+				<button type="submit" class="sendButton">Senden</button>
+				<button type="reset" class="sendButton">Reset</button>
+			</div>
 		</div>
 
 

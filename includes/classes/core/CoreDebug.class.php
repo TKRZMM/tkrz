@@ -17,8 +17,8 @@
  *                                  '-> CoreExtends                 Child
  *                                      '-> ConcreteClass1          AnyCreature as Child via - extends CoreExtends
  *                                      |-> ...                     AnyCreature as Child via - extends CoreExtends
- *  -> ClassXYZ                 									AnyCreature from Outerspace
- *  -> ...         													AnyCreature from Outerspace
+ *  -> ClassXYZ                                                    AnyCreature from Outerspace
+ *  -> ...                                                            AnyCreature from Outerspace
  *
  */
 namespace classes\core;
@@ -90,7 +90,7 @@ abstract class CoreDebug extends CoreMessage
 		else
 			$this->coreGlobal['messagesSimpleout'][] = $this->messagesSimpleout;
 
-	}	// END function simpleout(...)
+	}    // END function simpleout(...)
 
 
 }   // END abstract class CoreDebug extends CoreMessage

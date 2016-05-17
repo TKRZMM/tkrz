@@ -14,151 +14,143 @@ var setTimeoutFooter = 3;    // Timeout - Wert für das Footer-Div-Fenster bei d
 
 
 
-
 //Ermittel die Browser - Abmessungen (Fenster)
-function getSize() {
-    var myWidth = 0, myHeight = 0;
+function getSize()
+{
+	var myWidth = 0, myHeight = 0;
 
-    if( typeof( window.innerWidth ) == 'number' ) {
-        //Non-IE
-        myWidth = window.innerWidth;
-        myHeight = window.innerHeight;
-    } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
-        //IE 6+ in 'standards compliant mode'
-        myWidth = document.documentElement.clientWidth;
-        myHeight = document.documentElement.clientHeight;
-    } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-        //IE 4 compatible
-        myWidth = document.body.clientWidth;
-        myHeight = document.body.clientHeight;
-    }
+	if (typeof( window.innerWidth ) == 'number') {
+		//Non-IE
+		myWidth = window.innerWidth;
+		myHeight = window.innerHeight;
+	} else
+		if (document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight )) {
+			//IE 6+ in 'standards compliant mode'
+			myWidth = document.documentElement.clientWidth;
+			myHeight = document.documentElement.clientHeight;
+		} else
+			if (document.body && ( document.body.clientWidth || document.body.clientHeight )) {
+				//IE 4 compatible
+				myWidth = document.body.clientWidth;
+				myHeight = document.body.clientHeight;
+			}
 
-    maxHighFooter = myHeight - 265;
+	maxHighFooter = myHeight - 265;
 
-    return [ myWidth, myHeight ];
+	return [myWidth, myHeight];
 }
-
-
-
 
 
 
 // Initial Funktion zum "Resizen" der Footer - Leiste
 function reSize(getMyElement)
 {
-    // Maximal - Werte ermitteln:
-    getSize();
+	// Maximal - Werte ermitteln:
+	getSize();
 
-    // Aktulle Höhe des Elementes ermitteln
-    var obj = document.getElementById(getMyElement);
-    var tmpHigh = obj.style.height;
-    var curHigh = parseInt(tmpHigh);
+	// Aktulle Höhe des Elementes ermitteln
+	var obj = document.getElementById(getMyElement);
+	var tmpHigh = obj.style.height;
+	var curHigh = parseInt(tmpHigh);
 
-    var inRange = maxHighFooter - setStepsFooter;
+	var inRange = maxHighFooter - setStepsFooter;
 
-    // Soll "hoch" oder "runter" gefahren werden?
-    if ( (curHigh >= maxHighFooter) || (curHigh >= inRange) ) {
-        doReSize(obj, curHigh, 'down');
-    }
-    else {
-        doReSize(obj, curHigh, 'up');
-    }
+	// Soll "hoch" oder "runter" gefahren werden?
+	if ((curHigh >= maxHighFooter) || (curHigh >= inRange)) {
+		doReSize(obj, curHigh, 'down');
+	}
+	else {
+		doReSize(obj, curHigh, 'up');
+	}
 
 }
-
-
 
 
 
 // Sub Funktion zum "Resizen" der Footer - Leiste
-function doReSize (obj, curHigh, dir)
+function doReSize(obj, curHigh, dir)
 {
-    var nextHigh;
+	var nextHigh;
 
-    if (dir =='up'){
-        nextHigh = curHigh + setStepsFooter;
+	if (dir == 'up') {
+		nextHigh = curHigh + setStepsFooter;
 
-        if (nextHigh <= maxHighFooter){
+		if (nextHigh <= maxHighFooter) {
 
-            obj.style.overflow = 'auto';
+			obj.style.overflow = 'auto';
 
-            MoveBoddy('up');
-            setHigh(obj, nextHigh);
+			MoveBoddy('up');
+			setHigh(obj, nextHigh);
 
-            doReSize(obj, nextHigh, dir);
-            //setTimeout(function(){ doReSize(obj, nextHigh, dir); }, setTimeoutFooter);
-        }
-    }
-    else {
-        nextHigh = curHigh - setStepsFooter;
+			doReSize(obj, nextHigh, dir);
+			//setTimeout(function(){ doReSize(obj, nextHigh, dir); }, setTimeoutFooter);
+		}
+	}
+	else {
+		nextHigh = curHigh - setStepsFooter;
 
-        if (nextHigh >= minHighFooter){
+		if (nextHigh >= minHighFooter) {
 
-            obj.style.overflow = 'hidden';
+			obj.style.overflow = 'hidden';
 
-            MoveBoddy('down');
-            setHigh(obj, nextHigh);
+			MoveBoddy('down');
+			setHigh(obj, nextHigh);
 
-            setTimeout(function(){ doReSize(obj, nextHigh, dir); }, setTimeoutFooter);
-        }
-    }
+			setTimeout(function ()
+			{
+				doReSize(obj, nextHigh, dir);
+			}, setTimeoutFooter);
+		}
+	}
 }
-
-
 
 
 
 // Sub Funktion setzt die Größe des übergebenen Objekt auf die übergeben Größe
 function setHigh(obj, newHigh)
 {
-    obj.style.height = newHigh + "px";
+	obj.style.height = newHigh + "px";
 }
-
-
 
 
 
 // Sub Funktion setzt den Abstand zum Bottom
 function setBottom(obj, newBottom)
 {
-    obj.style.bottom = newBottom + "px";
+	obj.style.bottom = newBottom + "px";
 }
-
-
 
 
 
 // Sub Funktion setzt den Abstand zum Bottom
 function setTop(obj, newTop)
 {
-    obj.style.top = newTop + "px";
+	obj.style.top = newTop + "px";
 }
-
-
 
 
 
 // Sub Funktion ändert den Abstand des Body - Div zum Fensterboden
 function MoveBoddy(dir)
 {
-    var curElement = 'containerBody';
-    var nextObj = document.getElementById('debugContentSelections');
-    var debugSelecitonsBottom;
+	var curElement = 'containerBody';
+	var nextObj = document.getElementById('debugContentSelections');
+	var debugSelecitonsBottom;
 
-    var obj = document.getElementById(curElement);
-    var tmpBottom = obj.style.bottom;
-    var curBottom = parseInt(tmpBottom);
+	var obj = document.getElementById(curElement);
+	var tmpBottom = obj.style.bottom;
+	var curBottom = parseInt(tmpBottom);
 
-    var newBottom;
-    if (dir == 'up'){
-        newBottom = curBottom + setStepsFooter;
-        debugSelecitonsBottom = newBottom - 34;
-    }
-    else {
-        newBottom = curBottom - setStepsFooter;
-        debugSelecitonsBottom = newBottom - 73;
-    }
-    setBottom(obj, newBottom);
-    setBottom(nextObj, debugSelecitonsBottom);
+	var newBottom;
+	if (dir == 'up') {
+		newBottom = curBottom + setStepsFooter;
+		debugSelecitonsBottom = newBottom - 34;
+	}
+	else {
+		newBottom = curBottom - setStepsFooter;
+		debugSelecitonsBottom = newBottom - 73;
+	}
+	setBottom(obj, newBottom);
+	setBottom(nextObj, debugSelecitonsBottom);
 }
 

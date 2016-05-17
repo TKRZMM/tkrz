@@ -128,7 +128,7 @@ class FileImportCentron extends CoreExtends
 
 			// Centron Buchungsdaten?
 			// TODO ... Die Buchungsdatei auf Tab oder Semikolon prüfen... aktuell müsste ich manuell hin/her wechseln.
-			if ($this->coreGlobal['curSourceTypeID'] == '2'){
+			if ($this->coreGlobal['curSourceTypeID'] == '2') {
 				// $eachValueArray = str_getcsv($row[0], "\t");
 				$eachValueArray = str_getcsv($row[0], ";");
 			}
@@ -490,7 +490,7 @@ class FileImportCentron extends CoreExtends
 
 
 		// Alle anderen Datensätze als nicht aktiv in DB markieren
-		$query = "UPDATE file_upload SET enumIsCurrentInDB = 'no' WHERE sourceTypeID = '".$this->coreGlobal['curSourceTypeID']."' AND fileUploadID != '" . $this->coreGlobal['POST']['selFileUploadID'] . "'";
+		$query = "UPDATE file_upload SET enumIsCurrentInDB = 'no' WHERE sourceTypeID = '" . $this->coreGlobal['curSourceTypeID'] . "' AND fileUploadID != '" . $this->coreGlobal['POST']['selFileUploadID'] . "'";
 		$this->query($query);
 
 
@@ -635,7 +635,7 @@ class FileImportCentron extends CoreExtends
 
 
 		// Alle anderen Datensätze als nicht aktiv in DB markieren
-		$query = "UPDATE file_upload SET enumIsCurrentInDB = 'no' WHERE sourceTypeID = '".$this->coreGlobal['curSourceTypeID']."' AND fileUploadID != '" . $this->coreGlobal['POST']['selFileUploadID'] . "'";
+		$query = "UPDATE file_upload SET enumIsCurrentInDB = 'no' WHERE sourceTypeID = '" . $this->coreGlobal['curSourceTypeID'] . "' AND fileUploadID != '" . $this->coreGlobal['POST']['selFileUploadID'] . "'";
 		$this->query($query);
 
 		// Import Counter und Import-Datum aktuallisieren

@@ -12,14 +12,21 @@
 <div class="BodyContentOuterDiv">
 
 	<form method="post" action="" enctype="multipart/form-data">
+		<div class="buttonBoxOuter">
+			<div class="buttonBox">
+				<button type="submit" class="sendButton">Senden</button>
+				<button type="reset" class="sendButton">Reset</button>
+				<br>
+			</div>
+		</div>
 
 		<table border="0" width="100%" class="standard formBackground">
 			<tr>
-				<td colspan="2"><h2>Datei Auswahl</h2></td>
-				<td><button type="reset" class="sendButton">Reset</button> <button type="submit" class="sendButton">Senden</button></td>
+				<td colspan="0"><h2>Datei Auswahl</h2></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input class="fileUpload" required type="file" name="file" size="40" maxlength="100000"></td>
+				<td colspan="0"><input class="fileUpload" required type="file" name="file" size="40" maxlength="100000">
+				</td>
 			</tr>
 		</table>
 

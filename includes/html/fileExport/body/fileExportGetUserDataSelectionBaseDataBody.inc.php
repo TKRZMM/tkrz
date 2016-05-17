@@ -12,6 +12,12 @@
 <div class="BodyContentOuterDiv">
 
 	<form method="post" action="" enctype="multipart/form-data">
+		<div  class="buttonBoxOuter">
+			<div class="buttonBox">
+				<button type="submit" class="sendButton">Senden</button>
+				<button type="reset" class="sendButton">Reset</button><br>
+			</div>
+		</div>
 
 		<table border="0" width="100%" class="standard formBackground">
 			<tr>
@@ -19,12 +25,7 @@
 
 					<table width="100%" border="0" class="standard formBackgroundInnerCollapse">
 						<tr>
-							<td colspan="6"><h2>Information Datensätze</h2></td>
-							<td>
-								<button type="reset" class="sendButton">Reset</button>
-								<button type="submit" class="sendButton">Senden</button>
-							</td>
-
+							<td colspan="7"><h2>Information Datensätze</h2></td>
 						</tr>
 						<tr>
 							<td class="bottomLineGreen textCenter"><h4>&sum; Datensätze</h4></td>
