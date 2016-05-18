@@ -245,7 +245,7 @@ abstract class CoreQuery extends CoreDebug
 				// Lade Daten die zur Auswahl stehen
 
 				$getQuery = "SELECT *
-                      		   FROM `file_Upload`
+                      		   FROM `file_upload`
                           LEFT JOIN `source_system` 	ON source_system.sourceSystemID	= file_upload.sourceSystemID
                           LEFT JOIN `source_type`   	ON source_type.sourceTypeID 	= file_upload.sourceTypeID
                           LEFT JOIN `user`          	ON user.userID                  = file_upload.userID
@@ -264,7 +264,7 @@ abstract class CoreQuery extends CoreDebug
 				// Lesen Informationen zu einer hochgeladenen Datei ein
 
 				$getQuery = "SELECT *
-                      		   FROM `file_Upload`
+                      		   FROM `file_upload`
                           LEFT JOIN `source_system` 	ON source_system.sourceSystemID	= file_upload.sourceSystemID
                           LEFT JOIN `source_type`   	ON source_type.sourceTypeID 	= file_upload.sourceTypeID
                          	  WHERE file_upload.fileUploadID     = '" . $paramArray['fileUploadID'] . "'
